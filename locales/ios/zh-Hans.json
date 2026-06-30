@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "VoiceStory 使用麦克风录制语音日记。",
+    "NSSpeechRecognitionUsageDescription": "VoiceStory 会将你的语音转换为日记文本。",
+    "NSPhotoLibraryUsageDescription": "VoiceStory 仅在通过 iOS 照片图库界面导入用户选择的文件时使用照片图库访问权限。"
+  }
+}

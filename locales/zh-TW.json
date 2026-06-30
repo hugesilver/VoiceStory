@@ -1,0 +1,300 @@
+{
+  "common": {
+    "appName": "VoiceStory",
+    "back": "返回",
+    "confirm": "確認",
+    "cancel": "取消",
+    "error": "錯誤"
+  },
+  "tab": {
+    "home": "主頁",
+    "search": "搜尋",
+    "settings": "設定",
+    "homeAnnouncement": "已移至主頁標籤",
+    "searchAnnouncement": "已移至搜尋標籤",
+    "settingsAnnouncement": "已移至設定標籤"
+  },
+  "calendar": {
+    "prevMonth": "上個月",
+    "nextMonth": "下個月",
+    "noEntries": "這天沒有日記",
+    "hasDiary": "有日記",
+    "dayHint": "點擊查看當天日記",
+    "diaryCount": "{{count}}篇日記",
+    "noDiary": "無日記"
+  },
+  "home": {
+    "calendarButton": "日曆檢視",
+    "recordNew": "錄製新日記",
+    "recordHint": "點擊錄製新日記",
+    "greeting": {
+      "morning": "早安",
+      "afternoon": "午安",
+      "evening": "晚安",
+      "night": "晚安好夢"
+    },
+    "hero": "今天過得如何?",
+    "recentEntries": "最近的日記",
+    "empty": {
+      "message": "錄製您的第一篇日記",
+      "startButton": "開始錄音"
+    },
+    "modelDownload": {
+      "label": "正在準備本地AI... {{percent}}%",
+      "calculating": "計算中...",
+      "timeSeconds": "約剩{{seconds}}秒",
+      "timeMinutes": "約剩{{minutes}}分鐘",
+      "accessibility": "正在下載本地AI模型，已完成{{percent}}%，{{time}}。下載過程中請勿關閉應用程式。",
+      "completed": "本地AI模型下載完成",
+      "errorTitle": "下載失敗",
+      "errorMessage": "AI模型下載失敗。重新啟動應用程式後將自動重試。",
+      "notificationTitle": "AI校對已就緒",
+      "notificationBody": "寫日記時，拼寫和語境將自動校對"
+    },
+    "aiConsent": {
+      "title": "本地AI校對",
+      "message": "使用拼寫和語境校對功能需要下載本地AI模型（約{{size}}）。\n\n無需聯網即可運行，日記內容不會上傳至外部伺服器。\n\n建議在Wi-Fi環境下進行。是否立即下載？",
+      "unknownSize": "未知",
+      "allow": "下載",
+      "deny": "稍後"
+    }
+  },
+  "diary": {
+    "accessibilityLabel": "{{date}}日記，情緒：{{emotion}}。{{preview}}",
+    "emotion": {
+      "happy": "開心",
+      "neutral": "普通",
+      "sad": "悲傷",
+      "angry": "憤怒",
+      "tired": "疲憊"
+    }
+  },
+  "record": {
+    "close": "關閉",
+    "idle": {
+      "instruction": "點擊按鈕開始錄音",
+      "startButton": "開始錄音"
+    },
+    "recording": {
+      "label": "錄音中",
+      "helper": "請自然地說話。語音僅保存在裝置上。",
+      "stopButton": "完成",
+      "durationLabel": "錄音時長 {{duration}}",
+      "startAnnouncement": "錄音已開始",
+      "stopAnnouncement": "錄音已完成"
+    },
+    "stopping": {
+      "label": "處理中..."
+    },
+    "permission": {
+      "denied": "需要麥克風和語音辨識權限",
+      "deniedMessage": "請在設定中允許麥克風和語音辨識存取",
+      "goToSettings": "前往設定",
+      "cancel": "取消"
+    },
+    "closeWhileRecording": {
+      "title": "停止錄音？",
+      "message": "現在關閉將丟失當前錄音內容",
+      "confirm": "停止",
+      "cancel": "繼續錄音"
+    },
+    "error": {
+      "title": "錄音失敗",
+      "message": "無法啟動麥克風或語音識別，請確認權限後重試。",
+      "confirm": "確認"
+    }
+  },
+  "save": {
+    "title": "儲存確認",
+    "close": "關閉",
+    "date": "日期",
+    "emotionLabel": "今天的心情",
+    "emotionDetecting": "AI分析中...",
+    "emotionDetected": "AI建議{{emotion}}",
+    "saveButton": "儲存",
+    "saving": "儲存中...",
+    "closeConfirm": {
+      "title": "不儲存直接離開？",
+      "message": "現在關閉將丟失此錄音",
+      "confirm": "離開",
+      "cancel": "繼續"
+    },
+    "announcement": {
+      "saved": "日記已儲存"
+    }
+  },
+  "polish": {
+    "title": "AI潤色",
+    "close": "關閉",
+    "correcting": "AI潤色中...",
+    "elapsed": "已用時{{seconds}}秒",
+    "cancel": "取消",
+    "notInstalled": "AI處於未安裝狀態",
+    "cancelled": "AI潤色已取消",
+    "retry": "重試",
+    "original": "原文",
+    "polished": "AI潤色",
+    "next": "下一步",
+    "closeConfirm": {
+      "title": "不儲存直接離開？",
+      "message": "現在關閉將丟失此錄音",
+      "confirm": "離開",
+      "cancel": "繼續"
+    },
+    "edit": "編輯",
+    "editDone": "完成",
+    "editingLabel": "編輯文字",
+    "editingHint": "編輯文字後，請點擊完成按鈕",
+    "announcement": {
+      "done": "AI潤色完成",
+      "cancelled": "AI潤色已取消",
+      "selected": "已選擇{{version}}版本",
+      "editStarted": "編輯模式，請修改文字",
+      "editDone": "編輯完成"
+    },
+    "processing": {
+      "step1": "正在將語音轉為文字",
+      "step2": "AI 正在潤飾",
+      "step3": "正在分析情緒",
+      "statusPending": "等待中",
+      "statusActive": "處理中...",
+      "statusDone": "完成"
+    }
+  },
+  "diaryDetail": {
+    "title": "日記",
+    "emotionLabel": "偵測到的情緒",
+    "changeEmotion": "更改",
+    "version": {
+      "polished": "潤色版",
+      "original": "原文"
+    },
+    "text": "內容",
+    "editText": "編輯",
+    "editTextDone": "完成",
+    "editingLabel": "編輯正文",
+    "editingHint": "編輯內容後，請點擊完成按鈕",
+    "saving": "儲存中...",
+    "speed": "{{speed}}x",
+    "announcement": {
+      "textSaved": "內容已儲存"
+    },
+    "audioPlayer": {
+      "title": "錄音檔案",
+      "play": "播放",
+      "pause": "暫停",
+      "accessibility": "{{position}} / {{duration}}"
+    },
+    "delete": {
+      "button": "刪除",
+      "confirmTitle": "刪除此日記？",
+      "confirmMessage": "刪除後無法復原",
+      "confirm": "刪除",
+      "cancel": "取消",
+      "announcement": "日記已刪除",
+      "audioButton": "刪除錄音檔案",
+      "audioConfirmTitle": "刪除錄音檔案？",
+      "audioConfirmMessage": "日記內容將保留，僅刪除錄音檔案",
+      "audioAnnouncement": "錄音檔案已刪除",
+      "errorMessage": "刪除時發生錯誤，請再試一次"
+    }
+  },
+  "search": {
+    "title": "搜尋",
+    "placeholder": "依內容搜尋",
+    "searchButton": "搜尋",
+    "dateFilter": "選擇日期",
+    "dateClear": "清除日期",
+    "resultCount": "{{count}}筆",
+    "noQuery": "請輸入搜尋詞或選擇日期",
+    "noResult": "沒有搜尋結果",
+    "announcement": {
+      "results": "找到{{count}}筆結果",
+      "dateSelected": "已選擇{{date}}"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "section": {
+      "notification": "通知",
+      "ai": "AI校對",
+      "data": "資料管理",
+      "accessibility": "輔助使用",
+      "about": "關於"
+    },
+    "reminder": {
+      "title": "日記提醒",
+      "timeTitle": "提醒時間",
+      "timeHint": "點擊更改提醒時間",
+      "done": "完成",
+      "notificationTitle": "該寫日記了",
+      "notificationBody": "今天過得怎麼樣？記錄在日記裡吧",
+      "permissionDeniedTitle": "需要通知權限",
+      "permissionDenied": "請在設定中允許通知"
+    },
+    "ai": {
+      "modelTitle": "AI模型",
+      "modelReady": "已安裝",
+      "modelNotReady": "未安裝",
+      "modelChecking": "檢查中...",
+      "modelDownloading": "下載中...",
+      "downloadWarning": "下載過程中請勿關閉應用程式。",
+      "install": "安裝",
+      "delete": "刪除",
+      "deleteConfirmTitle": "刪除AI模型？",
+      "deleteConfirmMessage": "刪除後需要重新下載才能使用AI校對功能",
+      "deleteConfirm": "刪除",
+      "deleteCancel": "取消",
+      "enableCorrection": "啟用 AI 校對",
+      "enableCorrectionDisabledHint": "安裝 AI 模型後才可啟用",
+      "enableCorrectionOnHint": "由 AI 潤飾文字後儲存",
+      "enableCorrectionOffHint": "直接儲存原始轉錄文字",
+      "unsupportedMemory": "記憶體不足，\n無法使用 AI 校正。"
+    },
+    "data": {
+      "export": "匯出",
+      "exportEmptyTitle": "無可匯出的日記",
+      "exportEmptyMessage": "沒有已儲存的日記，無法匯出",
+      "exportFailureTitle": "匯出失敗",
+      "exportFailure": "匯出檔案時發生錯誤",
+      "import": "匯入",
+      "importHint": "僅可匯入 .voicestory 檔案",
+      "importConfirmTitle": "確認匯入",
+      "importConfirmMessage": "僅可匯入 .voicestory 檔案。\n\n目前儲存的日記和錄音檔案將全部刪除，並以新檔案的內容進行還原。是否繼續？",
+      "importConfirm": "匯入",
+      "importCancel": "取消",
+      "importSuccessTitle": "還原完成",
+      "importSuccess": "已還原 {{count}} 筆日記",
+      "importFailureTitle": "匯入失敗",
+      "importFailure": "無法讀取檔案，請確認是否為正確的 .voicestory 檔案",
+      "clearCache": "清除快取",
+      "clearCacheConfirmTitle": "要清除快取嗎？",
+      "clearCacheConfirmMessage": "匯出/匯入的暫存檔案將被刪除，日記和錄音檔案不受影響。",
+      "clearCacheConfirm": "清除",
+      "clearCacheCancel": "取消",
+      "clearCacheSuccess": "快取已清除",
+      "reset": "重置所有資料",
+      "resetConfirmTitle": "刪除所有資料？",
+      "resetConfirmMessage": "所有日記和錄音檔案將被永久刪除，無法復原",
+      "resetConfirm": "重置",
+      "resetCancel": "取消",
+      "resetSuccess": "所有資料已重置"
+    },
+    "accessibility": {
+      "haptic": "觸覺回饋"
+    },
+    "about": {
+      "version": "版本",
+      "license": "開放原始碼授權",
+      "licenseDescription": "VoiceStory 使用了以下開放原始碼函式庫。"
+    }
+  },
+  "onboarding": {
+    "subtitle": "用聲音記錄的日記",
+    "feature1": "用語音撰寫日記",
+    "feature2": "AI 幫您潤飾文字",
+    "feature3": "所有資料僅保存在裝置中",
+    "startButton": "開始使用",
+    "startHint": "點擊開始撰寫日記"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "VoiceStory 使用麥克風錄製語音日記。",
+    "NSSpeechRecognitionUsageDescription": "VoiceStory 會將你的語音轉換為日記文字。",
+    "NSPhotoLibraryUsageDescription": "VoiceStory 僅在透過 iOS 照片圖庫介面匯入使用者選取的檔案時使用照片圖庫存取權限。"
+  }
+}

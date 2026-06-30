@@ -1,32 +1,65 @@
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { useColorScheme } from 'react-native';
-
-import { Colors } from '@/constants/theme';
+import { Ionicons } from "@react-native-vector-icons/ionicons";
+import * as Haptics from "expo-haptics";
+import { Tabs } from "expo-router";
+import { useTranslation } from "react-i18next";
+import { AccessibilityInfo } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Colors, Fonts } from "../constants/theme";
 
 export default function AppTabs() {
-  const scheme = useColorScheme();
-  const colors = Colors[scheme === 'unspecified' ? 'light' : scheme];
+  const insets = useSafeAreaInsets();
+
+  const TAB_BAR_HEIGHT = 64;
+  const TAB_ICON_SIZE = 30;
+
+  const { t } = useTranslation();
+  const accessibility = (announcement: string) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    AccessibilityInfo.announceForAccessibility(announcement);
+  };
 
   return (
-    <NativeTabs
-      backgroundColor={colors.background}
-      indicatorColor={colors.backgroundElement}
-      labelStyle={{ selected: { color: colors.text } }}>
-      <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/home.png')}
-          renderingMode="template"
-        />
-      </NativeTabs.Trigger>
-
-      <NativeTabs.Trigger name="explore">
-        <NativeTabs.Trigger.Label>Explore</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/explore.png')}
-          renderingMode="template"
-        />
-      </NativeTabs.Trigger>
-    </NativeTabs>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors.primary,
+        tabBarInactiveTintColor: Colors.textSecondary,
+        tabBarStyle: {
+          backgroundColor: Colors.card,
+          borderTopColor: Colors.border,
+          borderTopWidth: 0,
+          elevation: 0,
+          shadowOpacity: 0,
+          height: TAB_BAR_HEIGHT + insets.bottom,
+          paddingTop: 6,
+          paddingBottom: 6 + insets.bottom,
+        },
+        tabBarLabelStyle: {
+          fontSize: 13,
+          fontFamily: Fonts.sansMedium,
+        },
+        tabBarItemStyle: {
+          paddingHorizontal: 0,
+        },
+        tabBarIconStyle: {
+          width: TAB_ICON_SIZE,
+          height: TAB_ICON_SIZE,
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="home"
+        options={{
+          tabBarLabel: t("tab.home"),
+          tabBarAccessibilityLabel: t("tab.home"),
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home" size={TAB_ICON_SIZE} color={color} />
+          ),
+        }}
+        listeners={{
+          tabPress: () => accessibility(t("tab.homeAnnouncement")),
+        }}
+      />
+    </Tabs>
   );
 }

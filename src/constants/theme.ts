@@ -1,65 +1,124 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+import { useColorScheme } from "react-native";
 
-import '@/global.css';
+interface colorTypes {
+  primary: string;
+  onPrimary: string;
+  primarySoft: string;
+  surface: string;
+  card: string;
+  textPrimary: string;
+  textSecondary: string;
+  border: string;
+  emotion: {
+    happy: string;
+    neutral: string;
+    sad: string;
+    angry: string;
+    tired: string;
+  };
+  emotionSoft: {
+    happy: string;
+    neutral: string;
+    sad: string;
+    angry: string;
+    tired: string;
+  };
+  success: string;
+  onSuccess: string;
+  error: string;
+  scrim: string;
+}
 
-import { Platform } from 'react-native';
-
-export const Colors = {
+const colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    primary: "#2F3A99", // deepened indigo — AAA (~9:1 on cream surface, ~10:1 white-on-it)
+    onPrimary: "#FFFFFF",
+    primarySoft: "#E4E5F4", // 선택/플레이 배경용 페일 인디고
+    surface: "#F5F3EF",
+    card: "#FFFFFF",
+    textPrimary: "#1C1B1A",
+    textSecondary: "#6B6A66",
+    border: "#E0DDD6",
+    // 감정
+    emotion: {
+      happy: "#7A5800",
+      neutral: "#4A4845",
+      sad: "#1A4F80",
+      angry: "#802220",
+      tired: "#4A3A80",
+    },
+    // emotion chip 배경용 soft 톤
+    emotionSoft: {
+      happy: "#F3ECD8",
+      neutral: "#ECEAE5",
+      sad: "#DEE9F4",
+      angry: "#F4E2E1",
+      tired: "#E7E2F2",
+    },
+    success: "#2D8A56",
+    onSuccess: "#FFFFFF",
+    error: "#9E3A37",
+    scrim: "rgba(28,27,26,0.45)",
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    primary: "#9B9EE8", // 다크 모드 전용 — lifted indigo, requires DARK ink for AA
+    onPrimary: "#1C1B1A", // 다크 모드 lifted indigo 위 텍스트 — white는 AA 미달
+    primarySoft: "#3E3F5C",
+    surface: "#2C2B28",
+    card: "#3A3935",
+    textPrimary: "#E8E6E1",
+    textSecondary: "#9C9A92",
+    border: "#4A4945",
+    // 감정
+    emotion: {
+      happy: "#F0C030",
+      neutral: "#C8C6C0",
+      sad: "#80B8E8",
+      angry: "#EC8080",
+      tired: "#C0A8E8",
+    },
+    // emotion chip 배경용 soft 톤
+    emotionSoft: {
+      happy: "#4A3F1E",
+      neutral: "#403F3A",
+      sad: "#22384C",
+      angry: "#4A2A2A",
+      tired: "#3A3252",
+    },
+    success: "#5FC98C", // 다크 모드 surface 위 AA 충족
+    onSuccess: "#10241A",
+    error: "#E07070", // 다크 모드 전용 — #2C2B28 배경에서 WCAG AA (5.3:1)
+    scrim: "rgba(0,0,0,0.6)",
   },
-} as const;
+};
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+export const Colors: colorTypes =
+  useColorScheme() === "dark" ? colors.dark : colors.light;
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: 'var(--font-display)',
-    serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
-    mono: 'var(--font-mono)',
-  },
-});
+export const Fonts = {
+  sans: "NotoSans_400Regular",
+  sansMedium: "NotoSans_500Medium",
+  sansSemibold: "NotoSans_600SemiBold",
+  sansBold: "NotoSans_700Bold",
+  sansExtra: "NotoSans_800ExtraBold",
+};
 
-export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
-  six: 64,
-} as const;
+// Radius / icon / touch — 디자인 핸드오프 고정값 (font scale 영향 없음)
+export const Radius = {
+  card: 20,
+  button: 16,
+  chip: 12,
+  pill: 999,
+};
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+export const IconSize = {
+  content: 34,
+  header: 32,
+  tab: 34,
+  primary: 48,
+};
+
+export const TouchSize = {
+  min: 60,
+  primary: 96,
+};

@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "VoiceStory uses your microphone to record voice diary entries.",
+    "NSSpeechRecognitionUsageDescription": "VoiceStory converts your speech to text for diary entries.",
+    "NSPhotoLibraryUsageDescription": "VoiceStory uses photo library access only when iOS provides a user-selected file through the photo library interface."
+  }
+}

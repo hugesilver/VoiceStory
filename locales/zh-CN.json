@@ -1,0 +1,300 @@
+{
+  "common": {
+    "appName": "VoiceStory",
+    "back": "返回",
+    "confirm": "确认",
+    "cancel": "取消",
+    "error": "错误"
+  },
+  "tab": {
+    "home": "主页",
+    "search": "搜索",
+    "settings": "设置",
+    "homeAnnouncement": "已移至主页标签",
+    "searchAnnouncement": "已移至搜索标签",
+    "settingsAnnouncement": "已移至设置标签"
+  },
+  "calendar": {
+    "prevMonth": "上个月",
+    "nextMonth": "下个月",
+    "noEntries": "这天没有日记",
+    "hasDiary": "有日记",
+    "dayHint": "点击查看当天日记",
+    "diaryCount": "{{count}}篇日记",
+    "noDiary": "无日记"
+  },
+  "home": {
+    "calendarButton": "日历视图",
+    "recordNew": "录制新日记",
+    "recordHint": "点击录制新日记",
+    "greeting": {
+      "morning": "早上好",
+      "afternoon": "下午好",
+      "evening": "晚上好",
+      "night": "晚安"
+    },
+    "hero": "今天过得怎么样?",
+    "recentEntries": "最近的日记",
+    "empty": {
+      "message": "录制您的第一篇日记",
+      "startButton": "开始录音"
+    },
+    "modelDownload": {
+      "label": "正在准备本地AI... {{percent}}%",
+      "calculating": "计算中...",
+      "timeSeconds": "约剩{{seconds}}秒",
+      "timeMinutes": "约剩{{minutes}}分钟",
+      "accessibility": "正在下载本地AI模型，已完成{{percent}}%，{{time}}。下载过程中请勿关闭应用。",
+      "completed": "本地AI模型下载完成",
+      "errorTitle": "下载失败",
+      "errorMessage": "AI模型下载失败。重新启动应用后将自动重试。",
+      "notificationTitle": "AI校对已就绪",
+      "notificationBody": "写日记时，拼写和语境将自动校对"
+    },
+    "aiConsent": {
+      "title": "本地AI校对",
+      "message": "使用拼写和语境校对功能需要下载本地AI模型（约{{size}}）。\n\n无需联网即可运行，日记内容不会上传至外部服务器。\n\n建议在Wi-Fi环境下进行。是否立即下载？",
+      "unknownSize": "未知",
+      "allow": "下载",
+      "deny": "稍后"
+    }
+  },
+  "diary": {
+    "accessibilityLabel": "{{date}}日记，情绪：{{emotion}}。{{preview}}",
+    "emotion": {
+      "happy": "开心",
+      "neutral": "普通",
+      "sad": "悲伤",
+      "angry": "愤怒",
+      "tired": "疲惫"
+    }
+  },
+  "record": {
+    "close": "关闭",
+    "idle": {
+      "instruction": "点击按钮开始录音",
+      "startButton": "开始录音"
+    },
+    "recording": {
+      "label": "录音中",
+      "helper": "请自然地说话。语音仅保存在设备上。",
+      "stopButton": "完成",
+      "durationLabel": "录音时长 {{duration}}",
+      "startAnnouncement": "录音已开始",
+      "stopAnnouncement": "录音已完成"
+    },
+    "stopping": {
+      "label": "处理中..."
+    },
+    "permission": {
+      "denied": "需要麦克风和语音识别权限",
+      "deniedMessage": "请在设置中允许麦克风和语音识别访问",
+      "goToSettings": "前往设置",
+      "cancel": "取消"
+    },
+    "closeWhileRecording": {
+      "title": "停止录音？",
+      "message": "现在关闭将丢失当前录音内容",
+      "confirm": "停止",
+      "cancel": "继续录音"
+    },
+    "error": {
+      "title": "录音失败",
+      "message": "无法启动麦克风或语音识别，请检查权限后重试。",
+      "confirm": "确认"
+    }
+  },
+  "save": {
+    "title": "保存确认",
+    "close": "关闭",
+    "date": "日期",
+    "emotionLabel": "今天的心情",
+    "emotionDetecting": "AI分析中...",
+    "emotionDetected": "AI建议{{emotion}}",
+    "saveButton": "保存",
+    "saving": "保存中...",
+    "closeConfirm": {
+      "title": "不保存直接退出？",
+      "message": "现在关闭将丢失此录音",
+      "confirm": "退出",
+      "cancel": "继续"
+    },
+    "announcement": {
+      "saved": "日记已保存"
+    }
+  },
+  "polish": {
+    "title": "AI润色",
+    "close": "关闭",
+    "correcting": "AI润色中...",
+    "elapsed": "已用时{{seconds}}秒",
+    "cancel": "取消",
+    "notInstalled": "AI处于未安装状态",
+    "cancelled": "AI润色已取消",
+    "retry": "重试",
+    "original": "原文",
+    "polished": "AI润色",
+    "next": "下一步",
+    "closeConfirm": {
+      "title": "不保存直接退出？",
+      "message": "现在关闭将丢失此录音",
+      "confirm": "退出",
+      "cancel": "继续"
+    },
+    "edit": "编辑",
+    "editDone": "完成",
+    "editingLabel": "编辑文本",
+    "editingHint": "编辑文本后，请点击完成按钮",
+    "announcement": {
+      "done": "AI润色完成",
+      "cancelled": "AI润色已取消",
+      "selected": "已选择{{version}}版本",
+      "editStarted": "编辑模式，请修改文本",
+      "editDone": "编辑完成"
+    },
+    "processing": {
+      "step1": "正在将语音转为文字",
+      "step2": "AI 正在润色",
+      "step3": "正在分析情绪",
+      "statusPending": "等待中",
+      "statusActive": "处理中...",
+      "statusDone": "完成"
+    }
+  },
+  "diaryDetail": {
+    "title": "日记",
+    "emotionLabel": "检测到的情绪",
+    "changeEmotion": "更改",
+    "version": {
+      "polished": "润色版",
+      "original": "原文"
+    },
+    "text": "内容",
+    "editText": "编辑",
+    "editTextDone": "完成",
+    "editingLabel": "编辑正文",
+    "editingHint": "编辑内容后，请点击完成按钮",
+    "saving": "保存中...",
+    "speed": "{{speed}}x",
+    "announcement": {
+      "textSaved": "内容已保存"
+    },
+    "audioPlayer": {
+      "title": "录音文件",
+      "play": "播放",
+      "pause": "暂停",
+      "accessibility": "{{position}} / {{duration}}"
+    },
+    "delete": {
+      "button": "删除",
+      "confirmTitle": "删除此日记？",
+      "confirmMessage": "删除后无法恢复",
+      "confirm": "删除",
+      "cancel": "取消",
+      "announcement": "日记已删除",
+      "audioButton": "删除录音文件",
+      "audioConfirmTitle": "删除录音文件？",
+      "audioConfirmMessage": "日记内容将保留，仅删除录音文件",
+      "audioAnnouncement": "录音文件已删除",
+      "errorMessage": "删除时发生错误，请重试"
+    }
+  },
+  "search": {
+    "title": "搜索",
+    "placeholder": "按内容搜索",
+    "searchButton": "搜索",
+    "dateFilter": "选择日期",
+    "dateClear": "清除日期",
+    "resultCount": "{{count}}条",
+    "noQuery": "请输入搜索词或选择日期",
+    "noResult": "没有搜索结果",
+    "announcement": {
+      "results": "找到{{count}}条结果",
+      "dateSelected": "已选择{{date}}"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "section": {
+      "notification": "通知",
+      "ai": "AI校对",
+      "data": "数据管理",
+      "accessibility": "无障碍",
+      "about": "关于"
+    },
+    "reminder": {
+      "title": "日记提醒",
+      "timeTitle": "提醒时间",
+      "timeHint": "点击更改提醒时间",
+      "done": "完成",
+      "notificationTitle": "该写日记了",
+      "notificationBody": "今天过得怎么样？记录在日记里吧",
+      "permissionDeniedTitle": "需要通知权限",
+      "permissionDenied": "请在设置中允许通知"
+    },
+    "ai": {
+      "modelTitle": "AI模型",
+      "modelReady": "已安装",
+      "modelNotReady": "未安装",
+      "modelChecking": "检查中...",
+      "modelDownloading": "下载中...",
+      "downloadWarning": "下载过程中请勿关闭应用。",
+      "install": "安装",
+      "delete": "删除",
+      "deleteConfirmTitle": "删除AI模型？",
+      "deleteConfirmMessage": "删除后需要重新下载才能使用AI校对功能",
+      "deleteConfirm": "删除",
+      "deleteCancel": "取消",
+      "enableCorrection": "启用 AI 校对",
+      "enableCorrectionDisabledHint": "安装 AI 模型后才可启用",
+      "enableCorrectionOnHint": "由 AI 润色文本后保存",
+      "enableCorrectionOffHint": "直接保存原始转录文本",
+      "unsupportedMemory": "内存不足，\n无法使用 AI 校正。"
+    },
+    "data": {
+      "export": "导出",
+      "exportEmptyTitle": "无可导出的日记",
+      "exportEmptyMessage": "没有已保存的日记，无法导出",
+      "exportFailureTitle": "导出失败",
+      "exportFailure": "导出文件时发生错误",
+      "import": "导入",
+      "importHint": "仅可导入 .voicestory 文件",
+      "importConfirmTitle": "确认导入",
+      "importConfirmMessage": "仅可导入 .voicestory 文件。\n\n当前保存的日记和录音文件将被全部删除，并以新文件的内容进行恢复。是否继续？",
+      "importConfirm": "导入",
+      "importCancel": "取消",
+      "importSuccessTitle": "恢复完成",
+      "importSuccess": "已恢复 {{count}} 条日记",
+      "importFailureTitle": "导入失败",
+      "importFailure": "无法读取文件，请确认是否为正确的 .voicestory 文件",
+      "clearCache": "清除缓存",
+      "clearCacheConfirmTitle": "要清除缓存吗？",
+      "clearCacheConfirmMessage": "导出/导入的临时文件将被删除，日记和录音文件不受影响。",
+      "clearCacheConfirm": "清除",
+      "clearCacheCancel": "取消",
+      "clearCacheSuccess": "缓存已清除",
+      "reset": "重置所有数据",
+      "resetConfirmTitle": "删除所有数据？",
+      "resetConfirmMessage": "所有日记和录音文件将被永久删除，无法恢复",
+      "resetConfirm": "重置",
+      "resetCancel": "取消",
+      "resetSuccess": "所有数据已重置"
+    },
+    "accessibility": {
+      "haptic": "触觉反馈"
+    },
+    "about": {
+      "version": "版本",
+      "license": "开源许可证",
+      "licenseDescription": "VoiceStory 使用了以下开源库。"
+    }
+  },
+  "onboarding": {
+    "subtitle": "用声音记录的日记",
+    "feature1": "用语音撰写日记",
+    "feature2": "AI 帮您润色文字",
+    "feature3": "所有数据仅保存在设备中",
+    "startButton": "开始使用",
+    "startHint": "点击开始撰写日记"
+  }
+}

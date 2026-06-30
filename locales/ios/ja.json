@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "NSMicrophoneUsageDescription": "VoiceStoryは音声日記を録音するためにマイクを使用します。",
+    "NSSpeechRecognitionUsageDescription": "VoiceStoryは日記を作成するために音声をテキストに変換します。",
+    "NSPhotoLibraryUsageDescription": "VoiceStoryは、iOSの写真ライブラリ画面からユーザーが選択したファイルを読み込む場合にのみ、写真ライブラリへのアクセスを使用します。"
+  }
+}

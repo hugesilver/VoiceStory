@@ -1,0 +1,302 @@
+{
+  "common": {
+    "appName": "VoiceStory",
+    "back": "Back",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "error": "Error"
+  },
+  "tab": {
+    "home": "Home",
+    "search": "Search",
+    "settings": "Settings",
+    "homeAnnouncement": "Moved to Home tab",
+    "searchAnnouncement": "Moved to Search tab",
+    "settingsAnnouncement": "Moved to Settings tab"
+  },
+  "calendar": {
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "noEntries": "No diary for this day",
+    "hasDiary": "Has diary",
+    "dayHint": "Tap to view diary for this day",
+    "diaryCount": "{{count}} diary",
+    "diaryCount_other": "{{count}} diaries",
+    "noDiary": "No diary"
+  },
+  "home": {
+    "calendarButton": "Calendar view",
+    "recordNew": "Record new diary",
+    "recordHint": "Tap to record a new diary",
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Good night"
+    },
+    "hero": "How was your day?",
+    "recentEntries": "Recent entries",
+    "empty": {
+      "message": "Record your first diary",
+      "startButton": "Start recording"
+    },
+    "modelDownload": {
+      "label": "Preparing on-device AI... {{percent}}%",
+      "calculating": "Calculating...",
+      "timeSeconds": "About {{seconds}}s left",
+      "timeMinutes": "About {{minutes}}m left",
+      "accessibility": "Downloading on-device AI model, {{percent}}% complete, {{time}}. Do not close the app while downloading.",
+      "completed": "On-device AI model download complete",
+      "errorTitle": "Download Failed",
+      "errorMessage": "Failed to download the AI model. It will retry automatically when you reopen the app.",
+      "notificationTitle": "AI Correction Ready",
+      "notificationBody": "Spelling and grammar will now be corrected automatically when you write a diary"
+    },
+    "aiConsent": {
+      "title": "On-Device AI Correction",
+      "message": "To use spelling and grammar correction, an on-device AI model (~{{size}}) needs to be downloaded.\n\nIt works offline and your diary never leaves your device.\n\nWi-Fi is recommended. Download now?",
+      "unknownSize": "unknown size",
+      "allow": "Download",
+      "deny": "Later"
+    }
+  },
+  "diary": {
+    "accessibilityLabel": "{{date}} diary, emotion {{emotion}}. {{preview}}",
+    "emotion": {
+      "happy": "Happy",
+      "neutral": "Neutral",
+      "sad": "Sad",
+      "angry": "Angry",
+      "tired": "Tired"
+    }
+  },
+  "record": {
+    "close": "Close",
+    "idle": {
+      "instruction": "Tap the button to start recording",
+      "startButton": "Start Recording"
+    },
+    "recording": {
+      "label": "Recording",
+      "helper": "Speak naturally. Your voice stays on this device.",
+      "stopButton": "Done",
+      "durationLabel": "Recording duration {{duration}}",
+      "startAnnouncement": "Recording started",
+      "stopAnnouncement": "Recording complete"
+    },
+    "stopping": {
+      "label": "Processing..."
+    },
+    "permission": {
+      "denied": "Microphone & Speech Recognition Required",
+      "deniedMessage": "Please allow microphone and speech recognition access in Settings",
+      "goToSettings": "Go to Settings",
+      "cancel": "Cancel"
+    },
+    "closeWhileRecording": {
+      "title": "Stop recording?",
+      "message": "Closing now will discard the current recording",
+      "confirm": "Stop",
+      "cancel": "Keep Recording"
+    },
+    "error": {
+      "title": "Recording Failed",
+      "message": "Could not start the microphone or speech recognition. Please check permissions and try again.",
+      "confirm": "OK"
+    }
+  },
+  "save": {
+    "title": "Save Diary",
+    "close": "Close",
+    "date": "Date",
+    "emotionLabel": "Today's emotion",
+    "emotionDetecting": "AI analyzing...",
+    "emotionDetected": "AI suggests {{emotion}}",
+    "saveButton": "Save",
+    "saving": "Saving...",
+    "closeConfirm": {
+      "title": "Leave without saving?",
+      "message": "Closing now will discard this recording",
+      "confirm": "Leave",
+      "cancel": "Continue"
+    },
+    "announcement": {
+      "saved": "Diary saved"
+    }
+  },
+  "polish": {
+    "title": "AI Polish",
+    "close": "Close",
+    "correcting": "Polishing with AI...",
+    "elapsed": "{{seconds}}s elapsed",
+    "cancel": "Cancel",
+    "notInstalled": "AI is not installed",
+    "cancelled": "AI polishing was cancelled",
+    "retry": "Try again",
+    "original": "Original",
+    "polished": "AI Polished",
+    "next": "Next",
+    "closeConfirm": {
+      "title": "Leave without saving?",
+      "message": "Closing now will discard this recording",
+      "confirm": "Leave",
+      "cancel": "Continue"
+    },
+    "edit": "Edit",
+    "editDone": "Done",
+    "editingLabel": "Edit text",
+    "editingHint": "Edit the text, then tap Done",
+    "announcement": {
+      "done": "AI polishing complete",
+      "cancelled": "AI polishing was cancelled",
+      "selected": "{{version}} version selected",
+      "editStarted": "Edit mode. Modify the text.",
+      "editDone": "Editing complete"
+    },
+    "processing": {
+      "step1": "Transcribing your voice",
+      "step2": "Polishing the text",
+      "step3": "Detecting emotion",
+      "statusPending": "Waiting",
+      "statusActive": "Working...",
+      "statusDone": "Done"
+    }
+  },
+  "diaryDetail": {
+    "title": "Diary entry",
+    "emotionLabel": "Detected emotion",
+    "changeEmotion": "Change",
+    "version": {
+      "polished": "Polished",
+      "original": "Original"
+    },
+    "text": "Content",
+    "editText": "Edit",
+    "editTextDone": "Done",
+    "editingLabel": "Edit content",
+    "editingHint": "Edit the content, then tap Done",
+    "saving": "Saving...",
+    "speed": "{{speed}}x",
+    "announcement": {
+      "textSaved": "Content saved"
+    },
+    "audioPlayer": {
+      "title": "Recording",
+      "play": "Play",
+      "pause": "Pause",
+      "accessibility": "{{position}} / {{duration}}"
+    },
+    "delete": {
+      "button": "Delete",
+      "confirmTitle": "Delete this diary?",
+      "confirmMessage": "This action cannot be undone",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "announcement": "Diary deleted",
+      "audioButton": "Delete recording",
+      "audioConfirmTitle": "Delete this recording?",
+      "audioConfirmMessage": "The diary text will be kept, only the recording will be deleted",
+      "audioAnnouncement": "Recording deleted",
+      "errorMessage": "An error occurred while deleting. Please try again"
+    }
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search by content",
+    "searchButton": "Search",
+    "dateFilter": "Select date",
+    "dateClear": "Clear date",
+    "resultCount": "{{count}} result",
+    "resultCount_other": "{{count}} results",
+    "noQuery": "Enter a search term or select a date",
+    "noResult": "No results found",
+    "announcement": {
+      "results": "{{count}} results found",
+      "dateSelected": "{{date}} selected"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "section": {
+      "notification": "Notifications",
+      "ai": "AI Correction",
+      "data": "Data Management",
+      "accessibility": "Accessibility",
+      "about": "About"
+    },
+    "reminder": {
+      "title": "Diary Reminder",
+      "timeTitle": "Reminder Time",
+      "timeHint": "Tap to change the reminder time",
+      "done": "Done",
+      "notificationTitle": "Time to write your diary",
+      "notificationBody": "How was your day? Record it in your diary.",
+      "permissionDeniedTitle": "Notification Permission Required",
+      "permissionDenied": "Please allow notifications in Settings"
+    },
+    "ai": {
+      "modelTitle": "AI Model",
+      "modelReady": "Installed",
+      "modelNotReady": "Not installed",
+      "modelChecking": "Checking...",
+      "modelDownloading": "Downloading...",
+      "downloadWarning": "Do not close the app while downloading.",
+      "install": "Install",
+      "delete": "Delete",
+      "deleteConfirmTitle": "Delete AI Model?",
+      "deleteConfirmMessage": "You'll need to download it again to use AI correction",
+      "deleteConfirm": "Delete",
+      "deleteCancel": "Cancel",
+      "enableCorrection": "Enable AI correction",
+      "enableCorrectionDisabledHint": "Install the AI model to enable this",
+      "enableCorrectionOnHint": "Polish transcribed text before saving",
+      "enableCorrectionOffHint": "Save raw transcribed text without polishing",
+      "unsupportedMemory": "Not enough memory\nto use AI correction."
+    },
+    "data": {
+      "export": "Export",
+      "exportEmptyTitle": "Nothing to export",
+      "exportEmptyMessage": "There are no diary entries to export",
+      "exportFailureTitle": "Export failed",
+      "exportFailure": "An error occurred while exporting the file",
+      "import": "Import",
+      "importHint": "Only .voicestory files can be imported",
+      "importConfirmTitle": "Confirm import",
+      "importConfirmMessage": "Only .voicestory files can be imported.\n\nAll current diaries and recordings will be deleted and replaced with the contents of the imported file. Continue?",
+      "importConfirm": "Import",
+      "importCancel": "Cancel",
+      "importSuccessTitle": "Restore complete",
+      "importSuccess": "Restored {{count}} diary entries",
+      "importFailureTitle": "Import failed",
+      "importFailure": "Cannot read the file. Please verify it is a valid .voicestory file",
+      "clearCache": "Clear cache",
+      "clearCacheConfirmTitle": "Clear cache?",
+      "clearCacheConfirmMessage": "Temporary files from export/import will be deleted. Your diaries and recordings will not be affected.",
+      "clearCacheConfirm": "Clear",
+      "clearCacheCancel": "Cancel",
+      "clearCacheSuccess": "Cache has been cleared",
+      "reset": "Reset All Data",
+      "resetConfirmTitle": "Delete all data?",
+      "resetConfirmMessage": "All diaries and recordings will be permanently deleted",
+      "resetConfirm": "Reset",
+      "resetCancel": "Cancel",
+      "resetSuccess": "All data has been reset"
+    },
+    "accessibility": {
+      "haptic": "Haptic Feedback"
+    },
+    "about": {
+      "version": "Version",
+      "license": "Open Source Licenses",
+      "licenseDescription": "VoiceStory uses the following open source libraries."
+    }
+  },
+  "onboarding": {
+    "subtitle": "Your voice diary",
+    "feature1": "Write entries by speaking",
+    "feature2": "AI polishes your text",
+    "feature3": "All data stays on your device",
+    "startButton": "Get started",
+    "startHint": "Tap to begin writing your first diary"
+  }
+}

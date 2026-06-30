@@ -1,0 +1,300 @@
+{
+  "common": {
+    "appName": "VoiceStory",
+    "back": "戻る",
+    "confirm": "確定",
+    "cancel": "キャンセル",
+    "error": "エラー"
+  },
+  "tab": {
+    "home": "ホーム",
+    "search": "検索",
+    "settings": "設定",
+    "homeAnnouncement": "ホームタブに移動しました",
+    "searchAnnouncement": "検索タブに移動しました",
+    "settingsAnnouncement": "設定タブに移動しました"
+  },
+  "calendar": {
+    "prevMonth": "前の月",
+    "nextMonth": "次の月",
+    "noEntries": "この日の日記はありません",
+    "hasDiary": "日記あり",
+    "dayHint": "タップするとこの日の日記を表示します",
+    "diaryCount": "日記{{count}}件",
+    "noDiary": "日記なし"
+  },
+  "home": {
+    "calendarButton": "カレンダー表示",
+    "recordNew": "日記を録音する",
+    "recordHint": "タップすると新しい日記を録音します",
+    "greeting": {
+      "morning": "おはようございます",
+      "afternoon": "こんにちは",
+      "evening": "こんばんは",
+      "night": "おやすみなさい"
+    },
+    "hero": "今日はどんな一日でしたか?",
+    "recentEntries": "最近の日記",
+    "empty": {
+      "message": "最初の日記を録音しましょう",
+      "startButton": "録音開始"
+    },
+    "modelDownload": {
+      "label": "端末内AIを準備中... {{percent}}%",
+      "calculating": "計算中...",
+      "timeSeconds": "約{{seconds}}秒残り",
+      "timeMinutes": "約{{minutes}}分残り",
+      "accessibility": "端末内AIモデルをダウンロード中、{{percent}}%完了、{{time}}。ダウンロード中にアプリを終了しないでください。",
+      "completed": "端末内AIモデルのダウンロードが完了しました",
+      "errorTitle": "ダウンロード失敗",
+      "errorMessage": "AIモデルのダウンロードに失敗しました。アプリを再起動すると自動的に再試行します。",
+      "notificationTitle": "AI校正の準備が完了しました",
+      "notificationBody": "日記を書く際に、スペルと文脈が自動的に校正されます"
+    },
+    "aiConsent": {
+      "title": "端末内AI校正",
+      "message": "スペルと文脈の校正に端末内AIモデル（約{{size}}）のダウンロードが必要です。\n\nオフラインでも動作し、日記の内容は外部に送信されません。\n\nWi-Fi接続を推奨します。今すぐダウンロードしますか？",
+      "unknownSize": "不明",
+      "allow": "ダウンロード",
+      "deny": "後で"
+    }
+  },
+  "diary": {
+    "accessibilityLabel": "{{date}}の日記、感情：{{emotion}}。{{preview}}",
+    "emotion": {
+      "happy": "嬉しい",
+      "neutral": "普通",
+      "sad": "悲しい",
+      "angry": "怒り",
+      "tired": "疲れ"
+    }
+  },
+  "record": {
+    "close": "閉じる",
+    "idle": {
+      "instruction": "ボタンを押すと録音が始まります",
+      "startButton": "録音開始"
+    },
+    "recording": {
+      "label": "録音中",
+      "helper": "自然に話してください。音声は端末内に保存されます。",
+      "stopButton": "録音完了",
+      "durationLabel": "録音時間 {{duration}}",
+      "startAnnouncement": "録音が開始されました",
+      "stopAnnouncement": "録音が完了しました"
+    },
+    "stopping": {
+      "label": "処理中..."
+    },
+    "permission": {
+      "denied": "マイクと音声認識の許可が必要です",
+      "deniedMessage": "設定でマイクと音声認識のアクセスを許可してください",
+      "goToSettings": "設定を開く",
+      "cancel": "キャンセル"
+    },
+    "closeWhileRecording": {
+      "title": "録音を中断しますか？",
+      "message": "今閉じると、録音中の内容は保存されません",
+      "confirm": "中断",
+      "cancel": "録音を続ける"
+    },
+    "error": {
+      "title": "録音失敗",
+      "message": "マイクまたは音声認識を開始できませんでした。権限を確認してもう一度お試しください。",
+      "confirm": "確認"
+    }
+  },
+  "save": {
+    "title": "保存確認",
+    "close": "閉じる",
+    "date": "日付",
+    "emotionLabel": "今日の気持ち",
+    "emotionDetecting": "AI分析中...",
+    "emotionDetected": "AIが{{emotion}}を提案しています",
+    "saveButton": "保存する",
+    "saving": "保存中...",
+    "closeConfirm": {
+      "title": "保存せずに終了しますか？",
+      "message": "今閉じるとこの録音は保存されません",
+      "confirm": "終了",
+      "cancel": "続ける"
+    },
+    "announcement": {
+      "saved": "日記が保存されました"
+    }
+  },
+  "polish": {
+    "title": "AI仕上げ",
+    "close": "閉じる",
+    "correcting": "AIで校正中...",
+    "elapsed": "{{seconds}}秒経過",
+    "cancel": "キャンセル",
+    "notInstalled": "AIは未インストール状態です",
+    "cancelled": "AI校正がキャンセルされました",
+    "retry": "再試行",
+    "original": "原文",
+    "polished": "AI仕上げ",
+    "next": "次へ",
+    "closeConfirm": {
+      "title": "保存せずに終了しますか？",
+      "message": "今閉じるとこの録音は保存されません",
+      "confirm": "終了",
+      "cancel": "続ける"
+    },
+    "edit": "編集",
+    "editDone": "完了",
+    "editingLabel": "テキストを編集",
+    "editingHint": "テキストを編集したら完了ボタンを押してください",
+    "announcement": {
+      "done": "AI校正が完了しました",
+      "cancelled": "AI校正がキャンセルされました",
+      "selected": "{{version}}バージョンを選択しました",
+      "editStarted": "編集モードです。テキストを修正してください",
+      "editDone": "編集が完了しました"
+    },
+    "processing": {
+      "step1": "音声をテキストに変換中",
+      "step2": "AIが整えています",
+      "step3": "感情を分析中",
+      "statusPending": "待機中",
+      "statusActive": "進行中...",
+      "statusDone": "完了"
+    }
+  },
+  "diaryDetail": {
+    "title": "日記",
+    "emotionLabel": "検出された感情",
+    "changeEmotion": "変更",
+    "version": {
+      "polished": "整えた文章",
+      "original": "原文"
+    },
+    "text": "内容",
+    "editText": "編集",
+    "editTextDone": "完了",
+    "editingLabel": "本文を編集",
+    "editingHint": "内容を編集したら完了ボタンを押してください",
+    "saving": "保存中...",
+    "speed": "{{speed}}x",
+    "announcement": {
+      "textSaved": "内容を保存しました"
+    },
+    "audioPlayer": {
+      "title": "録音ファイル",
+      "play": "再生",
+      "pause": "一時停止",
+      "accessibility": "{{position}} / {{duration}}"
+    },
+    "delete": {
+      "button": "削除",
+      "confirmTitle": "日記を削除しますか？",
+      "confirmMessage": "削除した日記は復元できません",
+      "confirm": "削除",
+      "cancel": "キャンセル",
+      "announcement": "日記を削除しました",
+      "audioButton": "録音ファイルを削除",
+      "audioConfirmTitle": "録音ファイルを削除しますか？",
+      "audioConfirmMessage": "日記の内容は保持され、録音ファイルのみ削除されます",
+      "audioAnnouncement": "録音ファイルを削除しました",
+      "errorMessage": "削除中にエラーが発生しました。もう一度お試しください"
+    }
+  },
+  "search": {
+    "title": "検索",
+    "placeholder": "内容で検索",
+    "searchButton": "検索",
+    "dateFilter": "日付を選択",
+    "dateClear": "日付をクリア",
+    "resultCount": "{{count}}件",
+    "noQuery": "検索キーワードを入力するか日付を選択してください",
+    "noResult": "検索結果がありません",
+    "announcement": {
+      "results": "検索結果{{count}}件",
+      "dateSelected": "{{date}}を選択しました"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "section": {
+      "notification": "通知",
+      "ai": "AI校正",
+      "data": "データ管理",
+      "accessibility": "アクセシビリティ",
+      "about": "アプリ情報"
+    },
+    "reminder": {
+      "title": "日記リマインダー",
+      "timeTitle": "リマインダー時刻",
+      "timeHint": "タップしてリマインダー時刻を変更します",
+      "done": "完了",
+      "notificationTitle": "日記を書く時間です",
+      "notificationBody": "今日はどうでしたか？日記を記録しましょう",
+      "permissionDeniedTitle": "通知の許可が必要です",
+      "permissionDenied": "設定で通知を許可してください"
+    },
+    "ai": {
+      "modelTitle": "AIモデル",
+      "modelReady": "インストール済み",
+      "modelNotReady": "未インストール",
+      "modelChecking": "確認中...",
+      "modelDownloading": "ダウンロード中...",
+      "downloadWarning": "ダウンロード中にアプリを終了しないでください。",
+      "install": "インストール",
+      "delete": "削除",
+      "deleteConfirmTitle": "AIモデルを削除しますか？",
+      "deleteConfirmMessage": "削除後にAI校正機能を使用するには再ダウンロードが必要です",
+      "deleteConfirm": "削除",
+      "deleteCancel": "キャンセル",
+      "enableCorrection": "AI校正を有効化",
+      "enableCorrectionDisabledHint": "AIモデルをインストールすると有効化できます",
+      "enableCorrectionOnHint": "録音テキストをAIが整えて保存します",
+      "enableCorrectionOffHint": "録音テキストを原文のまま保存します",
+      "unsupportedMemory": "メモリが不足しているため\nAI補正を使用できません。"
+    },
+    "data": {
+      "export": "エクスポート",
+      "exportEmptyTitle": "エクスポートする日記がありません",
+      "exportEmptyMessage": "保存された日記がないため、エクスポートできません",
+      "exportFailureTitle": "エクスポート失敗",
+      "exportFailure": "ファイルのエクスポート中にエラーが発生しました",
+      "import": "インポート",
+      "importHint": ".voicestoryファイルのみインポートできます",
+      "importConfirmTitle": "インポート確認",
+      "importConfirmMessage": ".voicestoryファイルのみインポートできます。\n\n現在保存されている日記と録音ファイルがすべて削除され、新しいファイルの内容で復元されます。続けますか？",
+      "importConfirm": "インポート",
+      "importCancel": "キャンセル",
+      "importSuccessTitle": "復元完了",
+      "importSuccess": "{{count}}件の日記を復元しました",
+      "importFailureTitle": "インポート失敗",
+      "importFailure": "ファイルを読み込めません。正しい.voicestoryファイルかご確認ください",
+      "clearCache": "キャッシュをクリア",
+      "clearCacheConfirmTitle": "キャッシュをクリアしますか？",
+      "clearCacheConfirmMessage": "エクスポート/インポートの一時ファイルが削除されます。日記と録音ファイルには影響しません。",
+      "clearCacheConfirm": "クリア",
+      "clearCacheCancel": "キャンセル",
+      "clearCacheSuccess": "キャッシュをクリアしました",
+      "reset": "全データ初期化",
+      "resetConfirmTitle": "すべてのデータを削除しますか？",
+      "resetConfirmMessage": "日記と録音ファイルがすべて削除され、復元できません",
+      "resetConfirm": "初期化",
+      "resetCancel": "キャンセル",
+      "resetSuccess": "すべてのデータが初期化されました"
+    },
+    "accessibility": {
+      "haptic": "触覚フィードバック"
+    },
+    "about": {
+      "version": "バージョン",
+      "license": "オープンソースライセンス",
+      "licenseDescription": "VoiceStoryは以下のオープンソースライブラリを使用しています。"
+    }
+  },
+  "onboarding": {
+    "subtitle": "声で書く日記",
+    "feature1": "声で日記を作成",
+    "feature2": "AIが文章を整えます",
+    "feature3": "すべてのデータは端末内に保存",
+    "startButton": "はじめる",
+    "startHint": "タップして日記の作成を開始します"
+  }
+}
