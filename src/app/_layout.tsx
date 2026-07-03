@@ -38,8 +38,10 @@ import { useFonts } from "expo-font";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import AppTabs from "@/components/app-tabs";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -72,8 +74,10 @@ export default function RootLayout() {
     NotoSansTC_800ExtraBold,
   });
 
+  let [iconsLoaded, iconsError] = useFonts(Ionicons.font);
+
   useEffect(() => {
-    console.log("폰트 로딩 상태: ", fontsLoaded ? "완료" : "로딩 중");
+    console.log("폰트 로드 상태: ", fontsLoaded ? "완료" : "로드 중");
   }, [fontsLoaded]);
 
   useEffect(() => {
@@ -82,9 +86,21 @@ export default function RootLayout() {
     }
   }, [fontsError]);
 
+  useEffect(() => {
+    console.log("아이콘 로드 상태: ", iconsLoaded ? "완료" : "로드 중");
+  }, [iconsLoaded]);
+
+  useEffect(() => {
+    if (iconsError) {
+      console.error("아이콘 불러오는 중 오류: ", iconsError);
+    }
+  }, [iconsError]);
+
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <AppTabs />
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <AppTabs />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

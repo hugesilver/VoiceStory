@@ -9,6 +9,7 @@
     "@expo-google-fonts/noto-sans-sc": "^0.4.3",
     "@expo-google-fonts/noto-sans-tc": "^0.4.3",
     "@expo/ui": "~56.0.18",
+    "@expo/vector-icons": "^15.0.2",
     "@react-native-vector-icons/ionicons": "^13.1.2",
     "expo": "~56.0.12",
     "expo-constants": "~56.0.18",
