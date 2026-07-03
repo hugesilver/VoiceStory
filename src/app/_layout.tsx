@@ -34,18 +34,23 @@ import {
   NotoSansTC_700Bold,
   NotoSansTC_800ExtraBold,
 } from "@expo-google-fonts/noto-sans-tc";
+import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { initExecutorch } from "react-native-executorch";
+import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
+
 import AppTabs from "@/components/app-tabs";
-import { Ionicons } from "@expo/vector-icons";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
+  // 폰트 로드
   let [fontsLoaded, fontsError] = useFonts({
     NotoSans_400Regular,
     NotoSans_500Medium,
@@ -95,6 +100,11 @@ export default function RootLayout() {
       console.error("아이콘 불러오는 중 오류: ", iconsError);
     }
   }, [iconsError]);
+
+  // Executorch 초기화
+  initExecutorch({
+    resourceFetcher: ExpoResourceFetcher,
+  });
 
   return (
     <SafeAreaProvider>
