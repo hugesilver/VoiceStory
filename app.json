@@ -2,13 +2,15 @@
   "expo": {
     "name": "VoiceStory",
     "slug": "VoiceStory",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "voicestory",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/images/icon.png"
+      "icon": "./assets/images/icon.png",
+      "bundleIdentifier": "dev.hugesilver.VoiceStory",
+      "deploymentTarget": "17.0"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +19,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "dev.hugesilver.VoiceStory"
     },
     "plugins": [
       "expo-router",
@@ -30,18 +33,22 @@
             "imageWidth": 76
           }
         }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "17.0"
+          },
+          "android": {
+            "minSdkVersion": 33
+          }
+        }
       ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    },
-    "locales": {
-      "en": "./locales/ios/en.json",
-      "ko": "./locales/ios/ko.json",
-      "ja": "./locales/ios/ja.json",
-      "zh-Hans": "./locales/ios/zh-Hans.json",
-      "zh-Hant": "./locales/ios/zh-Hant.json"
     }
   }
 }
