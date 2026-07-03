@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-
+import "@/locales/i18n";
 import {
   NotoSans_400Regular,
   NotoSans_500Medium,
@@ -37,11 +36,12 @@ import {
 } from "@expo-google-fonts/noto-sans-tc";
 import { useFonts } from "expo-font";
 import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router";
+import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 
 import AppTabs from "@/components/app-tabs";
 
-export default function TabLayout() {
+export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   let [fontsLoaded, fontsError] = useFonts({

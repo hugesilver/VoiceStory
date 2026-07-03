@@ -19,10 +19,6 @@
       },
       "predictiveBackGestureEnabled": false
     },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
     "plugins": [
       "expo-router",
       [
@@ -39,6 +35,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "locales": {
+      "en": "./locales/ios/en.json",
+      "ko": "./locales/ios/ko.json",
+      "ja": "./locales/ios/ja.json",
+      "zh-Hans": "./locales/ios/zh-Hans.json",
+      "zh-Hant": "./locales/ios/zh-Hant.json"
     }
   }
 }
