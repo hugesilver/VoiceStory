@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { DiaryCell, type Diary } from "../components/ui/diary-cell";
+import { RecordButton } from "../components/ui/record-button";
 import { Colors, Fonts } from "../constants/theme";
 
 export default function HomeScreen() {
@@ -28,6 +29,10 @@ export default function HomeScreen() {
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />
+
+      <View style={styles.fabContainer}>
+        <RecordButton onPress={() => {}} />
+      </View>
     </SafeAreaView>
   );
 }
@@ -65,5 +70,10 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 12,
+  },
+  fabContainer: {
+    position: "absolute",
+    right: 20,
+    bottom: 24,
   },
 });
