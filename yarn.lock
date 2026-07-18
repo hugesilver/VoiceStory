@@ -3220,6 +3220,11 @@ expo-server@^56.0.5:
   resolved "https://registry.npmjs.org/expo-server/-/expo-server-56.0.5.tgz"
   integrity sha512-SmM2p2g3Jrktpiazcst+OxhjSzOHXKAY4BPURHYHXvApzzoybMmrNF4IEZ8DKZ145BhSe4ydAmlEFCRTsdtgUQ==
 
+expo-speech-recognition@~56.0.1:
+  version "56.0.1"
+  resolved "https://registry.yarnpkg.com/expo-speech-recognition/-/expo-speech-recognition-56.0.1.tgz#09dbce63257c70013e1b580a4d0f54c158f0c04a"
+  integrity sha512-TpP1KCiq3vYfSQF0XpUkWLXp4mTw6MLuyMGPzVVKwqzs7oiKlJ/e0q3PNNjfqs058X47ftqT+31lTaWRWRbmPg==
+
 expo-splash-screen@~56.0.12:
   version "56.0.12"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-56.0.12.tgz#f70357dd628cb308e11c6e7fe5ba9efa61c008e9"
