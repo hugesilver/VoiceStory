@@ -37,15 +37,13 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router";
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { initExecutorch } from "react-native-executorch";
 import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
-
-import AppTabs from "@/components/app-tabs";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -109,7 +107,8 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <AppTabs />
+        {/* 헤더 안 보이게 */}
+        <Stack screenOptions={{ headerShown: false }} />
       </ThemeProvider>
     </SafeAreaProvider>
   );

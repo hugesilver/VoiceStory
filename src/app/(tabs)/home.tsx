@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { DiaryCell, type Diary } from "../components/ui/diary-cell";
-import { RecordButton } from "../components/ui/record-button";
-import { Colors, Fonts } from "../constants/theme";
+import { DiaryCell, type Diary } from "../../components/ui/diary-cell";
+import { RecordButton } from "../../components/ui/record-button";
+import { Colors, Fonts } from "../../constants/theme";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export default function HomeScreen() {
       {/* 헤더 */}
       <View style={styles.header}>
         <Image
-          source={require("../../assets/images/logo-mark.png")}
+          source={require("../../../assets/images/logo-mark.png")}
           style={styles.headerLogo}
           accessibilityIgnoresInvertColors
         />

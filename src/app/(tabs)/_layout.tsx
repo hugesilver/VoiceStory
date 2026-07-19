@@ -4,7 +4,7 @@ import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { AccessibilityInfo } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Colors, Fonts } from "../constants/theme";
+import { Colors, Fonts } from "../../constants/theme";
 
 export default function AppTabs() {
   const insets = useSafeAreaInsets();
