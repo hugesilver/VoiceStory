@@ -1,5 +1,3 @@
-import { useColorScheme } from "react-native";
-
 interface colorTypes {
   primary: string;
   onPrimary: string;
@@ -29,7 +27,7 @@ interface colorTypes {
   scrim: string;
 }
 
-const colors = {
+export const Colors: Record<"light" | "dark", colorTypes> = {
   light: {
     primary: "#2F3A99", // deepened indigo — AAA (~9:1 on cream surface, ~10:1 white-on-it)
     onPrimary: "#FFFFFF",
@@ -91,9 +89,6 @@ const colors = {
     scrim: "rgba(0,0,0,0.6)",
   },
 };
-
-export const Colors: colorTypes =
-  useColorScheme() === "dark" ? colors.dark : colors.light;
 
 export const Fonts = {
   sans: "NotoSans_400Regular",

@@ -1,4 +1,5 @@
-import { Colors, IconSize, TouchSize } from "@/constants/theme";
+import { IconSize, TouchSize } from "@/constants/theme";
+import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import * as Haptics from "expo-haptics";
 import { useTranslation } from "react-i18next";
@@ -10,6 +11,7 @@ interface Props {
 
 export const RecordButton = ({ onPress }: Props) => {
   const { t } = useTranslation();
+  const color = useTheme();
 
   // Medium 햅틱 후 onPress 실행
   const handlePress = () => {
@@ -20,12 +22,12 @@ export const RecordButton = ({ onPress }: Props) => {
   return (
     <Pressable
       onPress={handlePress}
-      style={styles.button}
+      style={[styles.button, { backgroundColor: color.primary }]}
       accessibilityRole="button"
       accessibilityLabel={t("home.recordNew")}
       accessibilityHint={t("home.recordHint")}
     >
-      <Ionicons name="mic" size={IconSize.primary} color={Colors.onPrimary} />
+      <Ionicons name="mic" size={IconSize.primary} color={color.onPrimary} />
     </Pressable>
   );
 };
@@ -35,7 +37,6 @@ const styles = StyleSheet.create({
     width: TouchSize.primary,
     height: TouchSize.primary,
     borderRadius: TouchSize.primary / 2,
-    backgroundColor: Colors.primary,
     justifyContent: "center",
     alignItems: "center",
   },

@@ -1,10 +1,11 @@
+import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import * as Haptics from "expo-haptics";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { AccessibilityInfo } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Colors, Fonts } from "../../constants/theme";
+import { Fonts } from "../../constants/theme";
 
 export default function AppTabs() {
   const insets = useSafeAreaInsets();
@@ -13,6 +14,7 @@ export default function AppTabs() {
   const TAB_ICON_SIZE = 30;
 
   const { t } = useTranslation();
+  const color = useTheme();
   const accessibility = (announcement: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     AccessibilityInfo.announceForAccessibility(announcement);
@@ -22,11 +24,11 @@ export default function AppTabs() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textSecondary,
+        tabBarActiveTintColor: color.primary,
+        tabBarInactiveTintColor: color.textSecondary,
         tabBarStyle: {
-          backgroundColor: Colors.card,
-          borderTopColor: Colors.border,
+          backgroundColor: color.card,
+          borderTopColor: color.border,
           borderTopWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
