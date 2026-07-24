@@ -44,8 +44,25 @@
             "minSdkVersion": 33
           }
         }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "VoiceStory uses your microphone to record voice diary entries.",
+          "speechRecognitionPermission": "VoiceStory converts your speech to text for diary entries.",
+          "androidSpeechServicePackages": [
+            "com.google.android.googlequicksearchbox"
+          ]
+        }
       ]
     ],
+    "locales": {
+      "en": "./src/locales/langs/ios/en.json",
+      "ko": "./src/locales/langs/ios/ko.json",
+      "ja": "./src/locales/langs/ios/ja.json",
+      "zh-Hans": "./src/locales/langs/ios/zh-Hans.json",
+      "zh-Hant": "./src/locales/langs/ios/zh-Hant.json"
+    },
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
