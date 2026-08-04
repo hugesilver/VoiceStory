@@ -1,4 +1,5 @@
 import { useTheme } from "@/hooks/use-theme";
+import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,7 +38,7 @@ export default function HomeScreen() {
 
       {/* 녹음 플로트 버튼 */}
       <View style={styles.fabContainer}>
-        <RecordButton onPress={() => {}} />
+        <RecordButton onPress={() => router.push("/record")} />
       </View>
     </SafeAreaView>
   );
