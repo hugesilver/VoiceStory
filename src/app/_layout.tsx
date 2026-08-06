@@ -45,6 +45,11 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { initExecutorch } from "react-native-executorch";
 import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 
+import { initDatabase } from "@/db/database";
+
+// DB 초기화
+initDatabase();
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
