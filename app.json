@@ -56,6 +56,18 @@
         }
       ],
       [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/NotoSansCJKkr-Regular.otf",
+            "./assets/fonts/NotoSansCJKkr-Medium.otf",
+            "./assets/fonts/NotoSansCJKkr-Bold.otf",
+            "./assets/fonts/NotoSansCJKkr-Black.otf",
+            "./node_modules/@react-native-vector-icons/ionicons/fonts/Ionicons.ttf"
+          ]
+        }
+      ],
+      [
         "expo-sqlite",
         {
           "enableFTS": true,

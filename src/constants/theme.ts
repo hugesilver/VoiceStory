@@ -91,11 +91,10 @@ export const Colors: Record<"light" | "dark", colorTypes> = {
 };
 
 export const Fonts = {
-  sans: "NotoSans_400Regular",
-  sansMedium: "NotoSans_500Medium",
-  sansSemibold: "NotoSans_600SemiBold",
-  sansBold: "NotoSans_700Bold",
-  sansExtra: "NotoSans_800ExtraBold",
+  sans: "NotoSansCJKkr-Regular",
+  sansMedium: "NotoSansCJKkr-Medium",
+  sansBold: "NotoSansCJKkr-Bold",
+  sansExtra: "NotoSansCJKkr-Black",
 };
 
 // Radius / icon / touch — 디자인 핸드오프 고정값 (font scale 영향 없음)
