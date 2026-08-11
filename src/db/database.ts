@@ -3,6 +3,19 @@ import * as SQLite from "expo-sqlite";
 const db = SQLite.openDatabaseSync("voicestory.db");
 const SCHEMA_VERSION: number = 4;
 
+export type Emotion = "happy" | "neutral" | "sad" | "angry" | "tired";
+
+export interface DiaryRow {
+  id: number;
+  text: string;
+  content: string;
+  emotion: Emotion;
+  audioPath: string;
+  isFavorite: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export const initDatabase = () => {
   // 스키마 버전 확인
   const current = db.getFirstSync<{ user_version: number }>(
@@ -49,4 +62,18 @@ export const initDatabase = () => {
 
     db.execSync(`PRAGMA user_version = ${SCHEMA_VERSION}`);
   });
+};
+
+export const createDiary = (diary: {
+  text: string;
+  content: string;
+  emotion: Emotion;
+  audioPath: string;
+}) => {
+  const now = Date.now();
+
+  db.runSync(
+    `INSERT INTO diaries (text, content, emotion, audioPath, isFavorite, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [diary.text, diary.content, diary.emotion, diary.audioPath, 0, now, now],
+  );
 };
