@@ -5,6 +5,17 @@ const SCHEMA_VERSION: number = 4;
 
 export type Emotion = "happy" | "neutral" | "sad" | "angry" | "tired";
 
+interface RawDiaryRow {
+  id: number;
+  text: string;
+  content: string;
+  emotion: string;
+  audioPath: string;
+  isFavorite: number;
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface DiaryRow {
   id: number;
   text: string;
@@ -64,6 +75,36 @@ export const initDatabase = () => {
   });
 };
 
+const toDiaryRow = (row: RawDiaryRow): DiaryRow => {
+  return {
+    id: row.id,
+    text: row.text,
+    content: row.content,
+    emotion: row.emotion as Emotion,
+    audioPath: row.audioPath,
+    isFavorite: row.isFavorite === 1,
+    createdAt: new Date(row.createdAt),
+    updatedAt: new Date(row.updatedAt),
+  };
+};
+
+export const getDiaries = (): DiaryRow[] => {
+  const rows = db.getAllSync<RawDiaryRow>(
+    `SELECT * FROM diaries ORDER BY createdAt DESC`,
+  );
+
+  return rows.map(toDiaryRow);
+};
+
+export const getDiaryById = (id: number): DiaryRow | null => {
+  const row = db.getFirstSync<RawDiaryRow>(
+    `SELECT * FROM diaries WHERE id = ?`,
+    [id],
+  );
+
+  return row ? toDiaryRow(row) : null;
+};
+
 export const createDiary = (diary: {
   text: string;
   content: string;
@@ -76,4 +117,21 @@ export const createDiary = (diary: {
     `INSERT INTO diaries (text, content, emotion, audioPath, isFavorite, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [diary.text, diary.content, diary.emotion, diary.audioPath, 0, now, now],
   );
+};
+
+export const updateDiary = (diary: {
+  id: number;
+  content: string;
+  emotion: Emotion;
+}) => {
+  const now = Date.now();
+
+  db.runSync(
+    `UPDATE diaries SET content = ?, emotion = ?, updatedAt = ? WHERE id = ?`,
+    [diary.content, diary.emotion, now, diary.id],
+  );
+};
+
+export const deleteDiary = (id: number) => {
+  db.runSync(`DELETE FROM diaries WHERE id = ?`, [id]);
 };
