@@ -10,7 +10,10 @@
     "ios": {
       "icon": "./assets/images/icon.png",
       "bundleIdentifier": "dev.hugesilver.voicestory",
-      "deploymentTarget": "17.0"
+      "deploymentTarget": "17.0",
+      "entitlements": {
+        "com.apple.developer.kernel.increased-memory-limit": true // iOS OOM 방지 설정
+      }
     },
     "android": {
       "adaptiveIcon": {
