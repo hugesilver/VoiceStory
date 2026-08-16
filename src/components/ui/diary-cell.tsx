@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 14,
-    fontFamily: Fonts.sansSemibold,
+    fontFamily: Fonts.sansMedium,
   },
   emotionRow: {
     flexDirection: "row",
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   emotionLabel: {
     flexShrink: 1,
     fontSize: 16,
-    fontFamily: Fonts.sansSemibold,
+    fontFamily: Fonts.sansMedium,
   },
   preview: {
     fontSize: 16,
