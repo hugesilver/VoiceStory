@@ -11,6 +11,7 @@ import { Platform } from "react-native";
 import { LLMType, models, useLLM } from "react-native-executorch";
 import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 
+const AI_MODEL = models.llm.qwen3_1_7b();
 const STORAGE_KEY = "ai_enabled";
 
 // 안드로이드 기기에서 최소 4GB RAM 필요
@@ -25,6 +26,7 @@ type AIContextValue = LLMType & {
   isSettingLoaded: boolean;
   isDeviceSupported: boolean;
   setAiEnabled: (enabled: boolean) => Promise<void>;
+  getModelSize: () => Promise<number>;
 };
 const AIContext = createContext<AIContextValue | null>(null);
 
@@ -54,14 +56,45 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
     load();
   }, []);
 
+  // 끄면 다운로드 취소 및 AI 모델 삭제
   const setAiEnabled = async (enabled: boolean) => {
     await AsyncStorage.setItem(STORAGE_KEY, String(enabled));
     setIsAiEnabled(enabled);
+
+    // 켤 때는 아무것도 안 함
+    if (enabled) {
+      return;
+    }
+
+    // AI 모델 다운로드 중이면 취소
+    try {
+      await ExpoResourceFetcher.cancelFetching(
+        AI_MODEL.modelSource,
+        AI_MODEL.tokenizerSource,
+        AI_MODEL.tokenizerConfigSource,
+      );
+    } catch {
+      // 진행 중인 다운로드가 없으면 무시
+    }
+
+    await ExpoResourceFetcher.deleteResources(
+      AI_MODEL.modelSource,
+      AI_MODEL.tokenizerSource,
+      AI_MODEL.tokenizerConfigSource,
+    );
   };
+
+  // AI 모델 용량 조회
+  const getModelSize = () =>
+    ExpoResourceFetcher.getFilesTotalSize(
+      AI_MODEL.modelSource,
+      AI_MODEL.tokenizerSource,
+      AI_MODEL.tokenizerConfigSource,
+    );
 
   // useLLM은 호출 될 떄마다 LLM controller를 새로 생성하므로, 앱 전체에서 한 번만 호출
   const llm = useLLM({
-    model: models.llm.qwen3_1_7b(),
+    model: AI_MODEL,
     preventLoad: !isAiEnabled,
   });
 
@@ -73,6 +106,7 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
         isSettingLoaded,
         isDeviceSupported: IS_DEVICE_SUPPORTED,
         setAiEnabled,
+        getModelSize,
       }}
     >
       {children}

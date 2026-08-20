@@ -62,6 +62,19 @@ export default function AppTabs() {
           tabPress: () => accessibility(t("tab.homeAnnouncement")),
         }}
       />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          tabBarLabel: t("tab.settings"),
+          tabBarAccessibilityLabel: t("tab.settings"),
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings" size={TAB_ICON_SIZE} color={color} />
+          ),
+        }}
+        listeners={{
+          tabPress: () => accessibility(t("tab.settingsAnnouncement")),
+        }}
+      />
     </Tabs>
   );
 }
