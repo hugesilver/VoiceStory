@@ -5,10 +5,17 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
-import { Platform } from "react-native";
-import { LLMType, models, useLLM } from "react-native-executorch";
+import { useTranslation } from "react-i18next";
+import { AccessibilityInfo, Platform } from "react-native";
+import {
+  LLMType,
+  models,
+  RnExecutorchErrorCode,
+  useLLM,
+} from "react-native-executorch";
 import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 
 const AI_MODEL = models.llm.qwen3_1_7b();
@@ -43,8 +50,16 @@ export const useAI = () => {
 };
 
 export const AIProvider = ({ children }: { children: ReactNode }) => {
+  const { t } = useTranslation();
+
   const [isAiEnabled, setIsAiEnabled] = useState(false);
   const [isSettingLoaded, setIsSettingLoaded] = useState(false);
+
+  // 디스크에 있는 모델을 로드한 경우와 실제 다운로드를 구분하기 위한 표시
+  const wasDownloadingRef = useRef(false);
+
+  // 마지막으로 음성 안내한 진행률 구간
+  const lastMilestoneRef = useRef(0);
 
   useEffect(() => {
     const load = async () => {
@@ -97,6 +112,56 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
     model: AI_MODEL,
     preventLoad: !isAiEnabled,
   });
+
+  // 다운로드는 몇 분이 걸려 화면을 음성으로 알림(진행률 0 제외)
+  useEffect(() => {
+    const percent = Math.floor(llm.downloadProgress * 100);
+
+    if (percent > 0 && !llm.isReady) {
+      wasDownloadingRef.current = true;
+
+      // 매 %마다 말하면 계속 끊으므로 25% 단위로만
+      const milestone = Math.floor(percent / 25) * 25;
+
+      if (milestone > 0 && milestone > lastMilestoneRef.current) {
+        lastMilestoneRef.current = milestone;
+        AccessibilityInfo.announceForAccessibility(
+          t("home.modelDownload.label", { percent: milestone }),
+        );
+      }
+
+      return;
+    }
+
+    // AI 모델 다운로드 완료 및 준비 완료 음성 안내
+    if (llm.isReady && wasDownloadingRef.current) {
+      // 다시 받을 때 또 안내하도록 초기화
+      wasDownloadingRef.current = false;
+      lastMilestoneRef.current = 0;
+      AccessibilityInfo.announceForAccessibility(
+        t("home.modelDownload.completed"),
+      );
+    }
+  }, [llm.downloadProgress, llm.isReady, t]);
+
+  useEffect(() => {
+    if (!isAiEnabled) {
+      wasDownloadingRef.current = false;
+      lastMilestoneRef.current = 0;
+    }
+  }, [isAiEnabled]);
+
+  // 취소 시 알리지 않음
+  useEffect(() => {
+    if (
+      llm.error &&
+      llm.error.code !== RnExecutorchErrorCode.DownloadInterrupted
+    ) {
+      AccessibilityInfo.announceForAccessibility(
+        t("home.modelDownload.errorMessage"),
+      );
+    }
+  }, [llm.error, t]);
 
   return (
     <AIContext.Provider

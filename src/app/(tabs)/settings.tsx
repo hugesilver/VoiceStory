@@ -64,6 +64,13 @@ export default function SettingsScreen() {
     return t("settings.ai.modelChecking");
   };
 
+  // AI 모델 안내
+  const aiModelHintText = !isDeviceSupported
+    ? t("settings.ai.unsupportedMemory")
+    : isAiEnabled
+      ? t("settings.ai.enableCorrectionOnHint")
+      : t("settings.ai.enableCorrectionOffHint");
+
   // AI 모델 다운로드 안내
   const confirmDownload = async () => {
     let size = t("home.aiConsent.unknownSize");
@@ -116,6 +123,8 @@ export default function SettingsScreen() {
   };
 
   const handleToggle = (enabled: boolean) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
     // 토글 켬
     if (enabled) {
       confirmDownload();
@@ -134,26 +143,33 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: color.surface }]}>
-      <Text style={[styles.title, { color: color.textPrimary }]}>
+      {/* header 역할을 줘야 스크린 리더에서 제목 단위로 건너뛸 수 있다 */}
+      <Text
+        style={[styles.title, { color: color.textPrimary }]}
+        accessibilityRole="header"
+      >
         {t("settings.title")}
       </Text>
 
-      <Text style={[styles.section, { color: color.textSecondary }]}>
+      <Text
+        style={[styles.section, { color: color.textSecondary }]}
+        accessibilityRole="header"
+      >
         {t("settings.section.ai")}
       </Text>
 
       {/* AI 교정 토글 */}
       <View style={styles.row}>
-        <View style={styles.rowText}>
+        <View
+          style={styles.rowText}
+          accessible
+          accessibilityLabel={`${t("settings.ai.enableCorrection")}, ${aiModelHintText}`}
+        >
           <Text style={[styles.label, { color: color.textPrimary }]}>
             {t("settings.ai.enableCorrection")}
           </Text>
           <Text style={[styles.hint, { color: color.textSecondary }]}>
-            {isDeviceSupported
-              ? isAiEnabled
-                ? t("settings.ai.enableCorrectionOnHint")
-                : t("settings.ai.enableCorrectionOffHint")
-              : t("settings.ai.unsupportedMemory")}
+            {aiModelHintText}
           </Text>
         </View>
         {/* 용량 조회 중에 따른 분기 처리 */}
@@ -162,6 +178,7 @@ export default function SettingsScreen() {
             size="small"
             color={color.textSecondary}
             style={styles.control}
+            accessibilityLabel={t("settings.ai.modelChecking")}
           />
         ) : (
           <Switch
@@ -169,12 +186,21 @@ export default function SettingsScreen() {
             onValueChange={handleToggle}
             disabled={!isSettingLoaded || !isDeviceSupported}
             accessibilityLabel={t("settings.ai.enableCorrection")}
+            accessibilityHint={
+              isAiEnabled
+                ? t("settings.ai.deleteConfirmMessage")
+                : t("settings.ai.enableCorrectionOnHint")
+            }
           />
         )}
       </View>
 
       {/* AI 모델 상태 */}
-      <View style={styles.row}>
+      <View
+        style={styles.row}
+        accessible
+        accessibilityLabel={`${t("settings.ai.modelTitle")}, ${getStatusText()}`}
+      >
         <Text style={[styles.label, { color: color.textPrimary }]}>
           {t("settings.ai.modelTitle")}
         </Text>
