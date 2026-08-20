@@ -1,15 +1,23 @@
 import { useTheme } from "@/hooks/use-theme";
+import { useAI } from "@/providers/ai-provider";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { DiaryCell, type Diary } from "../../components/ui/diary-cell";
+import { ModelDownloadBanner } from "../../components/ui/model-download-banner";
 import { RecordButton } from "../../components/ui/record-button";
+import { Layout } from "../../constants/layout";
 import { Fonts } from "../../constants/theme";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
   const color = useTheme();
+  const { isReady, downloadProgress } = useAI();
+
+  // 진행률이 0이면 확인 중(디스크의 모델을 로드하는 중)
+  const isDownloading =
+    !isReady && downloadProgress > 0 && downloadProgress < 1;
 
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: color.surface }]}>
@@ -24,6 +32,9 @@ export default function HomeScreen() {
           {t("common.appName")}
         </Text>
       </View>
+
+      {/* AI 모델 다운로드 진행률 */}
+      {isDownloading ? <ModelDownloadBanner /> : null}
 
       {/* 리스트 */}
       <FlatList
@@ -47,7 +58,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: Layout.screenPadding,
   },
   header: {
     flexDirection: "row",

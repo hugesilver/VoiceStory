@@ -1,4 +1,5 @@
-import { Fonts, IconSize, Radius } from "@/constants/theme";
+import { IconSize, Radius } from "@/constants/layout";
+import { Fonts } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { ComponentProps } from "react";

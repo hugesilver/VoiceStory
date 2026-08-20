@@ -1,3 +1,4 @@
+import { Layout } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useAI } from "@/providers/ai-provider";
@@ -227,7 +228,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: Layout.screenPadding,
   },
   title: {
     fontSize: 22,

@@ -61,6 +61,12 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
   // 마지막으로 음성 안내한 진행률 구간
   const lastMilestoneRef = useRef(0);
 
+  // useLLM은 호출 될 떄마다 LLM controller를 새로 생성하므로, 앱 전체에서 한 번만 호출
+  const llm = useLLM({
+    model: AI_MODEL,
+    preventLoad: !isAiEnabled,
+  });
+
   useEffect(() => {
     const load = async () => {
       const stored = await AsyncStorage.getItem(STORAGE_KEY);
@@ -70,48 +76,6 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
 
     load();
   }, []);
-
-  // 끄면 다운로드 취소 및 AI 모델 삭제
-  const setAiEnabled = async (enabled: boolean) => {
-    await AsyncStorage.setItem(STORAGE_KEY, String(enabled));
-    setIsAiEnabled(enabled);
-
-    // 켤 때는 아무것도 안 함
-    if (enabled) {
-      return;
-    }
-
-    // AI 모델 다운로드 중이면 취소
-    try {
-      await ExpoResourceFetcher.cancelFetching(
-        AI_MODEL.modelSource,
-        AI_MODEL.tokenizerSource,
-        AI_MODEL.tokenizerConfigSource,
-      );
-    } catch {
-      // 진행 중인 다운로드가 없으면 무시
-    }
-
-    await ExpoResourceFetcher.deleteResources(
-      AI_MODEL.modelSource,
-      AI_MODEL.tokenizerSource,
-      AI_MODEL.tokenizerConfigSource,
-    );
-  };
-
-  // AI 모델 용량 조회
-  const getModelSize = () =>
-    ExpoResourceFetcher.getFilesTotalSize(
-      AI_MODEL.modelSource,
-      AI_MODEL.tokenizerSource,
-      AI_MODEL.tokenizerConfigSource,
-    );
-
-  // useLLM은 호출 될 떄마다 LLM controller를 새로 생성하므로, 앱 전체에서 한 번만 호출
-  const llm = useLLM({
-    model: AI_MODEL,
-    preventLoad: !isAiEnabled,
-  });
 
   // 다운로드는 몇 분이 걸려 화면을 음성으로 알림(진행률 0 제외)
   useEffect(() => {
@@ -162,6 +126,42 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
       );
     }
   }, [llm.error, t]);
+
+  // 끄면 다운로드 취소 및 AI 모델 삭제
+  const setAiEnabled = async (enabled: boolean) => {
+    await AsyncStorage.setItem(STORAGE_KEY, String(enabled));
+    setIsAiEnabled(enabled);
+
+    // 켤 때는 아무것도 안 함
+    if (enabled) {
+      return;
+    }
+
+    // AI 모델 다운로드 중이면 취소
+    try {
+      await ExpoResourceFetcher.cancelFetching(
+        AI_MODEL.modelSource,
+        AI_MODEL.tokenizerSource,
+        AI_MODEL.tokenizerConfigSource,
+      );
+    } catch {
+      // 진행 중인 다운로드가 없으면 무시
+    }
+
+    await ExpoResourceFetcher.deleteResources(
+      AI_MODEL.modelSource,
+      AI_MODEL.tokenizerSource,
+      AI_MODEL.tokenizerConfigSource,
+    );
+  };
+
+  // AI 모델 용량 조회
+  const getModelSize = () =>
+    ExpoResourceFetcher.getFilesTotalSize(
+      AI_MODEL.modelSource,
+      AI_MODEL.tokenizerSource,
+      AI_MODEL.tokenizerConfigSource,
+    );
 
   return (
     <AIContext.Provider

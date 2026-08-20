@@ -1,4 +1,4 @@
-import { IconSize, TouchSize } from "@/constants/theme";
+import { IconSize, TouchSize } from "@/constants/layout";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import * as Haptics from "expo-haptics";

@@ -1,3 +1,4 @@
+import { Layout } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { useRecording } from "@/hooks/use-recording";
 import { useTheme } from "@/hooks/use-theme";
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: Layout.screenPadding,
   },
   closeButton: {
     width: CLOSE_BUTTON_SIZE,
