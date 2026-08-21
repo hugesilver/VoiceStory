@@ -9,6 +9,10 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 export type RecordingState = "idle" | "recording" | "stopping";
+export interface RecordResult {
+  text: string;
+  audioUri: string | null;
+}
 
 // regionCode 보정
 const getSpeechLocale = async (): Promise<string> => {
@@ -46,6 +50,8 @@ export const useRecording = () => {
 
   const hasPermissionRef = useRef<boolean | null>(null);
   const transcriptRef = useRef("");
+  const audioUriRef = useRef<string | null>(null);
+  const stopResolveRef = useRef<((result: RecordResult) => void) | null>(null);
 
   useEffect(() => {
     return () => {
@@ -89,11 +95,20 @@ export const useRecording = () => {
   useSpeechRecognitionEvent("audioend", (event) => {
     setRecordingState("stopping");
     setAudioUri(event.uri);
+    audioUriRef.current = event.uri;
   });
 
   // 녹음 중단 이벤트
   useSpeechRecognitionEvent("end", () => {
     setRecordingState("idle");
+
+    if (stopResolveRef.current) {
+      stopResolveRef.current({
+        text: transcriptRef.current,
+        audioUri: audioUriRef.current,
+      });
+      stopResolveRef.current = null;
+    }
   });
 
   // 음성 인식 결과 이벤트
@@ -120,6 +135,14 @@ export const useRecording = () => {
       return;
     }
 
+    if (stopResolveRef.current) {
+      stopResolveRef.current({
+        text: transcriptRef.current,
+        audioUri: audioUriRef.current,
+      });
+      stopResolveRef.current = null;
+    }
+
     console.error("error code:", event.error, "error message:", event.message);
     setError(event.message);
   });
@@ -130,6 +153,7 @@ export const useRecording = () => {
     transcriptRef.current = "";
     setTranscript("");
     setAudioUri(null);
+    audioUriRef.current = null;
     setError(null);
 
     // 음성 인식 가능 여부 확인
@@ -169,10 +193,22 @@ export const useRecording = () => {
   };
 
   // 녹음 완료
-  const recordStop = () => {
+  const recordStop = (): Promise<RecordResult> => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); // 햅틱 피드백
+
+    if (recordingState !== "recording") {
+      return Promise.resolve({
+        text: transcriptRef.current,
+        audioUri: audioUriRef.current,
+      });
+    }
+
     setRecordingState("stopping");
-    ExpoSpeechRecognitionModule.stop();
+
+    return new Promise((resolve) => {
+      stopResolveRef.current = resolve;
+      ExpoSpeechRecognitionModule.stop();
+    });
   };
 
   return {
