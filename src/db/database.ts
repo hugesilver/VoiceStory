@@ -1,9 +1,9 @@
+import type { Emotion } from "@/constants/emotion";
 import * as SQLite from "expo-sqlite";
 
 const db = SQLite.openDatabaseSync("voicestory.db");
 const SCHEMA_VERSION: number = 4;
 
-export type Emotion = "happy" | "neutral" | "sad" | "angry" | "tired";
 
 interface RawDiaryRow {
   id: number;

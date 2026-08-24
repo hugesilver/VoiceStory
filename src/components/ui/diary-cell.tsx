@@ -1,8 +1,8 @@
+import { EMOTION_ICONS, type Emotion } from "@/constants/emotion";
 import { IconSize, Radius } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import { ComponentProps } from "react";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -13,16 +13,6 @@ export interface Diary {
   preview: string;
   audioPath: string;
 }
-
-export type Emotion = "happy" | "neutral" | "sad" | "angry" | "tired";
-const EMOTION_ICONS: Record<Emotion, ComponentProps<typeof Ionicons>["name"]> =
-  {
-    happy: "happy-outline",
-    neutral: "remove-circle-outline",
-    sad: "sad-outline",
-    angry: "flame",
-    tired: "bed-outline",
-  };
 
 interface Props {
   diary: Diary;
