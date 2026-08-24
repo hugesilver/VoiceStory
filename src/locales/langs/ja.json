@@ -123,17 +123,19 @@
       "saved": "日記が保存されました"
     }
   },
-  "polish": {
-    "title": "AI仕上げ",
+  "correction": {
+    "title": "AI校正結果",
     "close": "閉じる",
     "correcting": "AIで校正中...",
     "elapsed": "{{seconds}}秒経過",
     "cancel": "キャンセル",
-    "notInstalled": "AIは未インストール状態です",
+    "titleWithoutAi": "音声認識の結果",
+    "body": "本文",
     "cancelled": "AI校正がキャンセルされました",
     "retry": "再試行",
     "original": "原文",
-    "polished": "AI仕上げ",
+    "corrected": "AI校正",
+    "useOriginal": "原文に戻す",
     "next": "次へ",
     "closeConfirm": {
       "title": "保存せずに終了しますか？",
@@ -154,7 +156,7 @@
     },
     "processing": {
       "step1": "音声をテキストに変換中",
-      "step2": "AIが整えています",
+      "step2": "AIが校正しています",
       "step3": "感情を分析中",
       "statusPending": "待機中",
       "statusActive": "進行中...",
@@ -166,7 +168,7 @@
     "emotionLabel": "検出された感情",
     "changeEmotion": "変更",
     "version": {
-      "polished": "整えた文章",
+      "corrected": "校正した文章",
       "original": "原文"
     },
     "text": "内容",
@@ -247,7 +249,7 @@
       "deleteCancel": "キャンセル",
       "enableCorrection": "AI校正を有効化",
       "enableCorrectionDisabledHint": "AIモデルをインストールすると有効化できます",
-      "enableCorrectionOnHint": "録音テキストをAIが整えて保存します",
+      "enableCorrectionOnHint": "録音テキストをAIが校正して保存します",
       "enableCorrectionOffHint": "録音テキストを原文のまま保存します",
       "unsupportedMemory": "メモリが不足しているため\nAI補正を使用できません。"
     },
@@ -292,7 +294,7 @@
   "onboarding": {
     "subtitle": "声で書く日記",
     "feature1": "声で日記を作成",
-    "feature2": "AIが文章を整えます",
+    "feature2": "AIが文章を校正します",
     "feature3": "すべてのデータは端末内に保存",
     "startButton": "はじめる",
     "startHint": "タップして日記の作成を開始します"

@@ -123,17 +123,19 @@
       "saved": "日記已儲存"
     }
   },
-  "polish": {
-    "title": "AI潤色",
+  "correction": {
+    "title": "AI校對結果",
     "close": "關閉",
-    "correcting": "AI潤色中...",
+    "correcting": "AI校對中...",
     "elapsed": "已用時{{seconds}}秒",
     "cancel": "取消",
-    "notInstalled": "AI處於未安裝狀態",
-    "cancelled": "AI潤色已取消",
+    "titleWithoutAi": "語音辨識結果",
+    "body": "內文",
+    "cancelled": "AI校對已取消",
     "retry": "重試",
     "original": "原文",
-    "polished": "AI潤色",
+    "corrected": "AI校對",
+    "useOriginal": "還原為原文",
     "next": "下一步",
     "closeConfirm": {
       "title": "不儲存直接離開？",
@@ -146,15 +148,15 @@
     "editingLabel": "編輯文字",
     "editingHint": "編輯文字後，請點擊完成按鈕",
     "announcement": {
-      "done": "AI潤色完成",
-      "cancelled": "AI潤色已取消",
+      "done": "AI校對完成",
+      "cancelled": "AI校對已取消",
       "selected": "已選擇{{version}}版本",
       "editStarted": "編輯模式，請修改文字",
       "editDone": "編輯完成"
     },
     "processing": {
       "step1": "正在將語音轉為文字",
-      "step2": "AI 正在潤飾",
+      "step2": "AI 正在校對",
       "step3": "正在分析情緒",
       "statusPending": "等待中",
       "statusActive": "處理中...",
@@ -166,7 +168,7 @@
     "emotionLabel": "偵測到的情緒",
     "changeEmotion": "更改",
     "version": {
-      "polished": "潤色版",
+      "corrected": "校對版",
       "original": "原文"
     },
     "text": "內容",
@@ -247,7 +249,7 @@
       "deleteCancel": "取消",
       "enableCorrection": "啟用 AI 校對",
       "enableCorrectionDisabledHint": "安裝 AI 模型後才可啟用",
-      "enableCorrectionOnHint": "由 AI 潤飾文字後儲存",
+      "enableCorrectionOnHint": "由 AI 校對文字後儲存",
       "enableCorrectionOffHint": "直接儲存原始轉錄文字",
       "unsupportedMemory": "記憶體不足，\n無法使用 AI 校正。"
     },
@@ -292,7 +294,7 @@
   "onboarding": {
     "subtitle": "用聲音記錄的日記",
     "feature1": "用語音撰寫日記",
-    "feature2": "AI 幫您潤飾文字",
+    "feature2": "AI 幫您校對文字",
     "feature3": "所有資料僅保存在裝置中",
     "startButton": "開始使用",
     "startHint": "點擊開始撰寫日記"

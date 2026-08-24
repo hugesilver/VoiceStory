@@ -1,4 +1,4 @@
-import { Layout } from "@/constants/layout";
+import { Layout, TouchSize } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { useRecording } from "@/hooks/use-recording";
 import { useTheme } from "@/hooks/use-theme";
@@ -36,6 +36,15 @@ export default function RecordModal() {
   const isStopping = recordingState === "stopping";
   const permissionDenied = hasPermission === false;
 
+  const handleStop = async () => {
+    const { text, audioUri } = await recordStop();
+
+    router.replace({
+      pathname: "/correction",
+      params: { text, audioUri: audioUri ?? "" },
+    });
+  };
+
   return (
     <View style={[styles.root, { backgroundColor: colors.surface }]}>
       {/* 헤더 닫기 */}
@@ -64,7 +73,7 @@ export default function RecordModal() {
               {formatDuration(timer)}
             </Text>
             <Pressable
-              onPress={recordStop}
+              onPress={handleStop}
               style={[styles.recordButton, { backgroundColor: colors.error }]}
               accessibilityRole="button"
               accessibilityLabel={t("record.recording.stopButton")}
@@ -133,7 +142,6 @@ export default function RecordModal() {
   );
 }
 
-const CLOSE_BUTTON_SIZE = 60;
 const RECORD_BUTTON_SIZE = 168;
 
 const styles = StyleSheet.create({
@@ -149,9 +157,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Layout.screenPadding,
   },
   closeButton: {
-    width: CLOSE_BUTTON_SIZE,
-    height: CLOSE_BUTTON_SIZE,
-    borderRadius: CLOSE_BUTTON_SIZE / 2,
+    width: TouchSize.min,
+    height: TouchSize.min,
+    borderRadius: TouchSize.min / 2,
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",

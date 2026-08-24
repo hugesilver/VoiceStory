@@ -30,10 +30,9 @@ export default function RootLayout() {
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-          {/* 헤더 안 보이게 */}
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen
-              name="(modals)/record"
+              name="(modals)"
               options={{
                 presentation: "fullScreenModal",
                 animation: "slide_from_bottom",

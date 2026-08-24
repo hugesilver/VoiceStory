@@ -9,10 +9,10 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 export type RecordingState = "idle" | "recording" | "stopping";
-export interface RecordResult {
+export type RecordResult = {
   text: string;
-  audioUri: string | null;
-}
+  audioUri: string;
+};
 
 // regionCode 보정
 const getSpeechLocale = async (): Promise<string> => {
@@ -105,7 +105,7 @@ export const useRecording = () => {
     if (stopResolveRef.current) {
       stopResolveRef.current({
         text: transcriptRef.current,
-        audioUri: audioUriRef.current,
+        audioUri: audioUriRef.current ?? "",
       });
       stopResolveRef.current = null;
     }
@@ -138,7 +138,7 @@ export const useRecording = () => {
     if (stopResolveRef.current) {
       stopResolveRef.current({
         text: transcriptRef.current,
-        audioUri: audioUriRef.current,
+        audioUri: audioUriRef.current ?? "",
       });
       stopResolveRef.current = null;
     }
@@ -199,7 +199,7 @@ export const useRecording = () => {
     if (recordingState !== "recording") {
       return Promise.resolve({
         text: transcriptRef.current,
-        audioUri: audioUriRef.current,
+        audioUri: audioUriRef.current ?? "",
       });
     }
 

@@ -124,17 +124,19 @@
       "saved": "Diary saved"
     }
   },
-  "polish": {
-    "title": "AI Polish",
+  "correction": {
+    "title": "AI Correction Result",
     "close": "Close",
-    "correcting": "Polishing with AI...",
+    "correcting": "Correcting with AI...",
     "elapsed": "{{seconds}}s elapsed",
     "cancel": "Cancel",
-    "notInstalled": "AI is not installed",
-    "cancelled": "AI polishing was cancelled",
+    "titleWithoutAi": "Transcription Result",
+    "body": "Text",
+    "cancelled": "AI correction was cancelled",
     "retry": "Try again",
     "original": "Original",
-    "polished": "AI Polished",
+    "corrected": "AI Corrected",
+    "useOriginal": "Revert to original",
     "next": "Next",
     "closeConfirm": {
       "title": "Leave without saving?",
@@ -147,15 +149,15 @@
     "editingLabel": "Edit text",
     "editingHint": "Edit the text, then tap Done",
     "announcement": {
-      "done": "AI polishing complete",
-      "cancelled": "AI polishing was cancelled",
+      "done": "AI correction complete",
+      "cancelled": "AI correction was cancelled",
       "selected": "{{version}} version selected",
       "editStarted": "Edit mode. Modify the text.",
       "editDone": "Editing complete"
     },
     "processing": {
       "step1": "Transcribing your voice",
-      "step2": "Polishing the text",
+      "step2": "Correcting the text",
       "step3": "Detecting emotion",
       "statusPending": "Waiting",
       "statusActive": "Working...",
@@ -167,7 +169,7 @@
     "emotionLabel": "Detected emotion",
     "changeEmotion": "Change",
     "version": {
-      "polished": "Polished",
+      "corrected": "Corrected",
       "original": "Original"
     },
     "text": "Content",
@@ -249,8 +251,8 @@
       "deleteCancel": "Cancel",
       "enableCorrection": "Enable AI correction",
       "enableCorrectionDisabledHint": "Install the AI model to enable this",
-      "enableCorrectionOnHint": "Polish transcribed text before saving",
-      "enableCorrectionOffHint": "Save raw transcribed text without polishing",
+      "enableCorrectionOnHint": "Correct transcribed text before saving",
+      "enableCorrectionOffHint": "Save raw transcribed text without correction",
       "unsupportedMemory": "Not enough memory\nto use AI correction."
     },
     "data": {
@@ -294,7 +296,7 @@
   "onboarding": {
     "subtitle": "Your voice diary",
     "feature1": "Write entries by speaking",
-    "feature2": "AI polishes your text",
+    "feature2": "AI corrects your text",
     "feature3": "All data stays on your device",
     "startButton": "Get started",
     "startHint": "Tap to begin writing your first diary"

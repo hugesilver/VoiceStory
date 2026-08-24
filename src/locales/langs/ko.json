@@ -123,17 +123,19 @@
       "saved": "일기가 저장되었습니다"
     }
   },
-  "polish": {
-    "title": "AI 다듬기",
+  "correction": {
+    "title": "AI 교정 결과",
     "close": "닫기",
     "correcting": "AI 교정 중...",
     "elapsed": "{{seconds}}초 경과",
     "cancel": "취소",
-    "notInstalled": "AI 미설치 상태입니다",
+    "titleWithoutAi": "음성 인식 결과",
+    "body": "본문",
     "cancelled": "AI 교정이 취소되었습니다",
     "retry": "다시 시도",
     "original": "원본",
-    "polished": "AI 다듬기",
+    "corrected": "AI 교정",
+    "useOriginal": "원본으로 되돌리기",
     "next": "다음",
     "closeConfirm": {
       "title": "저장하지 않고 나갈까요?",
@@ -154,7 +156,7 @@
     },
     "processing": {
       "step1": "음성을 글로 옮기는 중",
-      "step2": "AI가 다듬는 중",
+      "step2": "AI가 교정하는 중",
       "step3": "감정을 분석하는 중",
       "statusPending": "대기 중",
       "statusActive": "진행 중...",
@@ -166,7 +168,7 @@
     "emotionLabel": "감정",
     "changeEmotion": "변경",
     "version": {
-      "polished": "다듬은 글",
+      "corrected": "교정한 글",
       "original": "원본"
     },
     "text": "내용",
@@ -247,7 +249,7 @@
       "deleteCancel": "취소",
       "enableCorrection": "AI 교정 활성화",
       "enableCorrectionDisabledHint": "AI 모델을 설치해야 사용할 수 있어요",
-      "enableCorrectionOnHint": "녹음 텍스트를 AI가 다듬어 저장합니다",
+      "enableCorrectionOnHint": "녹음 텍스트를 AI가 교정해 저장합니다",
       "enableCorrectionOffHint": "녹음 텍스트를 원본 그대로 저장합니다",
       "unsupportedMemory": "메모리가 부족하여\nAI 교정을 사용할 수 없습니다."
     },
@@ -292,7 +294,7 @@
   "onboarding": {
     "subtitle": "음성으로 쓰는 일기",
     "feature1": "목소리로 일기를 작성합니다",
-    "feature2": "AI가 글을 다듬어 줍니다",
+    "feature2": "AI가 글을 교정해 줍니다",
     "feature3": "모든 데이터는 기기에만 저장됩니다",
     "startButton": "시작하기",
     "startHint": "탭하면 일기 작성을 시작합니다"
