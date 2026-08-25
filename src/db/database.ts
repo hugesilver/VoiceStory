@@ -4,7 +4,6 @@ import * as SQLite from "expo-sqlite";
 const db = SQLite.openDatabaseSync("voicestory.db");
 const SCHEMA_VERSION: number = 4;
 
-
 interface RawDiaryRow {
   id: number;
   text: string;
@@ -75,6 +74,10 @@ export const initDatabase = () => {
   });
 };
 
+// 출시본(v3)의 createdAt/updatedAt는 초 단위
+// ms로 바꾸면 기존 일기의 날짜가 1970년으로 읽힘
+const nowInSeconds = () => Math.floor(Date.now() / 1000);
+
 const toDiaryRow = (row: RawDiaryRow): DiaryRow => {
   return {
     id: row.id,
@@ -83,8 +86,8 @@ const toDiaryRow = (row: RawDiaryRow): DiaryRow => {
     emotion: row.emotion as Emotion,
     audioPath: row.audioPath,
     isFavorite: row.isFavorite === 1,
-    createdAt: new Date(row.createdAt),
-    updatedAt: new Date(row.updatedAt),
+    createdAt: new Date(row.createdAt * 1000),
+    updatedAt: new Date(row.updatedAt * 1000),
   };
 };
 
@@ -111,7 +114,7 @@ export const createDiary = (diary: {
   emotion: Emotion;
   audioPath: string;
 }) => {
-  const now = Date.now();
+  const now = nowInSeconds();
 
   db.runSync(
     `INSERT INTO diaries (text, content, emotion, audioPath, isFavorite, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)`,
@@ -124,7 +127,7 @@ export const updateDiary = (diary: {
   content: string;
   emotion: Emotion;
 }) => {
-  const now = Date.now();
+  const now = nowInSeconds();
 
   db.runSync(
     `UPDATE diaries SET content = ?, emotion = ?, updatedAt = ? WHERE id = ?`,
