@@ -1,7 +1,8 @@
+import { type Emotion } from "@/constants/emotion";
 import { Layout, TouchSize } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
+import { useAITasks } from "@/hooks/use-ai-tasks";
 import { RecordResult } from "@/hooks/use-recording";
-import { useTextCorrection } from "@/hooks/use-text-correction";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { router, useLocalSearchParams } from "expo-router";
@@ -31,7 +32,8 @@ export default function CorrectionModal() {
   const { text, audioUri } = useLocalSearchParams<RecordResult>();
   const originalText = text ?? "";
 
-  const { correctText, isAiEnabled, isReady, interrupt } = useTextCorrection();
+  const { correctText, detectEmotion, isAiEnabled, isReady, interrupt } =
+    useAITasks();
 
   // 최종 본문
   const [content, setContent] = useState(originalText);
@@ -40,6 +42,11 @@ export default function CorrectionModal() {
   const [isCorrecting, setIsCorrecting] = useState(
     isAiEnabled && originalText.length > 0,
   );
+
+  // 감정
+  const [emotion, setEmotion] = useState<Emotion | null>(null);
+  const [isDetectingEmotion, setIsDetectingEmotion] = useState(false);
+
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   // 반복 교정 방지
@@ -71,19 +78,35 @@ export default function CorrectionModal() {
         AccessibilityInfo.announceForAccessibility(
           t("correction.announcement.done"),
         );
+
+        // 저장 화면에서 다시 기다리지 않도록 교정 직후 이어서 분석한다
+        setIsCorrecting(false);
+        setIsDetectingEmotion(true);
+
+        const detected = await detectEmotion(corrected);
+
+        if (isCancelledRef.current) {
+          return;
+        }
+
+        setEmotion(detected);
       } catch {
         // 실패 시 원본으로
       } finally {
         setIsCorrecting(false);
+        setIsDetectingEmotion(false);
       }
     };
 
     run();
-  }, [isReady, originalText, correctText, t]);
+  }, [isReady, originalText, correctText, detectEmotion, t]);
 
-  // 교정 경과 시간
+  // 교정과 감정 분석을 하나의 대기 구간으로 묶는다
+  const isBusy = isCorrecting || isDetectingEmotion;
+
+  // 대기 경과 시간
   useEffect(() => {
-    if (!isCorrecting) {
+    if (!isBusy) {
       return;
     }
 
@@ -94,12 +117,13 @@ export default function CorrectionModal() {
     );
 
     return () => clearInterval(id);
-  }, [isCorrecting]);
+  }, [isBusy]);
 
   const handleCancelCorrection = () => {
     isCancelledRef.current = true;
     interrupt();
     setIsCorrecting(false);
+    setIsDetectingEmotion(false);
     AccessibilityInfo.announceForAccessibility(
       t("correction.announcement.cancelled"),
     );
@@ -114,14 +138,23 @@ export default function CorrectionModal() {
         {
           text: t("correction.closeConfirm.confirm"),
           style: "destructive",
-          onPress: () => router.back(),
+          onPress: () => router.dismiss(),
         },
       ],
     );
   };
 
   const handleNext = () => {
-    console.debug("본문:", content, "오디오 URI:", audioUri);
+    router.push({
+      pathname: "/save",
+      params: {
+        text: originalText,
+        content,
+        audioUri: audioUri ?? "",
+        // 파라미터는 문자열만 실을 수 있어 못 고른 경우는 빈 값으로
+        emotion: emotion ?? "",
+      },
+    });
   };
 
   return (
@@ -143,17 +176,17 @@ export default function CorrectionModal() {
           style={[styles.title, { color: color.textPrimary }]}
           accessibilityRole="header"
         >
-          {isAiEnabled
-            ? t("correction.title")
-            : t("correction.titleWithoutAi")}
+          {isAiEnabled ? t("correction.title") : t("correction.titleWithoutAi")}
         </Text>
       </View>
 
-      {isCorrecting ? (
+      {isBusy ? (
         <View style={styles.center}>
           <ActivityIndicator size="large" color={color.primary} />
           <Text style={[styles.status, { color: color.textPrimary }]}>
-            {t("correction.correcting")}
+            {isDetectingEmotion
+              ? t("correction.processing.step3")
+              : t("correction.correcting")}
           </Text>
           <Text style={[styles.elapsed, { color: color.textSecondary }]}>
             {t("correction.elapsed", { seconds: elapsedSeconds })}
@@ -240,7 +273,7 @@ export default function CorrectionModal() {
       )}
 
       {/* 다음 */}
-      {!isCorrecting ? (
+      {!isBusy ? (
         <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
           <Pressable
             onPress={handleNext}

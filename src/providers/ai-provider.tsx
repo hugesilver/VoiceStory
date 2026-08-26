@@ -34,6 +34,7 @@ type AIContextValue = LLMType & {
   isDeviceSupported: boolean;
   setAiEnabled: (enabled: boolean) => Promise<void>;
   getModelSize: () => Promise<number>;
+  prompt: (system: string, user: string) => Promise<string>;
 };
 const AIContext = createContext<AIContextValue | null>(null);
 
@@ -155,6 +156,17 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  // Qwen3는 추론 과정을 먼저 출력한다. /no_think로 끄고, 그래도 남는 <think> 블록은 제거한다.
+  // 모델 고유의 습성이므로 기능별 훅이 아니라 여기서 처리한다
+  const prompt = async (system: string, user: string): Promise<string> => {
+    const result = await llm.generate([
+      { role: "system", content: system },
+      { role: "user", content: `/no_think\n${user}` },
+    ]);
+
+    return result.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
+  };
+
   // AI 모델 용량 조회
   const getModelSize = () =>
     ExpoResourceFetcher.getFilesTotalSize(
@@ -172,6 +184,7 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
         isDeviceSupported: IS_DEVICE_SUPPORTED,
         setAiEnabled,
         getModelSize,
+        prompt,
       }}
     >
       {children}

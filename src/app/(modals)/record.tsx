@@ -5,7 +5,14 @@ import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Linking,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const MIC_ICON_SIZE = 80;
@@ -36,6 +43,28 @@ export default function RecordModal() {
   const isStopping = recordingState === "stopping";
   const permissionDenied = hasPermission === false;
 
+  // 녹음 중이거나 받아쓴 내용이 있으면 그냥 닫지 않는다
+  const handleClose = () => {
+    if (!isRecording && !transcript) {
+      router.dismissAll();
+
+      return;
+    }
+
+    Alert.alert(
+      t("record.closeWhileRecording.title"),
+      t("record.closeWhileRecording.message"),
+      [
+        { text: t("record.closeWhileRecording.cancel"), style: "cancel" },
+        {
+          text: t("record.closeWhileRecording.confirm"),
+          style: "destructive",
+          onPress: () => router.dismiss(),
+        },
+      ],
+    );
+  };
+
   const handleStop = async () => {
     const { text, audioUri } = await recordStop();
 
@@ -50,7 +79,7 @@ export default function RecordModal() {
       {/* 헤더 닫기 */}
       <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <Pressable
-          onPress={() => router.back()}
+          onPress={handleClose}
           style={[
             styles.closeButton,
             { backgroundColor: colors.card, borderColor: colors.border },
