@@ -112,6 +112,9 @@
     "emotionLabel": "Today's emotion",
     "emotionDetecting": "AI analyzing...",
     "emotionDetected": "AI suggests {{emotion}}",
+    "emotionDetectFailed": "AI couldn't suggest an emotion",
+    "emotionRequired": "Select an emotion to save",
+    "emotionRequiredHint": "Select an emotion before saving",
     "saveButton": "Save",
     "saving": "Saving...",
     "closeConfirm": {

@@ -111,6 +111,9 @@
     "emotionLabel": "今天的心情",
     "emotionDetecting": "AI分析中...",
     "emotionDetected": "AI建議{{emotion}}",
+    "emotionDetectFailed": "AI未能給出心情建議",
+    "emotionRequired": "選擇心情後即可儲存",
+    "emotionRequiredHint": "儲存前請先選擇心情",
     "saveButton": "儲存",
     "saving": "儲存中...",
     "closeConfirm": {

@@ -111,6 +111,9 @@
     "emotionLabel": "今日の気持ち",
     "emotionDetecting": "AI分析中...",
     "emotionDetected": "AIが{{emotion}}を提案しています",
+    "emotionDetectFailed": "AIは気持ちを提案できませんでした",
+    "emotionRequired": "気持ちを選ぶと保存できます",
+    "emotionRequiredHint": "保存するには先に気持ちを選択してください",
     "saveButton": "保存する",
     "saving": "保存中...",
     "closeConfirm": {

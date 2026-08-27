@@ -19,12 +19,16 @@ const EMOTION_DETECTION_PROMPT =
   "You are an emotion classifier for diary entries. " +
   "Analyze the emotional tone of the given text and respond with exactly one word. " +
   "Choose the single best match: happy, neutral, sad, angry, or tired. " +
+  "If the text is too short or carries no emotional signal, respond with unknown instead of guessing. " +
   "Respond only with the single word, nothing else.";
 
-// 못 찾으면 중립
-const parseEmotion = (response: string): Emotion =>
-  EMOTIONS.find((emotion) => response.toLowerCase().includes(emotion)) ??
-  "neutral";
+// 못 찾으면 null(unknown)
+// 응답 전체에서 영문만 추출 후 감정 타입 비교
+const parseEmotion = (response: string): Emotion | null => {
+  const word = response.toLowerCase().replace(/[^a-z]/g, "");
+
+  return EMOTIONS.find((emotion) => emotion === word) ?? null;
+};
 
 export const useAITasks = () => {
   const { prompt, isAiEnabled, isReady, isGenerating, interrupt } = useAI();
@@ -32,7 +36,7 @@ export const useAITasks = () => {
   const correctText = (text: string): Promise<string> =>
     prompt(TEXT_CORRECTION_PROMPT, text);
 
-  const detectEmotion = async (text: string): Promise<Emotion> =>
+  const detectEmotion = async (text: string): Promise<Emotion | null> =>
     parseEmotion(await prompt(EMOTION_DETECTION_PROMPT, text));
 
   return {

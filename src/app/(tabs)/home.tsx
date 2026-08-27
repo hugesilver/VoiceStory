@@ -1,8 +1,16 @@
 import { useTheme } from "@/hooks/use-theme";
 import { useAI } from "@/providers/ai-provider";
-import { router } from "expo-router";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  AccessibilityInfo,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { DiaryCell, type Diary } from "../../components/ui/diary-cell";
 import { ModelDownloadBanner } from "../../components/ui/model-download-banner";
@@ -14,6 +22,26 @@ export default function HomeScreen() {
   const { t } = useTranslation();
   const color = useTheme();
   const { isReady, downloadProgress } = useAI();
+
+  // 저장 화면에서 넘겨받은 파라미터
+  const { saved } = useLocalSearchParams<{ saved?: string }>();
+
+  // 저장 완료 안내
+  useFocusEffect(
+    useCallback(() => {
+      if (saved !== "true") {
+        return;
+      }
+
+      // 탭을 이동으로 인해 중복 발화 방지
+      router.setParams({ saved: "" });
+
+      AccessibilityInfo.announceForAccessibilityWithOptions(
+        t("save.announcement.saved"),
+        { queue: true },
+      );
+    }, [saved, t]),
+  );
 
   // 진행률이 0이면 확인 중(디스크의 모델을 로드하는 중)
   const isDownloading =

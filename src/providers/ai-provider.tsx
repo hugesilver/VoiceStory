@@ -164,6 +164,10 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
       { role: "user", content: `/no_think\n${user}` },
     ]);
 
+    if (__DEV__) {
+      console.log("[AI raw]", JSON.stringify(result));
+    }
+
     return result.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
   };
 

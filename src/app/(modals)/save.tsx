@@ -4,26 +4,21 @@ import { Layout, Radius, TouchSize } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { createDiary } from "@/db/database";
 import { useTheme } from "@/hooks/use-theme";
+import { useAI } from "@/providers/ai-provider";
 import { keepAudio } from "@/utils/audio";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import * as Haptics from "expo-haptics";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AccessibilityInfo,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SaveModal() {
   const { t, i18n } = useTranslation();
   const color = useTheme();
   const insets = useSafeAreaInsets();
+  const { isAiEnabled } = useAI();
 
   const {
     text,
@@ -74,7 +69,6 @@ export default function SaveModal() {
     });
 
     await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    AccessibilityInfo.announceForAccessibility(t("save.announcement.saved"));
 
     console.debug("저장 완료:", {
       text,
@@ -83,10 +77,13 @@ export default function SaveModal() {
       audioPath,
     });
 
-    router.dismissTo("/home");
+    router.dismissTo({ pathname: "/home", params: { saved: "true" } });
   };
 
   const canSave = emotion !== null && !isSaving;
+
+  // 감정 힌트 표시 여부
+  const showHint = detectedEmotion !== null || isAiEnabled || emotion === null;
 
   return (
     <View style={[styles.root, { backgroundColor: color.surface }]}>
@@ -141,16 +138,32 @@ export default function SaveModal() {
         >
           {t("save.emotionLabel")}
         </Text>
-        <EmotionPicker selected={emotion} onSelect={setEmotion} />
 
-        {/* AI 자동 선택 힌트 텍스트 */}
-        {detectedEmotion ? (
-          <Text style={[styles.hint, { color: color.textSecondary }]}>
-            {t("save.emotionDetected", {
-              emotion: t(`diary.emotion.${detectedEmotion}`),
-            })}
-          </Text>
+        {showHint ? (
+          <View accessible>
+            {/* AI 자동 선택 힌트 텍스트 */}
+            {detectedEmotion ? (
+              <Text style={[styles.hint, { color: color.textSecondary }]}>
+                {t("save.emotionDetected", {
+                  emotion: t(`diary.emotion.${detectedEmotion}`),
+                })}
+              </Text>
+            ) : isAiEnabled ? (
+              <Text style={[styles.hint, { color: color.textSecondary }]}>
+                {t("save.emotionDetectFailed")}
+              </Text>
+            ) : null}
+
+            {/* 저장이 막힌 이유 */}
+            {emotion ? null : (
+              <Text style={[styles.hint, { color: color.textSecondary }]}>
+                {t("save.emotionRequired")}
+              </Text>
+            )}
+          </View>
         ) : null}
+
+        <EmotionPicker selected={emotion} onSelect={setEmotion} />
       </ScrollView>
 
       {/* 저장 */}
@@ -165,7 +178,9 @@ export default function SaveModal() {
           accessibilityRole="button"
           accessibilityState={{ disabled: !canSave }}
           accessibilityLabel={t("save.saveButton")}
-          accessibilityHint={emotion ? undefined : t("save.emotionLabel")}
+          accessibilityHint={
+            emotion ? undefined : t("save.emotionRequiredHint")
+          }
         >
           <Text style={[styles.saveLabel, { color: color.onPrimary }]}>
             {isSaving ? t("save.saving") : t("save.saveButton")}

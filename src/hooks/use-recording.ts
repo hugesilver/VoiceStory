@@ -3,10 +3,15 @@ import * as Haptics from "expo-haptics";
 import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
 import { getLocales } from "expo-localization";
 import {
+  AVAudioSessionCategory,
+  AVAudioSessionCategoryOptions,
+  AVAudioSessionMode,
   ExpoSpeechRecognitionModule,
   useSpeechRecognitionEvent,
 } from "expo-speech-recognition";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { AccessibilityInfo } from "react-native";
 
 export type RecordingState = "idle" | "recording" | "stopping";
 export type RecordResult = {
@@ -41,6 +46,8 @@ const getSpeechLocale = async (): Promise<string> => {
 };
 
 export const useRecording = () => {
+  const { t } = useTranslation();
+
   const [recordingState, setRecordingState] = useState<RecordingState>("idle");
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [timer, setTimer] = useState<number>(0);
@@ -89,6 +96,9 @@ export const useRecording = () => {
   useSpeechRecognitionEvent("audiostart", () => {
     setRecordingState("recording");
     setTimer(0);
+    AccessibilityInfo.announceForAccessibility(
+      t("record.recording.startAnnouncement"),
+    );
   });
 
   // 녹음 종료 이벤트
@@ -189,6 +199,15 @@ export const useRecording = () => {
         Device.isDevice &&
         ExpoSpeechRecognitionModule.supportsOnDeviceRecognition(),
       recordingOptions: { persist: true },
+      iosCategory: {
+        category: AVAudioSessionCategory.playAndRecord,
+        categoryOptions: [
+          AVAudioSessionCategoryOptions.defaultToSpeaker,
+          AVAudioSessionCategoryOptions.allowBluetooth,
+          AVAudioSessionCategoryOptions.mixWithOthers,
+        ],
+        mode: AVAudioSessionMode.default,
+      },
     });
   };
 

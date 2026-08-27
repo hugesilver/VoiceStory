@@ -195,7 +195,7 @@ export default function CorrectionModal() {
           {elapsedSeconds >= CANCEL_BUTTON_DELAY_SECONDS ? (
             <Pressable
               onPress={handleCancelCorrection}
-              style={styles.textButton}
+              style={[styles.textButton, { alignSelf: "center" }]}
               accessibilityRole="button"
               accessibilityLabel={t("correction.cancel")}
             >
