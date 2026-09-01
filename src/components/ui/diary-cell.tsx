@@ -10,7 +10,7 @@ export interface Diary {
   id: string;
   emotion: Emotion;
   createdAt: Date;
-  preview: string;
+  content: string;
   audioPath: string;
 }
 
@@ -57,7 +57,7 @@ export const DiaryCell = ({ diary, onPress }: Props) => {
       accessibilityLabel={t("diary.accessibilityLabel", {
         date: formattedDateFull,
         emotion: emotionLabel,
-        preview: diary.preview,
+        content: diary.content,
       })}
     >
       <View style={styles.dateRow}>
@@ -96,7 +96,7 @@ export const DiaryCell = ({ diary, onPress }: Props) => {
         style={[styles.preview, { color: color.textSecondary }]}
         numberOfLines={2}
       >
-        {diary.preview}
+        {diary.content}
       </Text>
     </Pressable>
   );

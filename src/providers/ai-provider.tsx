@@ -10,12 +10,7 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { AccessibilityInfo, Platform } from "react-native";
-import {
-  LLMType,
-  models,
-  RnExecutorchErrorCode,
-  useLLM,
-} from "react-native-executorch";
+import { LLMType, models, useLLM } from "react-native-executorch";
 import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 
 const AI_MODEL = models.llm.qwen3_1_7b();
@@ -116,17 +111,6 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [isAiEnabled]);
 
-  // 취소 시 알리지 않음
-  useEffect(() => {
-    if (
-      llm.error &&
-      llm.error.code !== RnExecutorchErrorCode.DownloadInterrupted
-    ) {
-      AccessibilityInfo.announceForAccessibility(
-        t("home.modelDownload.errorMessage"),
-      );
-    }
-  }, [llm.error, t]);
 
   // 끄면 다운로드 취소 및 AI 모델 삭제
   const setAiEnabled = async (enabled: boolean) => {

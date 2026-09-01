@@ -61,7 +61,7 @@
     }
   },
   "diary": {
-    "accessibilityLabel": "{{date}} diary, emotion {{emotion}}. {{preview}}",
+    "accessibilityLabel": "{{date}} diary, emotion {{emotion}}. {{content}}",
     "emotion": {
       "happy": "Happy",
       "neutral": "Neutral",

@@ -60,7 +60,7 @@
     }
   },
   "diary": {
-    "accessibilityLabel": "{{date}}の日記、感情：{{emotion}}。{{preview}}",
+    "accessibilityLabel": "{{date}}の日記、感情：{{emotion}}。{{content}}",
     "emotion": {
       "happy": "嬉しい",
       "neutral": "普通",

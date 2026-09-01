@@ -60,7 +60,7 @@
     }
   },
   "diary": {
-    "accessibilityLabel": "{{date}} 일기, 감정 {{emotion}}. {{preview}}",
+    "accessibilityLabel": "{{date}} 일기, 감정 {{emotion}}. {{content}}",
     "emotion": {
       "happy": "기쁨",
       "neutral": "보통",

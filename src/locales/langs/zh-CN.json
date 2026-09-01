@@ -60,7 +60,7 @@
     }
   },
   "diary": {
-    "accessibilityLabel": "{{date}}日记，情绪：{{emotion}}。{{preview}}",
+    "accessibilityLabel": "{{date}}日记，情绪：{{emotion}}。{{content}}",
     "emotion": {
       "happy": "开心",
       "neutral": "普通",
