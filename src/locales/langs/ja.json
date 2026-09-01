@@ -153,6 +153,7 @@
     "announcement": {
       "done": "AI校正が完了しました",
       "cancelled": "AI校正がキャンセルされました",
+      "failed": "AI校正に失敗したため、原文を使用します",
       "selected": "{{version}}バージョンを選択しました",
       "editStarted": "編集モードです。テキストを修正してください",
       "editDone": "編集が完了しました"

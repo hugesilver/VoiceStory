@@ -1,16 +1,13 @@
-import { type Emotion } from "@/constants/emotion";
 import { Layout, TouchSize } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
-import { useAITasks } from "@/hooks/use-ai-tasks";
-import { RecordResult } from "@/hooks/use-recording";
 import { useTheme } from "@/hooks/use-theme";
+import { useAI } from "@/providers/ai-provider";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { router, useLocalSearchParams } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AccessibilityInfo,
-  ActivityIndicator,
   Alert,
   Pressable,
   ScrollView,
@@ -21,113 +18,41 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-// 딜레이 취소 시간
-const CANCEL_BUTTON_DELAY_SECONDS = 5;
-
 export default function CorrectionModal() {
   const { t } = useTranslation();
   const color = useTheme();
   const insets = useSafeAreaInsets();
+  const { isAiEnabled } = useAI();
 
-  const { text, audioUri } = useLocalSearchParams<RecordResult>();
+  const {
+    text,
+    content: correctedText,
+    audioUri,
+    emotion,
+    announcement,
+  } = useLocalSearchParams<{
+    text: string;
+    content: string;
+    audioUri: string;
+    emotion: string;
+    announcement: string;
+  }>();
+
   const originalText = text ?? "";
 
-  const { correctText, detectEmotion, isAiEnabled, isReady, interrupt } =
-    useAITasks();
-
   // 최종 본문
-  const [content, setContent] = useState(originalText);
-  // effect는 첫 렌더 뒤에 돌기 때문에, false로 시작하면 결과 화면이 한 번 깜빡이는 이슈가 있음
-  // 모델 로드가 끝나기 전에도 기다리는 화면을 보여줘야 하므로 isReady가 아닌 isAiEnabled로 판단
-  const [isCorrecting, setIsCorrecting] = useState(
-    isAiEnabled && originalText.length > 0,
-  );
-
-  // 감정
-  const [emotion, setEmotion] = useState<Emotion | null>(null);
-  const [isDetectingEmotion, setIsDetectingEmotion] = useState(false);
-
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
-
-  // 반복 교정 방지
-  const hasCorrectedRef = useRef(false);
-
-  // 취소 후 도착 한 결과 무시
-  const isCancelledRef = useRef(false);
+  const [content, setContent] = useState(correctedText || originalText);
 
   useEffect(() => {
-    // AI 비활성화 상태 or 준비 중 아님
-    if (!isReady || hasCorrectedRef.current || !originalText) {
+    if (!announcement) {
       return;
     }
 
-    hasCorrectedRef.current = true;
-
-    const run = async () => {
-      setIsCorrecting(true);
-      AccessibilityInfo.announceForAccessibility(t("correction.correcting"));
-
-      try {
-        const corrected = await correctText(originalText);
-
-        if (isCancelledRef.current) {
-          return;
-        }
-
-        setContent(corrected);
-        AccessibilityInfo.announceForAccessibility(
-          t("correction.announcement.done"),
-        );
-
-        // 저장 화면에서 다시 기다리지 않도록 교정 직후 이어서 분석한다
-        setIsCorrecting(false);
-        setIsDetectingEmotion(true);
-
-        const detected = await detectEmotion(corrected);
-
-        if (isCancelledRef.current) {
-          return;
-        }
-
-        setEmotion(detected);
-      } catch {
-        // 실패 시 원본으로
-      } finally {
-        setIsCorrecting(false);
-        setIsDetectingEmotion(false);
-      }
-    };
-
-    run();
-  }, [isReady, originalText, correctText, detectEmotion, t]);
-
-  // 교정과 감정 분석을 하나의 대기 구간으로 묶는다
-  const isBusy = isCorrecting || isDetectingEmotion;
-
-  // 대기 경과 시간
-  useEffect(() => {
-    if (!isBusy) {
-      return;
-    }
-
-    const now = Date.now();
-    const id = setInterval(
-      () => setElapsedSeconds(Math.floor((Date.now() - now) / 1000)),
-      1000,
+    AccessibilityInfo.announceForAccessibilityWithOptions(
+      t(`correction.announcement.${announcement}`),
+      { queue: true },
     );
-
-    return () => clearInterval(id);
-  }, [isBusy]);
-
-  const handleCancelCorrection = () => {
-    isCancelledRef.current = true;
-    interrupt();
-    setIsCorrecting(false);
-    setIsDetectingEmotion(false);
-    AccessibilityInfo.announceForAccessibility(
-      t("correction.announcement.cancelled"),
-    );
-  };
+  }, [announcement, t]);
 
   const handleClose = () => {
     Alert.alert(
@@ -180,113 +105,84 @@ export default function CorrectionModal() {
         </Text>
       </View>
 
-      {isBusy ? (
-        <View style={styles.center}>
-          <ActivityIndicator size="large" color={color.primary} />
-          <Text style={[styles.status, { color: color.textPrimary }]}>
-            {isDetectingEmotion
-              ? t("correction.processing.step3")
-              : t("correction.correcting")}
-          </Text>
-          <Text style={[styles.elapsed, { color: color.textSecondary }]}>
-            {t("correction.elapsed", { seconds: elapsedSeconds })}
-          </Text>
-
-          {elapsedSeconds >= CANCEL_BUTTON_DELAY_SECONDS ? (
-            <Pressable
-              onPress={handleCancelCorrection}
-              style={[styles.textButton, { alignSelf: "center" }]}
-              accessibilityRole="button"
-              accessibilityLabel={t("correction.cancel")}
+      <ScrollView
+        style={styles.body}
+        contentContainerStyle={[
+          styles.bodyContent,
+          { paddingTop: insets.top + TouchSize.min + 24 },
+        ]}
+        keyboardDismissMode="interactive"
+      >
+        {/* AI를 안 쓰면 교정본이 없어 원본과 본문이 같으므로 하나만 보여준다 */}
+        {isAiEnabled ? (
+          <>
+            <Text
+              style={[styles.sectionLabel, { color: color.textSecondary }]}
+              accessibilityRole="header"
             >
-              <Text style={[styles.textButtonLabel, { color: color.error }]}>
-                {t("correction.cancel")}
-              </Text>
-            </Pressable>
-          ) : null}
-        </View>
-      ) : (
-        <ScrollView
-          style={styles.body}
-          contentContainerStyle={[
-            styles.bodyContent,
-            { paddingTop: insets.top + TouchSize.min + 24 },
-          ]}
-          keyboardDismissMode="interactive"
+              {t("correction.original")}
+            </Text>
+            <TextInput
+              value={originalText}
+              multiline
+              editable={false}
+              style={[
+                styles.input,
+                styles.readOnlyInput,
+                { color: color.textSecondary, borderColor: color.border },
+              ]}
+              accessibilityLabel={t("correction.original")}
+            />
+          </>
+        ) : null}
+
+        {/* 최종 본문 */}
+        <Text
+          style={[styles.sectionLabel, { color: color.textSecondary }]}
+          accessibilityRole="header"
         >
-          {/* AI를 안 쓰면 교정본이 없어 원본과 본문이 같으므로 하나만 보여준다 */}
-          {isAiEnabled ? (
-            <>
-              <Text
-                style={[styles.sectionLabel, { color: color.textSecondary }]}
-                accessibilityRole="header"
-              >
-                {t("correction.original")}
-              </Text>
-              <TextInput
-                value={originalText}
-                multiline
-                editable={false}
-                style={[
-                  styles.input,
-                  styles.readOnlyInput,
-                  { color: color.textSecondary, borderColor: color.border },
-                ]}
-                accessibilityLabel={t("correction.original")}
-              />
-            </>
-          ) : null}
+          {isAiEnabled ? t("correction.corrected") : t("correction.body")}
+        </Text>
+        <TextInput
+          value={content}
+          onChangeText={setContent}
+          multiline
+          style={[
+            styles.input,
+            { color: color.textPrimary, borderColor: color.border },
+          ]}
+          accessibilityLabel={t("correction.editingLabel")}
+          accessibilityHint={t("correction.editingHint")}
+        />
 
-          {/* 최종 본문 */}
-          <Text
-            style={[styles.sectionLabel, { color: color.textSecondary }]}
-            accessibilityRole="header"
-          >
-            {isAiEnabled ? t("correction.corrected") : t("correction.body")}
-          </Text>
-          <TextInput
-            value={content}
-            onChangeText={setContent}
-            multiline
-            style={[
-              styles.input,
-              { color: color.textPrimary, borderColor: color.border },
-            ]}
-            accessibilityLabel={t("correction.editingLabel")}
-            accessibilityHint={t("correction.editingHint")}
-          />
-
-          {/* AI 교정 오류 복귀 */}
-          {content !== originalText ? (
-            <Pressable
-              onPress={() => setContent(originalText)}
-              style={styles.textButton}
-              accessibilityRole="button"
-              accessibilityLabel={t("correction.useOriginal")}
-            >
-              <Text style={[styles.textButtonLabel, { color: color.primary }]}>
-                {t("correction.useOriginal")}
-              </Text>
-            </Pressable>
-          ) : null}
-        </ScrollView>
-      )}
-
-      {/* 다음 */}
-      {!isBusy ? (
-        <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
+        {/* AI 교정 오류 복귀 */}
+        {content !== originalText ? (
           <Pressable
-            onPress={handleNext}
-            style={[styles.nextButton, { backgroundColor: color.primary }]}
+            onPress={() => setContent(originalText)}
+            style={styles.textButton}
             accessibilityRole="button"
-            accessibilityLabel={t("correction.next")}
+            accessibilityLabel={t("correction.useOriginal")}
           >
-            <Text style={[styles.nextLabel, { color: color.onPrimary }]}>
-              {t("correction.next")}
+            <Text style={[styles.textButtonLabel, { color: color.primary }]}>
+              {t("correction.useOriginal")}
             </Text>
           </Pressable>
-        </View>
-      ) : null}
+        ) : null}
+      </ScrollView>
+
+      {/* 다음 */}
+      <View style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}>
+        <Pressable
+          onPress={handleNext}
+          style={[styles.nextButton, { backgroundColor: color.primary }]}
+          accessibilityRole="button"
+          accessibilityLabel={t("correction.next")}
+        >
+          <Text style={[styles.nextLabel, { color: color.onPrimary }]}>
+            {t("correction.next")}
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -317,21 +213,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontFamily: Fonts.sansBold,
-  },
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 12,
-    paddingHorizontal: Layout.screenPadding,
-  },
-  status: {
-    fontSize: 18,
-    fontFamily: Fonts.sansMedium,
-  },
-  elapsed: {
-    fontSize: 15,
-    fontFamily: Fonts.sans,
   },
   body: {
     flex: 1,

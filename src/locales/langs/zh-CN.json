@@ -153,6 +153,7 @@
     "announcement": {
       "done": "AI校对完成",
       "cancelled": "AI校对已取消",
+      "failed": "AI校对失败，将使用原文",
       "selected": "已选择{{version}}版本",
       "editStarted": "编辑模式，请修改文本",
       "editDone": "编辑完成"

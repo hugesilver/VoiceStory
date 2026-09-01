@@ -2,6 +2,7 @@ import { Layout, TouchSize } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { useRecording } from "@/hooks/use-recording";
 import { useTheme } from "@/hooks/use-theme";
+import { useAI } from "@/providers/ai-provider";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -29,6 +30,7 @@ export default function RecordModal() {
   const { t } = useTranslation();
   const colors = useTheme();
   const insets = useSafeAreaInsets();
+  const { isAiEnabled } = useAI();
 
   const {
     recordingState,
@@ -69,8 +71,8 @@ export default function RecordModal() {
     const { text, audioUri } = await recordStop();
 
     router.replace({
-      pathname: "/correction",
-      params: { text, audioUri: audioUri ?? "" },
+      pathname: isAiEnabled && text ? "/correcting" : "/correction",
+      params: { text, content: text, audioUri: audioUri ?? "", emotion: "" },
     });
   };
 

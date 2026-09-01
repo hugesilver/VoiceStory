@@ -154,6 +154,7 @@
     "announcement": {
       "done": "AI correction complete",
       "cancelled": "AI correction was cancelled",
+      "failed": "AI correction failed, using the original text",
       "selected": "{{version}} version selected",
       "editStarted": "Edit mode. Modify the text.",
       "editDone": "Editing complete"

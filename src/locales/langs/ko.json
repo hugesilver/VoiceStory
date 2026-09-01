@@ -153,6 +153,7 @@
     "announcement": {
       "done": "AI 교정이 완료되었습니다",
       "cancelled": "AI 교정이 취소되었습니다",
+      "failed": "AI 교정에 실패해 원본을 사용합니다",
       "selected": "{{version}} 버전을 선택했습니다",
       "editStarted": "편집 모드입니다. 텍스트를 수정하세요",
       "editDone": "편집이 완료되었습니다"
