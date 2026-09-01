@@ -128,7 +128,10 @@ export default function HomeScreen() {
     !isReady && downloadProgress > 0 && downloadProgress < 1;
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: color.surface }]}>
+    <SafeAreaView
+      edges={["top"]}
+      style={[styles.safeArea, { backgroundColor: color.surface }]}
+    >
       {/* 헤더 */}
       <View style={styles.header}>
         <Image
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.sansBold,
     letterSpacing: 1.2,
     textTransform: "uppercase",
-    marginBottom: 8,
+    marginBottom: 16,
   },
   listContent: {
     flexGrow: 1,

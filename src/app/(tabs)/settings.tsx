@@ -143,7 +143,10 @@ export default function SettingsScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: color.surface }]}>
+    <SafeAreaView
+      edges={["top"]}
+      style={[styles.safeArea, { backgroundColor: color.surface }]}
+    >
       {/* header 역할을 줘야 스크린 리더에서 제목 단위로 건너뛸 수 있다 */}
       <Text
         style={[styles.title, { color: color.textPrimary }]}
