@@ -5,6 +5,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useAI } from "@/providers/ai-provider";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { router } from "expo-router";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Alert,
@@ -39,7 +40,29 @@ export default function RecordModal() {
     hasPermission,
     recordStart,
     recordStop,
+    error,
   } = useRecording();
+
+  // 오류 표시
+  const isErrorShownRef = useRef(false);
+
+  // 실패 시
+  useEffect(() => {
+    if (!error || isErrorShownRef.current) {
+      return;
+    }
+
+    isErrorShownRef.current = true;
+
+    Alert.alert(t("record.error.title"), t("record.error.message"), [
+      {
+        text: t("record.error.confirm"),
+        onPress: () => {
+          isErrorShownRef.current = false;
+        },
+      },
+    ]);
+  }, [error, t]);
 
   const isRecording = recordingState === "recording";
   const isStopping = recordingState === "stopping";
