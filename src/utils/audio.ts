@@ -1,6 +1,11 @@
 import { Directory, File, Paths } from "expo-file-system";
 
-const RECORDINGS_DIR = "recordings";
+// 출시본이 쓰던 이름 그대로. 바꾸면 기존 사용자의 녹음을 못 찾는다
+const RECORDINGS_DIR = "voicestory-audio";
+
+// 예전 출시본은 절대 경로를 저장한 행이 있다. iOS는 업데이트 때 Documents의 UUID가
+// 바뀌어 그 경로가 끊기므로, 파일명만 뽑아 현재 경로로 다시 만든다
+const toFileName = (stored: string) => stored.split("/").pop() ?? "";
 
 export const keepAudio = (cacheUri: string): string => {
   if (!cacheUri) {
@@ -33,7 +38,9 @@ export const keepAudio = (cacheUri: string): string => {
   }
 };
 
-export const getAudioUri = (fileName: string): string => {
+export const getAudioUri = (stored: string): string => {
+  const fileName = toFileName(stored);
+
   if (!fileName) {
     return "";
   }
@@ -41,7 +48,9 @@ export const getAudioUri = (fileName: string): string => {
   return new File(Paths.document, RECORDINGS_DIR, fileName).uri;
 };
 
-export const deleteAudio = (fileName: string) => {
+export const deleteAudio = (stored: string) => {
+  const fileName = toFileName(stored);
+
   if (!fileName) {
     return;
   }
