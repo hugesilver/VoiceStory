@@ -135,8 +135,6 @@
     "cancel": "Cancel",
     "titleWithoutAi": "Transcription Result",
     "body": "Text",
-    "cancelled": "AI correction was cancelled",
-    "retry": "Try again",
     "original": "Original",
     "corrected": "AI Corrected",
     "useOriginal": "Revert to original",
@@ -147,41 +145,24 @@
       "confirm": "Leave",
       "cancel": "Continue"
     },
-    "edit": "Edit",
-    "editDone": "Done",
     "editingLabel": "Edit text",
     "editingHint": "Edit the text, then tap Done",
     "announcement": {
       "done": "AI correction complete",
       "cancelled": "AI correction was cancelled",
       "failed": "AI correction failed, using the original text",
-      "selected": "{{version}} version selected",
-      "editStarted": "Edit mode. Modify the text.",
-      "editDone": "Editing complete"
+      "editStarted": "Edit mode. Modify the text."
     },
-    "processing": {
-      "step1": "Transcribing your voice",
-      "step2": "Correcting the text",
-      "step3": "Detecting emotion",
-      "statusPending": "Waiting",
-      "statusActive": "Working...",
-      "statusDone": "Done"
-    }
+    "detectingEmotion": "Detecting emotion"
   },
   "diaryDetail": {
     "title": "Diary entry",
     "emotionLabel": "Detected emotion",
-    "changeEmotion": "Change",
-    "version": {
-      "corrected": "Corrected",
-      "original": "Original"
-    },
     "text": "Content",
     "editText": "Edit",
     "editTextDone": "Done",
     "editingLabel": "Edit content",
     "editingHint": "Edit the content, then tap Done",
-    "saving": "Saving...",
     "speed": "{{speed}}x",
     "announcement": {
       "textSaved": "Content saved"
@@ -202,8 +183,7 @@
       "audioButton": "Delete recording",
       "audioConfirmTitle": "Delete this recording?",
       "audioConfirmMessage": "The diary text will be kept, only the recording will be deleted",
-      "audioAnnouncement": "Recording deleted",
-      "errorMessage": "An error occurred while deleting. Please try again"
+      "audioAnnouncement": "Recording deleted"
     }
   },
   "search": {

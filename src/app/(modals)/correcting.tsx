@@ -113,7 +113,7 @@ export default function CorrectingModal() {
           accessibilityRole="header"
         >
           {isDetectingEmotion
-            ? t("correction.processing.step3")
+            ? t("correction.detectingEmotion")
             : t("correction.correcting")}
         </Text>
         <Text style={[styles.elapsed, { color: color.textSecondary }]}>

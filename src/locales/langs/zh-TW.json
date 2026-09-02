@@ -134,8 +134,6 @@
     "cancel": "取消",
     "titleWithoutAi": "語音辨識結果",
     "body": "內文",
-    "cancelled": "AI校對已取消",
-    "retry": "重試",
     "original": "原文",
     "corrected": "AI校對",
     "useOriginal": "還原為原文",
@@ -146,41 +144,24 @@
       "confirm": "離開",
       "cancel": "繼續"
     },
-    "edit": "編輯",
-    "editDone": "完成",
     "editingLabel": "編輯文字",
     "editingHint": "編輯文字後，請點擊完成按鈕",
     "announcement": {
       "done": "AI校對完成",
       "cancelled": "AI校對已取消",
       "failed": "AI校對失敗，將使用原文",
-      "selected": "已選擇{{version}}版本",
-      "editStarted": "編輯模式，請修改文字",
-      "editDone": "編輯完成"
+      "editStarted": "編輯模式，請修改文字"
     },
-    "processing": {
-      "step1": "正在將語音轉為文字",
-      "step2": "AI 正在校對",
-      "step3": "正在分析情緒",
-      "statusPending": "等待中",
-      "statusActive": "處理中...",
-      "statusDone": "完成"
-    }
+    "detectingEmotion": "正在分析情緒"
   },
   "diaryDetail": {
     "title": "日記",
     "emotionLabel": "偵測到的情緒",
-    "changeEmotion": "更改",
-    "version": {
-      "corrected": "校對版",
-      "original": "原文"
-    },
     "text": "內容",
     "editText": "編輯",
     "editTextDone": "完成",
     "editingLabel": "編輯正文",
     "editingHint": "編輯內容後，請點擊完成按鈕",
-    "saving": "儲存中...",
     "speed": "{{speed}}x",
     "announcement": {
       "textSaved": "內容已儲存"
@@ -201,8 +182,7 @@
       "audioButton": "刪除錄音檔案",
       "audioConfirmTitle": "刪除錄音檔案？",
       "audioConfirmMessage": "日記內容將保留，僅刪除錄音檔案",
-      "audioAnnouncement": "錄音檔案已刪除",
-      "errorMessage": "刪除時發生錯誤，請再試一次"
+      "audioAnnouncement": "錄音檔案已刪除"
     }
   },
   "search": {

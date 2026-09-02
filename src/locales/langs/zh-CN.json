@@ -134,8 +134,6 @@
     "cancel": "取消",
     "titleWithoutAi": "语音识别结果",
     "body": "正文",
-    "cancelled": "AI校对已取消",
-    "retry": "重试",
     "original": "原文",
     "corrected": "AI校对",
     "useOriginal": "还原为原文",
@@ -146,41 +144,24 @@
       "confirm": "退出",
       "cancel": "继续"
     },
-    "edit": "编辑",
-    "editDone": "完成",
     "editingLabel": "编辑文本",
     "editingHint": "编辑文本后，请点击完成按钮",
     "announcement": {
       "done": "AI校对完成",
       "cancelled": "AI校对已取消",
       "failed": "AI校对失败，将使用原文",
-      "selected": "已选择{{version}}版本",
-      "editStarted": "编辑模式，请修改文本",
-      "editDone": "编辑完成"
+      "editStarted": "编辑模式，请修改文本"
     },
-    "processing": {
-      "step1": "正在将语音转为文字",
-      "step2": "AI 正在校对",
-      "step3": "正在分析情绪",
-      "statusPending": "等待中",
-      "statusActive": "处理中...",
-      "statusDone": "完成"
-    }
+    "detectingEmotion": "正在分析情绪"
   },
   "diaryDetail": {
     "title": "日记",
     "emotionLabel": "检测到的情绪",
-    "changeEmotion": "更改",
-    "version": {
-      "corrected": "校对版",
-      "original": "原文"
-    },
     "text": "内容",
     "editText": "编辑",
     "editTextDone": "完成",
     "editingLabel": "编辑正文",
     "editingHint": "编辑内容后，请点击完成按钮",
-    "saving": "保存中...",
     "speed": "{{speed}}x",
     "announcement": {
       "textSaved": "内容已保存"
@@ -201,8 +182,7 @@
       "audioButton": "删除录音文件",
       "audioConfirmTitle": "删除录音文件？",
       "audioConfirmMessage": "日记内容将保留，仅删除录音文件",
-      "audioAnnouncement": "录音文件已删除",
-      "errorMessage": "删除时发生错误，请重试"
+      "audioAnnouncement": "录音文件已删除"
     }
   },
   "search": {

@@ -134,8 +134,6 @@
     "cancel": "キャンセル",
     "titleWithoutAi": "音声認識の結果",
     "body": "本文",
-    "cancelled": "AI校正がキャンセルされました",
-    "retry": "再試行",
     "original": "原文",
     "corrected": "AI校正",
     "useOriginal": "原文に戻す",
@@ -146,41 +144,24 @@
       "confirm": "終了",
       "cancel": "続ける"
     },
-    "edit": "編集",
-    "editDone": "完了",
     "editingLabel": "テキストを編集",
     "editingHint": "テキストを編集したら完了ボタンを押してください",
     "announcement": {
       "done": "AI校正が完了しました",
       "cancelled": "AI校正がキャンセルされました",
       "failed": "AI校正に失敗したため、原文を使用します",
-      "selected": "{{version}}バージョンを選択しました",
-      "editStarted": "編集モードです。テキストを修正してください",
-      "editDone": "編集が完了しました"
+      "editStarted": "編集モードです。テキストを修正してください"
     },
-    "processing": {
-      "step1": "音声をテキストに変換中",
-      "step2": "AIが校正しています",
-      "step3": "感情を分析中",
-      "statusPending": "待機中",
-      "statusActive": "進行中...",
-      "statusDone": "完了"
-    }
+    "detectingEmotion": "感情を分析中"
   },
   "diaryDetail": {
     "title": "日記",
     "emotionLabel": "検出された感情",
-    "changeEmotion": "変更",
-    "version": {
-      "corrected": "校正した文章",
-      "original": "原文"
-    },
     "text": "内容",
     "editText": "編集",
     "editTextDone": "完了",
     "editingLabel": "本文を編集",
     "editingHint": "内容を編集したら完了ボタンを押してください",
-    "saving": "保存中...",
     "speed": "{{speed}}x",
     "announcement": {
       "textSaved": "内容を保存しました"
@@ -201,8 +182,7 @@
       "audioButton": "録音ファイルを削除",
       "audioConfirmTitle": "録音ファイルを削除しますか？",
       "audioConfirmMessage": "日記の内容は保持され、録音ファイルのみ削除されます",
-      "audioAnnouncement": "録音ファイルを削除しました",
-      "errorMessage": "削除中にエラーが発生しました。もう一度お試しください"
+      "audioAnnouncement": "録音ファイルを削除しました"
     }
   },
   "search": {

@@ -72,7 +72,7 @@ export const Colors: Record<"light" | "dark", colorTypes> = {
       happy: "#F0C030",
       neutral: "#C8C6C0",
       sad: "#80B8E8",
-      angry: "#EC8080",
+      angry: "#F2A0A0", // card 위 4.39:1로 AA 미달이라 밝힘 (5.68:1)
       tired: "#C0A8E8",
     },
     // emotion chip 배경용 soft 톤
