@@ -68,7 +68,8 @@
             "./assets/fonts/NotoSansCJKkr-Black.otf"
           ]
         }
-      ]
+      ],
+      "expo-audio"
     ],
     "locales": {
       "en": "./src/locales/langs/ios/en.json",

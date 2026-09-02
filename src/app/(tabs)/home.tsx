@@ -165,7 +165,12 @@ export default function HomeScreen() {
         style={styles.list}
         data={diaries}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <DiaryCell diary={item} onPress={() => {}} />}
+        renderItem={({ item }) => (
+          <DiaryCell
+            diary={item}
+            onPress={() => router.push(`/diary/${item.id}`)}
+          />
+        )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         contentContainerStyle={styles.listContent}
         ListHeaderComponent={

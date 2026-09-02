@@ -8,6 +8,7 @@
     "@react-native-vector-icons/ionicons": "^13.1.2",
     "expo": "~56.0.14",
     "expo-asset": "~56.0.18",
+    "expo-audio": "~56.0.13",
     "expo-build-properties": "~56.0.21",
     "expo-constants": "~56.0.18",
     "expo-device": "~56.0.4",

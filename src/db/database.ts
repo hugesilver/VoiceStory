@@ -135,6 +135,16 @@ export const updateDiary = (diary: {
   );
 };
 
+// 녹음본 삭제
+export const clearDiaryAudio = (id: number) => {
+  const now = nowInSeconds();
+
+  db.runSync(`UPDATE diaries SET audioPath = '', updatedAt = ? WHERE id = ?`, [
+    now,
+    id,
+  ]);
+};
+
 export const deleteDiary = (id: number) => {
   db.runSync(`DELETE FROM diaries WHERE id = ?`, [id]);
 };
