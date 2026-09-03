@@ -63,6 +63,19 @@ export default function AppTabs() {
         }}
       />
       <Tabs.Screen
+        name="search"
+        options={{
+          tabBarLabel: t("tab.search"),
+          tabBarAccessibilityLabel: t("tab.search"),
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="search" size={TAB_ICON_SIZE} color={color} />
+          ),
+        }}
+        listeners={{
+          tabPress: () => accessibility(t("tab.searchAnnouncement")),
+        }}
+      />
+      <Tabs.Screen
         name="settings"
         options={{
           tabBarLabel: t("tab.settings"),

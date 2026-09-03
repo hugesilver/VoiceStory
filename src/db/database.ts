@@ -99,6 +99,36 @@ export const getDiaries = (): DiaryRow[] => {
   return rows.map(toDiaryRow);
 };
 
+// 검색(본문, 날짜)
+export const searchDiaries = (keyword: string, date: string): DiaryRow[] => {
+  const conditions: string[] = [];
+  const params: string[] = [];
+
+  if (keyword) {
+    conditions.push(`content LIKE ?`);
+    params.push(`%${keyword}%`);
+  }
+
+  if (date) {
+    // createdAt은 초 단위라 기기 시간대로 바꿔서 날짜만 비교한다
+    conditions.push(
+      `strftime('%Y-%m-%d', createdAt, 'unixepoch', 'localtime') = ?`,
+    );
+    params.push(date);
+  }
+
+  if (conditions.length === 0) {
+    return [];
+  }
+
+  const rows = db.getAllSync<RawDiaryRow>(
+    `SELECT * FROM diaries WHERE ${conditions.join(" AND ")} ORDER BY createdAt DESC`,
+    params,
+  );
+
+  return rows.map(toDiaryRow);
+};
+
 export const getDiaryById = (id: number): DiaryRow | null => {
   const row = db.getFirstSync<RawDiaryRow>(
     `SELECT * FROM diaries WHERE id = ?`,
