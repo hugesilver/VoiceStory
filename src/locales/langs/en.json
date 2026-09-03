@@ -17,12 +17,9 @@
   "calendar": {
     "prevMonth": "Previous month",
     "nextMonth": "Next month",
-    "noEntries": "No diary for this day",
-    "hasDiary": "Has diary",
     "dayHint": "Tap to view diary for this day",
     "diaryCount": "{{count}} diary",
-    "diaryCount_other": "{{count}} diaries",
-    "noDiary": "No diary"
+    "diaryCount_other": "{{count}} diaries"
   },
   "home": {
     "calendarButton": "Calendar view",
@@ -190,15 +187,13 @@
     "title": "Search",
     "placeholder": "Search by content",
     "searchButton": "Search",
-    "dateFilter": "Select date",
     "dateClear": "Clear date",
     "resultCount": "{{count}} result",
     "resultCount_other": "{{count}} results",
     "noQuery": "Enter a search term or select a date",
     "noResult": "No results found",
     "announcement": {
-      "results": "{{count}} results found",
-      "dateSelected": "{{date}} selected"
+      "results": "{{count}} results found"
     }
   },
   "settings": {

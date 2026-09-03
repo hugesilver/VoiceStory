@@ -17,11 +17,8 @@
   "calendar": {
     "prevMonth": "上個月",
     "nextMonth": "下個月",
-    "noEntries": "這天沒有日記",
-    "hasDiary": "有日記",
     "dayHint": "點擊查看當天日記",
-    "diaryCount": "{{count}}篇日記",
-    "noDiary": "無日記"
+    "diaryCount": "{{count}}篇日記"
   },
   "home": {
     "calendarButton": "日曆檢視",
@@ -189,14 +186,12 @@
     "title": "搜尋",
     "placeholder": "依內容搜尋",
     "searchButton": "搜尋",
-    "dateFilter": "選擇日期",
     "dateClear": "清除日期",
     "resultCount": "{{count}}筆",
     "noQuery": "請輸入搜尋詞或選擇日期",
     "noResult": "沒有搜尋結果",
     "announcement": {
-      "results": "找到{{count}}筆結果",
-      "dateSelected": "已選擇{{date}}"
+      "results": "找到{{count}}筆結果"
     }
   },
   "settings": {

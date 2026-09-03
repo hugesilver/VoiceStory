@@ -17,11 +17,8 @@
   "calendar": {
     "prevMonth": "이전 달",
     "nextMonth": "다음 달",
-    "noEntries": "이 날의 일기가 없습니다",
-    "hasDiary": "일기 있음",
     "dayHint": "탭하면 이 날의 일기를 봅니다",
-    "diaryCount": "일기 {{count}}개",
-    "noDiary": "일기 없음"
+    "diaryCount": "일기 {{count}}개"
   },
   "home": {
     "calendarButton": "달력으로 보기",
@@ -189,14 +186,12 @@
     "title": "검색",
     "placeholder": "내용으로 검색",
     "searchButton": "검색",
-    "dateFilter": "날짜 선택",
     "dateClear": "날짜 초기화",
     "resultCount": "{{count}}건",
     "noQuery": "검색어를 입력하거나 날짜를 선택해주세요",
     "noResult": "검색 결과가 없습니다",
     "announcement": {
-      "results": "검색 결과 {{count}}건",
-      "dateSelected": "{{date}} 선택됨"
+      "results": "검색 결과 {{count}}건"
     }
   },
   "settings": {

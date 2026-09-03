@@ -17,11 +17,8 @@
   "calendar": {
     "prevMonth": "前の月",
     "nextMonth": "次の月",
-    "noEntries": "この日の日記はありません",
-    "hasDiary": "日記あり",
     "dayHint": "タップするとこの日の日記を表示します",
-    "diaryCount": "日記{{count}}件",
-    "noDiary": "日記なし"
+    "diaryCount": "日記{{count}}件"
   },
   "home": {
     "calendarButton": "カレンダー表示",
@@ -189,14 +186,12 @@
     "title": "検索",
     "placeholder": "内容で検索",
     "searchButton": "検索",
-    "dateFilter": "日付を選択",
     "dateClear": "日付をクリア",
     "resultCount": "{{count}}件",
     "noQuery": "検索キーワードを入力するか日付を選択してください",
     "noResult": "検索結果がありません",
     "announcement": {
-      "results": "検索結果{{count}}件",
-      "dateSelected": "{{date}}を選択しました"
+      "results": "検索結果{{count}}件"
     }
   },
   "settings": {

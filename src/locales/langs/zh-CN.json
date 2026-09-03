@@ -17,11 +17,8 @@
   "calendar": {
     "prevMonth": "上个月",
     "nextMonth": "下个月",
-    "noEntries": "这天没有日记",
-    "hasDiary": "有日记",
     "dayHint": "点击查看当天日记",
-    "diaryCount": "{{count}}篇日记",
-    "noDiary": "无日记"
+    "diaryCount": "{{count}}篇日记"
   },
   "home": {
     "calendarButton": "日历视图",
@@ -189,14 +186,12 @@
     "title": "搜索",
     "placeholder": "按内容搜索",
     "searchButton": "搜索",
-    "dateFilter": "选择日期",
     "dateClear": "清除日期",
     "resultCount": "{{count}}条",
     "noQuery": "请输入搜索词或选择日期",
     "noResult": "没有搜索结果",
     "announcement": {
-      "results": "找到{{count}}条结果",
-      "dateSelected": "已选择{{date}}"
+      "results": "找到{{count}}条结果"
     }
   },
   "settings": {

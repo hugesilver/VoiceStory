@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AccessibilityInfo } from "react-native";
 
-export type RecordingState = "idle" | "recording" | "stopping";
+type RecordingState = "idle" | "recording" | "stopping";
 export type RecordResult = {
   text: string;
   audioUri: string;
