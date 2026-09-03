@@ -1,3 +1,4 @@
+import { hapticSuccess } from "@/utils/haptics";
 import { EmotionPicker } from "@/components/ui/emotion-picker";
 import { EMOTIONS, type Emotion } from "@/constants/emotion";
 import { Layout, Radius, TouchSize } from "@/constants/layout";
@@ -7,7 +8,6 @@ import { useTheme } from "@/hooks/use-theme";
 import { useAI } from "@/providers/ai-provider";
 import { keepAudio } from "@/utils/audio";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import * as Haptics from "expo-haptics";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -68,7 +68,7 @@ export default function SaveModal() {
       audioPath,
     });
 
-    await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    hapticSuccess();
 
     console.debug("저장 완료:", {
       text,

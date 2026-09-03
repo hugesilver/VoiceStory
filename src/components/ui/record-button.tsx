@@ -1,7 +1,7 @@
+import { hapticMedium } from "@/utils/haptics";
 import { IconSize, TouchSize } from "@/constants/layout";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import * as Haptics from "expo-haptics";
 import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet } from "react-native";
 
@@ -15,7 +15,7 @@ export const RecordButton = ({ onPress }: Props) => {
 
   // Medium 햅틱 후 onPress 실행
   const handlePress = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    hapticMedium();
     onPress();
   };
 

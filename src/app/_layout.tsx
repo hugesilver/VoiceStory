@@ -9,9 +9,13 @@ import { initExecutorch } from "react-native-executorch";
 import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 
 import { initDatabase } from "@/db/database";
+import { loadHapticSetting } from "@/utils/haptics";
 
 // DB 초기화
 initDatabase();
+
+// 햅틱 설정값 로드
+loadHapticSetting();
 
 // Executorch 초기화
 initExecutorch({

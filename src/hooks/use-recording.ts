@@ -1,5 +1,5 @@
+import { hapticMedium } from "@/utils/haptics";
 import * as Device from "expo-device";
-import * as Haptics from "expo-haptics";
 import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
 import { getLocales } from "expo-localization";
 import {
@@ -190,7 +190,7 @@ export const useRecording = () => {
     }
 
     // 권한 확인 완료 후 녹음 시작
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); // 햅틱 피드백
+    hapticMedium();
     ExpoSpeechRecognitionModule.start({
       lang: await getSpeechLocale(),
       interimResults: true,
@@ -213,7 +213,7 @@ export const useRecording = () => {
 
   // 녹음 완료
   const recordStop = (): Promise<RecordResult> => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium); // 햅틱 피드백
+    hapticMedium();
 
     if (recordingState !== "recording") {
       return Promise.resolve({

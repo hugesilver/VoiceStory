@@ -1,6 +1,6 @@
+import { hapticLight } from "@/utils/haptics";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import * as Haptics from "expo-haptics";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { AccessibilityInfo } from "react-native";
@@ -16,7 +16,7 @@ export default function AppTabs() {
   const { t } = useTranslation();
   const color = useTheme();
   const accessibility = (announcement: string) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    hapticLight();
     AccessibilityInfo.announceForAccessibility(announcement);
   };
 

@@ -1,9 +1,9 @@
+import { hapticLight } from "@/utils/haptics";
 import { EMOTION_ICONS, EMOTIONS, type Emotion } from "@/constants/emotion";
 import { IconSize, Radius, TouchSize } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import * as Haptics from "expo-haptics";
 import { useTranslation } from "react-i18next";
 import {
   AccessibilityInfo,
@@ -23,7 +23,7 @@ export const EmotionPicker = ({ selected, onSelect }: EmotionProps) => {
   const color = useTheme();
 
   const handlePress = (emotion: Emotion) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    hapticLight();
     onSelect(emotion);
     AccessibilityInfo.announceForAccessibility(t(`diary.emotion.${emotion}`));
   };

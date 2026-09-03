@@ -1,3 +1,4 @@
+import { hapticSuccess, hapticWarning } from "@/utils/haptics";
 import { EmotionPicker } from "@/components/ui/emotion-picker";
 import { type Emotion } from "@/constants/emotion";
 import { IconSize, Layout, Radius, TouchSize } from "@/constants/layout";
@@ -13,7 +14,6 @@ import { formatPlayerTime, useAudioPlayer } from "@/hooks/use-audio-player";
 import { useTheme } from "@/hooks/use-theme";
 import { deleteAudio, getAudioUri } from "@/utils/audio";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import * as Haptics from "expo-haptics";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -74,7 +74,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
     });
     setDiary({ ...diary, content: editedContent });
     setIsEditing(false);
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    hapticSuccess();
     AccessibilityInfo.announceForAccessibility(
       t("diaryDetail.announcement.textSaved"),
     );
@@ -83,7 +83,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
   const handleSelectEmotion = (emotion: Emotion) => {
     updateDiary({ id: diary.id, content: diary.content, emotion });
     setDiary({ ...diary, emotion });
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    hapticSuccess();
   };
 
   // 녹음본 삭제
@@ -100,7 +100,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
             clearDiaryAudio(diary.id);
             deleteAudio(diary.audioPath);
             setDiary({ ...diary, audioPath: "" });
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+            hapticWarning();
             AccessibilityInfo.announceForAccessibility(
               t("diaryDetail.delete.audioAnnouncement"),
             );
@@ -122,7 +122,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
           onPress: () => {
             deleteDiary(diary.id);
             deleteAudio(diary.audioPath);
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+            hapticWarning();
             AccessibilityInfo.announceForAccessibility(
               t("diaryDetail.delete.announcement"),
             );
