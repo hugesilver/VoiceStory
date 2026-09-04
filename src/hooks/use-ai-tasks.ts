@@ -1,5 +1,6 @@
-import { EMOTIONS, type Emotion } from "@/constants/emotion";
+import { type Emotion } from "@/constants/emotion";
 import { useAI } from "@/providers/ai-provider";
+import { parseEmotion } from "@/utils/parse-emotion";
 
 // STT 결과를 AI가 멋대로 수정하지 않도록 오타 수정만
 const TEXT_CORRECTION_PROMPT =
@@ -21,14 +22,6 @@ const EMOTION_DETECTION_PROMPT =
   "Choose the single best match: happy, neutral, sad, angry, or tired. " +
   "If the text is too short or carries no emotional signal, respond with unknown instead of guessing. " +
   "Respond only with the single word, nothing else.";
-
-// 못 찾으면 null(unknown)
-// 응답 전체에서 영문만 추출 후 감정 타입 비교
-const parseEmotion = (response: string): Emotion | null => {
-  const word = response.toLowerCase().replace(/[^a-z]/g, "");
-
-  return EMOTIONS.find((emotion) => emotion === word) ?? null;
-};
 
 export const useAITasks = () => {
   const { prompt, isAiEnabled, isReady, isGenerating, interrupt } = useAI();
