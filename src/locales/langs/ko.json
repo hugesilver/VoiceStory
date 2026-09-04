@@ -241,11 +241,11 @@
       "import": "가져오기",
       "importHint": ".voicestory 확장자 파일만 가져올 수 있습니다",
       "importConfirmTitle": "가져오기 확인",
-      "importConfirmMessage": ".voicestory 확장자 파일만 가져올 수 있습니다.\n\n현재 저장된 일기와 녹음 파일이 모두 삭제되고 새 파일의 내용으로 복원됩니다. 계속할까요?",
+      "importConfirmMessage": ".voicestory 확장자 파일만 가져올 수 있습니다.\n\n기존 일기는 그대로 두고, 백업에만 있는 일기를 추가합니다. 계속할까요?",
       "importConfirm": "가져오기",
       "importCancel": "취소",
       "importSuccessTitle": "복원 완료",
-      "importSuccess": "{{count}}개의 일기를 복원했습니다",
+      "importSuccess": "{{count}}개의 일기를 추가했습니다",
       "importFailureTitle": "가져오기 실패",
       "importFailure": "파일을 읽을 수 없습니다. 올바른 .voicestory 파일인지 확인해주세요",
       "clearCache": "캐시 지우기",
@@ -259,7 +259,8 @@
       "resetConfirmMessage": "일기와 녹음 파일이 모두 삭제되며 복구할 수 없습니다",
       "resetConfirm": "초기화",
       "resetCancel": "취소",
-      "resetSuccess": "모든 데이터가 초기화되었습니다"
+      "resetSuccess": "모든 데이터가 초기화되었습니다",
+      "importSkipped": "{{count}}개는 이미 있어 건너뛰었습니다"
     },
     "accessibility": {
       "haptic": "햅틱 피드백"

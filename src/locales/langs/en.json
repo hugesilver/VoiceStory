@@ -243,11 +243,11 @@
       "import": "Import",
       "importHint": "Only .voicestory files can be imported",
       "importConfirmTitle": "Confirm import",
-      "importConfirmMessage": "Only .voicestory files can be imported.\n\nAll current diaries and recordings will be deleted and replaced with the contents of the imported file. Continue?",
+      "importConfirmMessage": "Only .voicestory files can be imported.\n\nYour existing entries are kept; only entries found in the backup are added. Continue?",
       "importConfirm": "Import",
       "importCancel": "Cancel",
       "importSuccessTitle": "Restore complete",
-      "importSuccess": "Restored {{count}} diary entries",
+      "importSuccess": "Added {{count}} entries",
       "importFailureTitle": "Import failed",
       "importFailure": "Cannot read the file. Please verify it is a valid .voicestory file",
       "clearCache": "Clear cache",
@@ -261,7 +261,8 @@
       "resetConfirmMessage": "All diaries and recordings will be permanently deleted",
       "resetConfirm": "Reset",
       "resetCancel": "Cancel",
-      "resetSuccess": "All data has been reset"
+      "resetSuccess": "All data has been reset",
+      "importSkipped": "Skipped {{count}} that already exist"
     },
     "accessibility": {
       "haptic": "Haptic Feedback"

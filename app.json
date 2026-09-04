@@ -12,7 +12,7 @@
       "bundleIdentifier": "dev.hugesilver.voicestory",
       "deploymentTarget": "17.0",
       "entitlements": {
-        "com.apple.developer.kernel.increased-memory-limit": true // iOS OOM 방지 설정
+        "com.apple.developer.kernel.increased-memory-limit": true
       }
     },
     "android": {
@@ -69,7 +69,9 @@
           ]
         }
       ],
-      "expo-audio"
+      "expo-audio",
+      "expo-sharing",
+      "react-native-zip-archive"
     ],
     "locales": {
       "en": "./src/locales/langs/ios/en.json",

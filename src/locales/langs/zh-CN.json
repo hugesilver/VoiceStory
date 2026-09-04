@@ -241,11 +241,11 @@
       "import": "导入",
       "importHint": "仅可导入 .voicestory 文件",
       "importConfirmTitle": "确认导入",
-      "importConfirmMessage": "仅可导入 .voicestory 文件。\n\n当前保存的日记和录音文件将被全部删除，并以新文件的内容进行恢复。是否继续？",
+      "importConfirmMessage": "只能导入 .voicestory 格式的文件。\n\n保留现有日记，仅添加备份中的日记。要继续吗？",
       "importConfirm": "导入",
       "importCancel": "取消",
       "importSuccessTitle": "恢复完成",
-      "importSuccess": "已恢复 {{count}} 条日记",
+      "importSuccess": "已添加 {{count}} 篇日记",
       "importFailureTitle": "导入失败",
       "importFailure": "无法读取文件，请确认是否为正确的 .voicestory 文件",
       "clearCache": "清除缓存",
@@ -259,7 +259,8 @@
       "resetConfirmMessage": "所有日记和录音文件将被永久删除，无法恢复",
       "resetConfirm": "重置",
       "resetCancel": "取消",
-      "resetSuccess": "所有数据已重置"
+      "resetSuccess": "所有数据已重置",
+      "importSkipped": "{{count}} 篇已存在，已跳过"
     },
     "accessibility": {
       "haptic": "触觉反馈"

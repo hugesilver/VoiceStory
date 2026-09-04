@@ -241,11 +241,11 @@
       "import": "匯入",
       "importHint": "僅可匯入 .voicestory 檔案",
       "importConfirmTitle": "確認匯入",
-      "importConfirmMessage": "僅可匯入 .voicestory 檔案。\n\n目前儲存的日記和錄音檔案將全部刪除，並以新檔案的內容進行還原。是否繼續？",
+      "importConfirmMessage": "只能匯入 .voicestory 格式的檔案。\n\n保留現有日記，僅新增備份中的日記。要繼續嗎？",
       "importConfirm": "匯入",
       "importCancel": "取消",
       "importSuccessTitle": "還原完成",
-      "importSuccess": "已還原 {{count}} 筆日記",
+      "importSuccess": "已新增 {{count}} 篇日記",
       "importFailureTitle": "匯入失敗",
       "importFailure": "無法讀取檔案，請確認是否為正確的 .voicestory 檔案",
       "clearCache": "清除快取",
@@ -259,7 +259,8 @@
       "resetConfirmMessage": "所有日記和錄音檔案將被永久刪除，無法復原",
       "resetConfirm": "重置",
       "resetCancel": "取消",
-      "resetSuccess": "所有資料已重置"
+      "resetSuccess": "所有資料已重置",
+      "importSkipped": "{{count}} 篇已存在，已略過"
     },
     "accessibility": {
       "haptic": "觸覺回饋"

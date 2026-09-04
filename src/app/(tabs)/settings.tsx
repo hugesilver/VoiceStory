@@ -1,15 +1,18 @@
-import { IconSize, Layout, Radius } from "@/constants/layout";
+import { Layout, Radius } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
+import { deleteAllDiaries, getDiaries } from "@/db/database";
 import { useTheme } from "@/hooks/use-theme";
 import { useAI } from "@/providers/ai-provider";
+import { clearAllAudio } from "@/utils/audio";
 import { formatBytes } from "@/utils/format";
 import {
   hapticLight,
+  hapticSuccess,
   hapticWarning,
   loadHapticSetting,
   setHapticEnabled,
 } from "@/utils/haptics";
-import { Ionicons } from "@react-native-vector-icons/ionicons";
+import { clearCache, exportDiaries, importDiaries } from "@/utils/transfer";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { router } from "expo-router";
@@ -48,9 +51,121 @@ export default function SettingsScreen() {
 
   const [isHapticEnabled, setIsHapticEnabled] = useState(true);
 
+  // 내보내기, 가져오기 진행 중
+  const [isBusy, setIsBusy] = useState(false);
+
   useEffect(() => {
     loadHapticSetting().then(setIsHapticEnabled);
   }, []);
+
+  const handleExport = async () => {
+    if (getDiaries().length === 0) {
+      Alert.alert(
+        t("settings.data.exportEmptyTitle"),
+        t("settings.data.exportEmptyMessage"),
+      );
+
+      return;
+    }
+
+    setIsBusy(true);
+
+    try {
+      await exportDiaries();
+    } catch {
+      Alert.alert(
+        t("settings.data.exportFailureTitle"),
+        t("settings.data.exportFailure"),
+      );
+    } finally {
+      setIsBusy(false);
+    }
+  };
+
+  // 기존 데이터를 모두 지우므로 반드시 확인을 받는다
+  const handleImport = () => {
+    Alert.alert(
+      t("settings.data.importConfirmTitle"),
+      t("settings.data.importConfirmMessage"),
+      [
+        { text: t("settings.data.importCancel"), style: "cancel" },
+        {
+          text: t("settings.data.importConfirm"),
+          style: "destructive",
+          onPress: async () => {
+            setIsBusy(true);
+
+            try {
+              const result = await importDiaries();
+
+              // 파일 선택을 취소한 경우
+              if (!result) {
+                return;
+              }
+
+              hapticSuccess();
+
+              const added = t("settings.data.importSuccess", {
+                count: result.imported,
+              });
+              const skipped = result.skipped
+                ? `\n${t("settings.data.importSkipped", { count: result.skipped })}`
+                : "";
+
+              Alert.alert(
+                t("settings.data.importSuccessTitle"),
+                `${added}${skipped}`,
+              );
+            } catch {
+              Alert.alert(
+                t("settings.data.importFailureTitle"),
+                t("settings.data.importFailure"),
+              );
+            } finally {
+              setIsBusy(false);
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const handleClearCache = () => {
+    Alert.alert(
+      t("settings.data.clearCacheConfirmTitle"),
+      t("settings.data.clearCacheConfirmMessage"),
+      [
+        { text: t("settings.data.clearCacheCancel"), style: "cancel" },
+        {
+          text: t("settings.data.clearCacheConfirm"),
+          onPress: () => {
+            clearCache();
+            Alert.alert(t("settings.data.clearCacheSuccess"));
+          },
+        },
+      ],
+    );
+  };
+
+  const handleReset = () => {
+    Alert.alert(
+      t("settings.data.resetConfirmTitle"),
+      t("settings.data.resetConfirmMessage"),
+      [
+        { text: t("settings.data.resetCancel"), style: "cancel" },
+        {
+          text: t("settings.data.resetConfirm"),
+          style: "destructive",
+          onPress: () => {
+            deleteAllDiaries();
+            clearAllAudio();
+            hapticWarning();
+            Alert.alert(t("settings.data.resetSuccess"));
+          },
+        },
+      ],
+    );
+  };
 
   const handleHapticToggle = (enabled: boolean) => {
     setIsHapticEnabled(enabled);
@@ -280,6 +395,75 @@ export default function SettingsScreen() {
           style={[styles.section, { color: color.textSecondary }]}
           accessibilityRole="header"
         >
+          {t("settings.section.data")}
+        </Text>
+
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: color.card, borderColor: color.border },
+          ]}
+        >
+          <Pressable
+            onPress={handleExport}
+            disabled={isBusy}
+            style={styles.row}
+            accessibilityRole="button"
+            accessibilityLabel={t("settings.data.export")}
+            accessibilityState={{ disabled: isBusy }}
+          >
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.data.export")}
+            </Text>
+          </Pressable>
+
+          <View style={[styles.divider, { backgroundColor: color.border }]} />
+
+          <Pressable
+            onPress={handleImport}
+            disabled={isBusy}
+            style={styles.row}
+            accessibilityRole="button"
+            accessibilityLabel={t("settings.data.import")}
+            accessibilityHint={t("settings.data.importHint")}
+            accessibilityState={{ disabled: isBusy }}
+          >
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.data.import")}
+            </Text>
+          </Pressable>
+
+          <View style={[styles.divider, { backgroundColor: color.border }]} />
+
+          <Pressable
+            onPress={handleClearCache}
+            style={styles.row}
+            accessibilityRole="button"
+            accessibilityLabel={t("settings.data.clearCache")}
+          >
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.data.clearCache")}
+            </Text>
+          </Pressable>
+
+          <View style={[styles.divider, { backgroundColor: color.border }]} />
+
+          <Pressable
+            onPress={handleReset}
+            style={styles.row}
+            accessibilityRole="button"
+            accessibilityLabel={t("settings.data.reset")}
+          >
+            <Text style={[styles.label, { color: color.error }]}>
+              {t("settings.data.reset")}
+            </Text>
+          </Pressable>
+        </View>
+
+        <Text
+          style={[styles.section, { color: color.textSecondary }]}
+          accessibilityRole="header"
+        >
           {t("settings.section.accessibility")}
         </Text>
 
@@ -338,11 +522,6 @@ export default function SettingsScreen() {
             <Text style={[styles.label, { color: color.textPrimary }]}>
               {t("settings.about.license")}
             </Text>
-            <Ionicons
-              name="chevron-forward"
-              size={IconSize.header}
-              color={color.textSecondary}
-            />
           </Pressable>
         </View>
       </ScrollView>

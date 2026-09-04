@@ -241,11 +241,11 @@
       "import": "インポート",
       "importHint": ".voicestoryファイルのみインポートできます",
       "importConfirmTitle": "インポート確認",
-      "importConfirmMessage": ".voicestoryファイルのみインポートできます。\n\n現在保存されている日記と録音ファイルがすべて削除され、新しいファイルの内容で復元されます。続けますか？",
+      "importConfirmMessage": ".voicestory 拡張子のファイルのみ取り込めます。\n\n既存の日記はそのままに、バックアップにある日記を追加します。続けますか？",
       "importConfirm": "インポート",
       "importCancel": "キャンセル",
       "importSuccessTitle": "復元完了",
-      "importSuccess": "{{count}}件の日記を復元しました",
+      "importSuccess": "{{count}}件の日記を追加しました",
       "importFailureTitle": "インポート失敗",
       "importFailure": "ファイルを読み込めません。正しい.voicestoryファイルかご確認ください",
       "clearCache": "キャッシュをクリア",
@@ -259,7 +259,8 @@
       "resetConfirmMessage": "日記と録音ファイルがすべて削除され、復元できません",
       "resetConfirm": "初期化",
       "resetCancel": "キャンセル",
-      "resetSuccess": "すべてのデータが初期化されました"
+      "resetSuccess": "すべてのデータが初期化されました",
+      "importSkipped": "{{count}}件はすでにあるためスキップしました"
     },
     "accessibility": {
       "haptic": "触覚フィードバック"

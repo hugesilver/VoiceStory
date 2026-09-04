@@ -1,4 +1,5 @@
 import type { Emotion } from "@/constants/emotion";
+import { selectNewDiaries } from "@/utils/backup-format";
 import * as SQLite from "expo-sqlite";
 
 const db = SQLite.openDatabaseSync("voicestory.db");
@@ -173,6 +174,51 @@ export const clearDiaryAudio = (id: number) => {
     now,
     id,
   ]);
+};
+
+// 백업 복원용
+export const mergeDiaries = (
+  diaries: {
+    text: string;
+    content: string;
+    emotion: Emotion;
+    audioPath: string;
+    isFavorite: number;
+    createdAt: number;
+    updatedAt: number;
+  }[],
+): number => {
+  let inserted = 0;
+
+  db.withTransactionSync(() => {
+    const existing = db
+      .getAllSync<{ createdAt: number }>(`SELECT createdAt FROM diaries`)
+      .map((row) => row.createdAt);
+
+    for (const diary of selectNewDiaries(diaries, existing)) {
+      db.runSync(
+        `INSERT INTO diaries (text, content, emotion, audioPath, isFavorite, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          diary.text,
+          diary.content,
+          diary.emotion,
+          diary.audioPath,
+          diary.isFavorite,
+          diary.createdAt,
+          diary.updatedAt,
+        ],
+      );
+
+      inserted += 1;
+    }
+  });
+
+  return inserted;
+};
+
+// 전체 초기화용
+export const deleteAllDiaries = () => {
+  db.runSync(`DELETE FROM diaries`);
 };
 
 export const deleteDiary = (id: number) => {
