@@ -172,7 +172,10 @@ export default function HomeScreen() {
           />
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[
+          styles.listContent,
+          diaries.length > 0 && styles.listBottomSpace,
+        ]}
         ListHeaderComponent={
           diaries.length > 0 ? (
             <Text style={[styles.sectionLabel, { color: color.textSecondary }]}>
@@ -241,6 +244,9 @@ const styles = StyleSheet.create({
   listContent: {
     flexGrow: 1,
     paddingTop: 12,
+  },
+  // 마지막 셀이 녹음 버튼에 가리지 않게. 빈 상태에서는 가운데 정렬을 밀어내므로 뺀다
+  listBottomSpace: {
     paddingBottom: 160,
   },
   emptyContainer: {
@@ -248,7 +254,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 20,
-    paddingBottom: 100,
   },
   emptyText: {
     fontSize: 20,
