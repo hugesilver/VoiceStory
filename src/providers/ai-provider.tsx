@@ -9,18 +9,17 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { AccessibilityInfo, Platform } from "react-native";
+import { AccessibilityInfo } from "react-native";
 import { LLMType, models, useLLM } from "react-native-executorch";
 import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetcher";
 
 const AI_MODEL = models.llm.qwen3_1_7b();
 const STORAGE_KEY = "ai_enabled";
 
-// 안드로이드 기기에서 최소 4GB RAM 필요
-const MINIMUM_RAM_BYTES = 4 * 1024 * 1024 * 1024;
+// 최소 RAM 용량
+const MINIMUM_RAM_BYTES = 3.7 * 1024 * 1024 * 1024;
 const IS_DEVICE_SUPPORTED =
-  Platform.OS !== "android" ||
-  (Device.totalMemory !== null && Device.totalMemory >= MINIMUM_RAM_BYTES);
+  Device.totalMemory !== null && Device.totalMemory >= MINIMUM_RAM_BYTES;
 
 // useLLM이 주는 값
 type AIContextValue = LLMType & {
@@ -110,7 +109,6 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
       lastMilestoneRef.current = 0;
     }
   }, [isAiEnabled]);
-
 
   // 끄면 다운로드 취소 및 AI 모델 삭제
   const setAiEnabled = async (enabled: boolean) => {

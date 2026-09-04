@@ -1,20 +1,33 @@
-import { Layout } from "@/constants/layout";
+import { IconSize, Layout, Radius } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { useAI } from "@/providers/ai-provider";
 import { formatBytes } from "@/utils/format";
-import * as Haptics from "expo-haptics";
+import {
+  hapticLight,
+  hapticWarning,
+  loadHapticSetting,
+  setHapticEnabled,
+} from "@/utils/haptics";
+import { Ionicons } from "@react-native-vector-icons/ionicons";
+import Constants from "expo-constants";
+import * as Device from "expo-device";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Alert,
+  Pressable,
+  ScrollView,
   StyleSheet,
   Switch,
   Text,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+const APP_VERSION = Constants.expoConfig?.version ?? "";
 
 export default function SettingsScreen() {
   const { t } = useTranslation();
@@ -33,6 +46,33 @@ export default function SettingsScreen() {
   // 모델 용량 조회 진행 상태(비동기)
   const [isPreparing, setIsPreparing] = useState(false);
 
+  const [isHapticEnabled, setIsHapticEnabled] = useState(true);
+
+  useEffect(() => {
+    loadHapticSetting().then(setIsHapticEnabled);
+  }, []);
+
+  const handleHapticToggle = (enabled: boolean) => {
+    setIsHapticEnabled(enabled);
+    setHapticEnabled(enabled);
+
+    if (enabled) {
+      hapticLight();
+    }
+  };
+
+  // RAM 확인
+  useEffect(() => {
+    const bytes = Device.totalMemory;
+
+    console.debug(
+      "RAM:",
+      bytes,
+      bytes === null ? "" : `(${(bytes / 1024 ** 3).toFixed(2)} GiB)`,
+      `지원: ${isDeviceSupported}`,
+    );
+  }, [isDeviceSupported]);
+
   // 모델 다운로드 디버깅
   useEffect(() => {
     console.debug(
@@ -44,6 +84,9 @@ export default function SettingsScreen() {
 
   // 진행률이 0이면 다운로드 중이 아님(디스크에서 모델 확인 중일 수 있음)
   const isDownloading = isAiEnabled && !isReady && downloadProgress > 0;
+
+  // 확인 중에는 모델이 디스크에 있는지 확인하는 중이므로 토글을 막음
+  const isChecking = isAiEnabled && !isReady && downloadProgress === 0;
 
   const getStatusText = () => {
     // AI 모델 미설치
@@ -113,9 +156,7 @@ export default function SettingsScreen() {
           text: t("settings.ai.deleteConfirm"),
           style: "destructive",
           onPress: async () => {
-            await Haptics.notificationAsync(
-              Haptics.NotificationFeedbackType.Warning,
-            );
+            hapticWarning();
             await setAiEnabled(false);
           },
         },
@@ -124,7 +165,7 @@ export default function SettingsScreen() {
   };
 
   const handleToggle = (enabled: boolean) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    hapticLight();
 
     // 토글 켬
     if (enabled) {
@@ -155,75 +196,156 @@ export default function SettingsScreen() {
         {t("settings.title")}
       </Text>
 
-      <Text
-        style={[styles.section, { color: color.textSecondary }]}
-        accessibilityRole="header"
-      >
-        {t("settings.section.ai")}
-      </Text>
-
-      {/* AI 교정 토글 */}
-      <View style={styles.row}>
-        <View
-          style={styles.rowText}
-          accessible
-          accessibilityLabel={`${t("settings.ai.enableCorrection")}, ${aiModelHintText}`}
+      <ScrollView contentContainerStyle={styles.content}>
+        <Text
+          style={[styles.section, { color: color.textSecondary }]}
+          accessibilityRole="header"
         >
-          <Text style={[styles.label, { color: color.textPrimary }]}>
-            {t("settings.ai.enableCorrection")}
-          </Text>
-          <Text style={[styles.hint, { color: color.textSecondary }]}>
-            {aiModelHintText}
-          </Text>
+          {t("settings.section.ai")}
+        </Text>
+
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: color.card, borderColor: color.border },
+          ]}
+        >
+          {/* AI 교정 토글 */}
+          <View style={styles.row}>
+            <View
+              style={styles.rowText}
+              accessible
+              accessibilityLabel={`${t("settings.ai.enableCorrection")}, ${aiModelHintText}`}
+            >
+              <Text style={[styles.label, { color: color.textPrimary }]}>
+                {t("settings.ai.enableCorrection")}
+              </Text>
+              <Text style={[styles.hint, { color: color.textSecondary }]}>
+                {aiModelHintText}
+              </Text>
+            </View>
+            {/* 용량 조회 중에 따른 분기 처리 */}
+            {isPreparing ? (
+              <ActivityIndicator
+                size="small"
+                color={color.textSecondary}
+                style={styles.control}
+                accessibilityLabel={t("settings.ai.modelChecking")}
+              />
+            ) : (
+              <Switch
+                value={isAiEnabled}
+                onValueChange={handleToggle}
+                disabled={!isSettingLoaded || !isDeviceSupported || isChecking}
+                accessibilityLabel={t("settings.ai.enableCorrection")}
+                accessibilityHint={
+                  isAiEnabled
+                    ? t("settings.ai.deleteConfirmMessage")
+                    : t("settings.ai.enableCorrectionOnHint")
+                }
+              />
+            )}
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: color.border }]} />
+
+          {/* AI 모델 상태 */}
+          <View
+            style={styles.row}
+            accessible
+            accessibilityLabel={`${t("settings.ai.modelTitle")}, ${getStatusText()}`}
+          >
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.ai.modelTitle")}
+            </Text>
+            <Text style={[styles.status, { color: color.textSecondary }]}>
+              {getStatusText()}
+            </Text>
+          </View>
+
+          {isDownloading ? (
+            <Text style={[styles.hint, { color: color.textSecondary }]}>
+              {t("settings.ai.downloadWarning")}
+            </Text>
+          ) : null}
+
+          {error ? (
+            <Text style={[styles.hint, { color: color.error }]}>
+              {error.message}
+            </Text>
+          ) : null}
         </View>
-        {/* 용량 조회 중에 따른 분기 처리 */}
-        {isPreparing ? (
-          <ActivityIndicator
-            size="small"
-            color={color.textSecondary}
-            style={styles.control}
-            accessibilityLabel={t("settings.ai.modelChecking")}
-          />
-        ) : (
-          <Switch
-            value={isAiEnabled}
-            onValueChange={handleToggle}
-            disabled={!isSettingLoaded || !isDeviceSupported}
-            accessibilityLabel={t("settings.ai.enableCorrection")}
-            accessibilityHint={
-              isAiEnabled
-                ? t("settings.ai.deleteConfirmMessage")
-                : t("settings.ai.enableCorrectionOnHint")
-            }
-          />
-        )}
-      </View>
 
-      {/* AI 모델 상태 */}
-      <View
-        style={styles.row}
-        accessible
-        accessibilityLabel={`${t("settings.ai.modelTitle")}, ${getStatusText()}`}
-      >
-        <Text style={[styles.label, { color: color.textPrimary }]}>
-          {t("settings.ai.modelTitle")}
+        <Text
+          style={[styles.section, { color: color.textSecondary }]}
+          accessibilityRole="header"
+        >
+          {t("settings.section.accessibility")}
         </Text>
-        <Text style={[styles.status, { color: color.textSecondary }]}>
-          {getStatusText()}
-        </Text>
-      </View>
 
-      {isDownloading ? (
-        <Text style={[styles.hint, { color: color.textSecondary }]}>
-          {t("settings.ai.downloadWarning")}
-        </Text>
-      ) : null}
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: color.card, borderColor: color.border },
+          ]}
+        >
+          <View style={styles.row}>
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.accessibility.haptic")}
+            </Text>
+            <Switch
+              value={isHapticEnabled}
+              onValueChange={handleHapticToggle}
+              accessibilityLabel={t("settings.accessibility.haptic")}
+            />
+          </View>
+        </View>
 
-      {error ? (
-        <Text style={[styles.hint, { color: color.error }]}>
-          {error.message}
+        <Text
+          style={[styles.section, { color: color.textSecondary }]}
+          accessibilityRole="header"
+        >
+          {t("settings.section.about")}
         </Text>
-      ) : null}
+
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: color.card, borderColor: color.border },
+          ]}
+        >
+          <View
+            style={styles.row}
+            accessible
+            accessibilityLabel={`${t("settings.about.version")}, ${APP_VERSION}`}
+          >
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.about.version")}
+            </Text>
+            <Text style={[styles.status, { color: color.textSecondary }]}>
+              {APP_VERSION}
+            </Text>
+          </View>
+
+          <View style={[styles.divider, { backgroundColor: color.border }]} />
+
+          <Pressable
+            onPress={() => router.push("/licenses")}
+            style={styles.row}
+            accessibilityRole="button"
+            accessibilityLabel={t("settings.about.license")}
+          >
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.about.license")}
+            </Text>
+            <Ionicons
+              name="chevron-forward"
+              size={IconSize.header}
+              color={color.textSecondary}
+            />
+          </Pressable>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -234,15 +356,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: Layout.screenPadding,
   },
   title: {
-    fontSize: 22,
+    fontSize: 28,
     fontFamily: Fonts.sansBold,
     paddingVertical: 16,
+  },
+  content: {
+    paddingBottom: 40,
+  },
+  card: {
+    borderRadius: Radius.card,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    marginBottom: 4,
+  },
+  divider: {
+    height: 1,
   },
   section: {
     fontSize: 14,
     fontFamily: Fonts.sansMedium,
-    paddingTop: 12,
-    paddingBottom: 4,
+    paddingTop: 20,
+    paddingBottom: 10,
   },
   row: {
     flexDirection: "row",
