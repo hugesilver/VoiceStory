@@ -17,7 +17,7 @@ const AI_MODEL = models.llm.qwen3_1_7b();
 const STORAGE_KEY = "ai_enabled";
 
 // 최소 RAM 용량
-const MINIMUM_RAM_BYTES = 3.7 * 1024 * 1024 * 1024;
+const MINIMUM_RAM_BYTES = 3.5 * 1024 * 1024 * 1024;
 const IS_DEVICE_SUPPORTED =
   Device.totalMemory !== null && Device.totalMemory >= MINIMUM_RAM_BYTES;
 
