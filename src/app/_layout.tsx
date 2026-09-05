@@ -10,6 +10,17 @@ import { ExpoResourceFetcher } from "react-native-executorch-expo-resource-fetch
 
 import { initDatabase } from "@/db/database";
 import { loadHapticSetting } from "@/utils/haptics";
+import * as Notifications from "expo-notifications";
+
+// 앱 켜진 상태에서는 배너로
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowBanner: true,
+    shouldShowList: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 // DB 초기화
 initDatabase();

@@ -1,6 +1,8 @@
+import { BottomSheet, type BottomSheetRef } from "@/components/ui/bottom-sheet";
 import { Layout, Radius } from "@/constants/layout";
 import { Fonts } from "@/constants/theme";
 import { deleteAllDiaries, getDiaries } from "@/db/database";
+import { useReminder } from "@/hooks/use-reminder";
 import { useTheme } from "@/hooks/use-theme";
 import { useAI } from "@/providers/ai-provider";
 import { clearAllAudio } from "@/utils/audio";
@@ -13,14 +15,18 @@ import {
   setHapticEnabled,
 } from "@/utils/haptics";
 import { clearCache, exportDiaries, importDiaries } from "@/utils/transfer";
+import DateTimePicker, {
+  type DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Alert,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -53,6 +59,60 @@ export default function SettingsScreen() {
 
   // 내보내기, 가져오기 진행 중
   const [isBusy, setIsBusy] = useState(false);
+
+  const {
+    isEnabled: isReminderEnabled,
+    time: reminderTime,
+    toggle: toggleReminder,
+    updateTime: updateReminderTime,
+  } = useReminder();
+
+  // iOS 바텀 시트 시간 피커 전용
+  const sheetRef = useRef<BottomSheetRef>(null);
+
+  const [pickerDate, setPickerDate] = useState(new Date());
+
+  // 안드로이드 시간 피커 전용
+  const [isAndroidPickerOpen, setIsAndroidPickerOpen] = useState(false);
+
+  const toTimeString = (date: Date) =>
+    `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+
+  const handleReminderToggle = async (enabled: boolean) => {
+    hapticLight();
+
+    if (!(await toggleReminder(enabled))) {
+      Alert.alert(
+        t("settings.reminder.permissionDeniedTitle"),
+        t("settings.reminder.permissionDenied"),
+      );
+    }
+  };
+
+  const handleOpenTimePicker = () => {
+    const [hour, minute] = reminderTime.split(":").map(Number);
+    const date = new Date();
+
+    date.setHours(hour, minute, 0, 0);
+    setPickerDate(date);
+
+    if (Platform.OS === "android") {
+      setIsAndroidPickerOpen(true);
+
+      return;
+    }
+
+    sheetRef.current?.open();
+  };
+
+  // 안드로이드는 확인·취소가 네이티브 다이얼로그에 있어 한 콜백으로 온다
+  const handleAndroidTimeChange = (event: DateTimePickerEvent, date?: Date) => {
+    setIsAndroidPickerOpen(false);
+
+    if (event.type === "set" && date) {
+      updateReminderTime(toTimeString(date));
+    }
+  };
 
   useEffect(() => {
     loadHapticSetting().then(setIsHapticEnabled);
@@ -316,6 +376,54 @@ export default function SettingsScreen() {
           style={[styles.section, { color: color.textSecondary }]}
           accessibilityRole="header"
         >
+          {t("settings.section.notification")}
+        </Text>
+
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: color.card, borderColor: color.border },
+          ]}
+        >
+          <View style={styles.row}>
+            <Text style={[styles.label, { color: color.textPrimary }]}>
+              {t("settings.reminder.title")}
+            </Text>
+            <Switch
+              value={isReminderEnabled}
+              onValueChange={handleReminderToggle}
+              accessibilityLabel={t("settings.reminder.title")}
+            />
+          </View>
+
+          {isReminderEnabled ? (
+            <>
+              <View
+                style={[styles.divider, { backgroundColor: color.border }]}
+              />
+
+              <Pressable
+                onPress={handleOpenTimePicker}
+                style={styles.row}
+                accessibilityRole="button"
+                accessibilityLabel={`${t("settings.reminder.timeTitle")}, ${reminderTime}`}
+                accessibilityHint={t("settings.reminder.timeHint")}
+              >
+                <Text style={[styles.label, { color: color.textPrimary }]}>
+                  {t("settings.reminder.timeTitle")}
+                </Text>
+                <Text style={[styles.status, { color: color.textSecondary }]}>
+                  {reminderTime}
+                </Text>
+              </Pressable>
+            </>
+          ) : null}
+        </View>
+
+        <Text
+          style={[styles.section, { color: color.textSecondary }]}
+          accessibilityRole="header"
+        >
           {t("settings.section.ai")}
         </Text>
 
@@ -525,6 +633,36 @@ export default function SettingsScreen() {
           </Pressable>
         </View>
       </ScrollView>
+
+      {/* 안드로이드는 네이티브 다이얼로그 */}
+      {isAndroidPickerOpen ? (
+        <DateTimePicker
+          value={pickerDate}
+          mode="time"
+          display="default"
+          onChange={handleAndroidTimeChange}
+        />
+      ) : null}
+
+      {/* iOS는 바텀 시트 */}
+      {Platform.OS === "ios" ? (
+        <BottomSheet
+          ref={sheetRef}
+          cancelLabel={t("common.cancel")}
+          confirmLabel={t("settings.reminder.done")}
+          onConfirm={() => updateReminderTime(toTimeString(pickerDate))}
+        >
+          <View style={styles.timePickerWrapper}>
+            <DateTimePicker
+              value={pickerDate}
+              mode="time"
+              display="spinner"
+              style={styles.timePicker}
+              onChange={(_event, date) => date && setPickerDate(date)}
+            />
+          </View>
+        </BottomSheet>
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -550,6 +688,15 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
+  },
+  timePickerWrapper: {
+    alignItems: "center",
+    overflow: "hidden",
+    paddingBottom: 34,
+  },
+  timePicker: {
+    width: 280, // iOS 타임 피커 너비
+    height: 216, // iOS 타임 피커 높이
   },
   section: {
     fontSize: 14,

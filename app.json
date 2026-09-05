@@ -12,7 +12,7 @@
       "bundleIdentifier": "dev.hugesilver.voicestory",
       "deploymentTarget": "17.0",
       "entitlements": {
-        "com.apple.developer.kernel.increased-memory-limit": true
+        "com.apple.developer.kernel.increased-memory-limit": true // iOS 메모리 제한 해제
       }
     },
     "android": {
@@ -71,7 +71,8 @@
       ],
       "expo-audio",
       "expo-sharing",
-      "react-native-zip-archive"
+      "react-native-zip-archive",
+      "@react-native-community/datetimepicker"
     ],
     "locales": {
       "en": "./src/locales/langs/ios/en.json",

@@ -5,6 +5,7 @@
   "dependencies": {
     "@expo/ui": "~56.0.20",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/datetimepicker": "9.1.0",
     "@react-native-vector-icons/ionicons": "^13.1.2",
     "expo": "~56.0.14",
     "expo-asset": "~56.0.18",
@@ -21,6 +22,7 @@
     "expo-keep-awake": "~56.0.3",
     "expo-linking": "~56.0.15",
     "expo-localization": "~56.0.6",
+    "expo-notifications": "~56.0.25",
     "expo-router": "~56.2.13",
     "expo-sharing": "~56.0.26",
     "expo-speech-recognition": "~56.0.1",
