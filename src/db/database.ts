@@ -1,9 +1,13 @@
 import type { Emotion } from "@/constants/emotion";
+import {
+  CREATE_DIARIES_TABLE,
+  MIGRATIONS,
+  SCHEMA_VERSION,
+} from "@/db/migrations";
 import { selectNewDiaries } from "@/utils/backup-format";
 import * as SQLite from "expo-sqlite";
 
 const db = SQLite.openDatabaseSync("voicestory.db");
-const SCHEMA_VERSION: number = 4;
 
 interface RawDiaryRow {
   id: number;
@@ -43,32 +47,14 @@ export const initDatabase = () => {
   db.withTransactionSync(() => {
     // 첫 실행
     if (version === 0) {
-      db.execSync(
-        `CREATE TABLE IF NOT EXISTS diaries (
-      id         INTEGER PRIMARY KEY AUTOINCREMENT,
-      text       TEXT    NOT NULL,            
-      content    TEXT    NOT NULL,       
-      emotion    TEXT    NOT NULL,
-      audioPath  TEXT    NOT NULL DEFAULT '',
-      isFavorite INTEGER NOT NULL DEFAULT 0,
-      createdAt  INTEGER NOT NULL,
-      updatedAt  INTEGER NOT NULL)
-    `,
-      );
+      db.execSync(CREATE_DIARIES_TABLE);
     }
 
-    // 마이그레이션
-    switch (version) {
-      case 3:
-        db.execSync(
-          `ALTER TABLE diaries ADD COLUMN content TEXT NOT NULL DEFAULT ''`,
-        );
-        db.execSync(
-          `UPDATE diaries SET content = 
-          CASE WHEN selectedText = 'polished' AND polishedText <> '' THEN polishedText
-          ELSE text
-          END`,
-        );
+    // 현재 버전에서 최신 버전까지 올려 마이그레이션
+    for (let from = version; from < SCHEMA_VERSION; from += 1) {
+      for (const statement of MIGRATIONS[from] ?? []) {
+        db.execSync(statement);
+      }
     }
 
     db.execSync(`PRAGMA user_version = ${SCHEMA_VERSION}`);
