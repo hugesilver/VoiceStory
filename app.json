@@ -12,7 +12,12 @@
       "bundleIdentifier": "dev.hugesilver.voicestory",
       "deploymentTarget": "17.0",
       "entitlements": {
-        "com.apple.developer.kernel.increased-memory-limit": true // iOS 메모리 제한 해제
+        "com.apple.developer.kernel.increased-memory-limit": true
+      },
+      "infoPlist": {
+        "NSSpeechRecognitionUsageDescription": "VoiceStory converts your speech to text for diary entries.",
+        "NSMicrophoneUsageDescription": "VoiceStory uses your microphone to record voice diary entries.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -23,16 +28,23 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "dev.hugesilver.voicestory"
+      "package": "dev.hugesilver.voicestory",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ]
     },
     "plugins": [
+      "./plugins/with-uiscene",
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#2F3A99",
           "android": {
-            "image": "./assets/images/splash-icon.png",
+            "image": "./assets/images/logo-mark.png",
             "imageWidth": 76
           }
         }
@@ -72,7 +84,13 @@
       "expo-audio",
       "expo-sharing",
       "react-native-zip-archive",
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      "expo-asset",
+      "expo-image",
+      "expo-localization",
+      "expo-sqlite",
+      "expo-status-bar",
+      "expo-web-browser"
     ],
     "locales": {
       "en": "./src/locales/langs/ios/en.json",
