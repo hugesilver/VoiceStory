@@ -48,12 +48,12 @@ export const initDatabase = () => {
     // 첫 실행
     if (version === 0) {
       db.execSync(CREATE_DIARIES_TABLE);
-    }
-
-    // 현재 버전에서 최신 버전까지 올려 마이그레이션
-    for (let from = version; from < SCHEMA_VERSION; from += 1) {
-      for (const statement of MIGRATIONS[from] ?? []) {
-        db.execSync(statement);
+    } else {
+      // 신규 DB는 이미 최신 스키마이므로 기존 DB에만 마이그레이션 적용
+      for (let from = version; from < SCHEMA_VERSION; from += 1) {
+        for (const statement of MIGRATIONS[from] ?? []) {
+          db.execSync(statement);
+        }
       }
     }
 
