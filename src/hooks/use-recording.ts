@@ -58,7 +58,11 @@ export const useRecording = () => {
   const hasPermissionRef = useRef<boolean | null>(null);
   const transcriptRef = useRef("");
   const audioUriRef = useRef<string | null>(null);
-  const stopResolveRef = useRef<((result: RecordResult) => void) | null>(null);
+  const stopResolveRef = useRef<((result: RecordResult | null) => void) | null>(
+    null,
+  );
+
+  const pendingErrorRef = useRef<{ code: string } | null>(null);
 
   useEffect(() => {
     return () => {
@@ -112,6 +116,34 @@ export const useRecording = () => {
   useSpeechRecognitionEvent("end", () => {
     setRecordingState("idle");
 
+    const pendingError = pendingErrorRef.current;
+    pendingErrorRef.current = null;
+
+    if (pendingError) {
+      /*
+      사용자가 종료를 요청 후, 클라이언트 오류에도 확정 텍스트와 파일 URI가
+      모두 전달됐다면 결과를 보존 그 외 오류는 실패로 안내
+      */
+      const hasCompletedResult =
+        stopResolveRef.current !== null &&
+        pendingError.code === "client" &&
+        transcriptRef.current.trim().length > 0 &&
+        Boolean(audioUriRef.current);
+      if (!hasCompletedResult) {
+        setError(
+          t(
+            pendingError.code === "not-allowed" ||
+              pendingError.code === "service-not-allowed"
+              ? "record.error.permissionMessage"
+              : "record.error.message",
+          ),
+        );
+        stopResolveRef.current?.(null);
+        stopResolveRef.current = null;
+        return;
+      }
+    }
+
     if (stopResolveRef.current) {
       stopResolveRef.current({
         text: transcriptRef.current,
@@ -145,16 +177,12 @@ export const useRecording = () => {
       return;
     }
 
-    if (stopResolveRef.current) {
-      stopResolveRef.current({
-        text: transcriptRef.current,
-        audioUri: audioUriRef.current ?? "",
-      });
-      stopResolveRef.current = null;
-    }
-
-    console.error("error code:", event.error, "error message:", event.message);
-    setError(event.message);
+    /*
+    Android는 error 이후 audioend에서 파일 URI를 전달하고 end로 종료
+    여기서 완료하면 파일 저장 전에 다음으로 이동 불가
+    */
+    pendingErrorRef.current = { code: event.error };
+    console.warn("error code:", event.error, "error message:", event.message);
   });
 
   // 녹음 시작
@@ -165,6 +193,7 @@ export const useRecording = () => {
     setAudioUri(null);
     audioUriRef.current = null;
     setError(null);
+    pendingErrorRef.current = null;
 
     // 음성 인식 가능 여부 확인
     console.debug(
@@ -212,7 +241,7 @@ export const useRecording = () => {
   };
 
   // 녹음 완료
-  const recordStop = (): Promise<RecordResult> => {
+  const recordStop = (): Promise<RecordResult | null> => {
     hapticMedium();
 
     if (recordingState !== "recording") {

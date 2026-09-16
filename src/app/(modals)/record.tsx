@@ -54,7 +54,7 @@ export default function RecordModal() {
 
     isErrorShownRef.current = true;
 
-    Alert.alert(t("record.error.title"), t("record.error.message"), [
+    Alert.alert(t("record.error.title"), error, [
       {
         text: t("record.error.confirm"),
         onPress: () => {
@@ -91,7 +91,10 @@ export default function RecordModal() {
   };
 
   const handleStop = async () => {
-    const { text, audioUri } = await recordStop();
+    const result = await recordStop();
+    if (!result) return;
+
+    const { text, audioUri } = result;
 
     router.replace({
       pathname: isAiEnabled && text ? "/correcting" : "/correction",

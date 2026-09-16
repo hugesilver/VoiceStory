@@ -98,7 +98,8 @@
     },
     "error": {
       "title": "Recording Failed",
-      "message": "Could not start the microphone or speech recognition. Please check permissions and try again.",
+      "message": "Speech recognition could not be completed. Please try again.",
+      "permissionMessage": "Could not start the microphone or speech recognition. Please check permissions and try again.",
       "confirm": "OK"
     }
   },
