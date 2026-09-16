@@ -1,9 +1,9 @@
-import { hapticLight } from "@/utils/haptics";
 import { useTheme } from "@/hooks/use-theme";
+import { hapticLight } from "@/utils/haptics";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
 import { Tabs } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { AccessibilityInfo } from "react-native";
+import { AccessibilityInfo, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Fonts } from "../../constants/theme";
 
@@ -32,9 +32,12 @@ export default function AppTabs() {
           borderTopWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
-          height: TAB_BAR_HEIGHT + insets.bottom,
+          height:
+            TAB_BAR_HEIGHT +
+            insets.bottom +
+            (Platform.OS === "android" ? 13 * 1.448 + 6 : 0), // 안드로이드에서 paddingBottom이 적용되지 않아 높이를 올림
           paddingTop: 6,
-          paddingBottom: 6 + insets.bottom,
+          paddingBottom: 6 + insets.bottom, // iOS 전용
         },
         tabBarLabelStyle: {
           fontSize: 13,
