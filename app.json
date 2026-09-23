@@ -91,6 +91,7 @@
       "expo-sqlite",
       "expo-status-bar",
       "expo-web-browser",
+      "./plugins/with-widgets",
       [
         "expo-widgets",
         {
@@ -123,8 +124,7 @@
             }
           ]
         }
-      ],
-      "./plugins/with-widgets"
+      ]
     ],
     "locales": {
       "en": "./src/locales/langs/ios/en.json",
