@@ -281,5 +281,9 @@
     "feature3": "All data stays on your device",
     "startButton": "Get started",
     "startHint": "Tap to begin writing your first diary"
+  },
+  "widget": {
+    "title": "Write a voice diary",
+    "openRecording": "Open recording screen"
   }
 }

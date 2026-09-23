@@ -279,5 +279,9 @@
     "feature3": "모든 데이터는 기기에만 저장됩니다",
     "startButton": "시작하기",
     "startHint": "탭하면 일기 작성을 시작합니다"
+  },
+  "widget": {
+    "title": "음성 일기 작성",
+    "openRecording": "녹음 화면 열기"
   }
 }

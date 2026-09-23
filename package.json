@@ -1,6 +1,6 @@
 {
   "name": "voicestory",
-  "main": "expo-router/entry",
+  "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~57.0.18",
@@ -32,11 +32,13 @@
     "expo-symbols": "~57.0.3",
     "expo-system-ui": "~57.0.4",
     "expo-web-browser": "~57.0.3",
+    "expo-widgets": "~57.0.19",
     "i18next": "^26.3.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-i18next": "^17.0.8",
     "react-native": "0.86.3",
+    "react-native-android-widget": "^0.22.1",
     "react-native-executorch": "^0.9.2",
     "react-native-executorch-expo-resource-fetcher": "^0.9.1",
     "react-native-gesture-handler": "~2.32.0",
@@ -73,5 +75,14 @@
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg))"
     ]
+  },
+  "expo": {
+    "autolinking": {
+      "android": {
+        "exclude": [
+          "expo-widgets"
+        ]
+      }
+    }
   }
 }

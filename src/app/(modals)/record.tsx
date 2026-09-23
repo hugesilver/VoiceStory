@@ -68,10 +68,19 @@ export default function RecordModal() {
   const isStopping = recordingState === "stopping";
   const permissionDenied = hasPermission === false;
 
+  // 닫을 수 있는 화면 이력이 있으면 모달을 닫고, 없으면 앱 시작 경로로 이동
+  const closeScreen = () => {
+    if (router.canDismiss()) {
+      router.dismissAll();
+    } else {
+      router.replace("/");
+    }
+  };
+
   // 녹음 중이거나 받아쓴 내용이 있으면 그냥 닫지 않는다
   const handleClose = () => {
     if (!isRecording && !transcript) {
-      router.dismissAll();
+      closeScreen();
 
       return;
     }
@@ -84,7 +93,7 @@ export default function RecordModal() {
         {
           text: t("record.closeWhileRecording.confirm"),
           style: "destructive",
-          onPress: () => router.dismiss(),
+          onPress: closeScreen,
         },
       ],
     );

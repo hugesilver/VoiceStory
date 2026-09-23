@@ -1167,6 +1167,14 @@
     sf-symbols-typescript "^2.1.0"
     vaul "^1.1.2"
 
+"@expo/ui@~57.0.19":
+  version "57.0.19"
+  resolved "https://registry.yarnpkg.com/@expo/ui/-/ui-57.0.19.tgz#b86804de7241da2cd578ab62c0912fdc5eab199f"
+  integrity sha512-WB95zQPge5nb04zgY3O2NmMtxg6G+qFH3yOAHcBkTUrJXoBReQoyY3cfp/8N5Q/azcfHJcBE3Jy0Rwq9OoRrfA==
+  dependencies:
+    sf-symbols-typescript "^2.1.0"
+    vaul "^1.1.2"
+
 "@expo/ws-tunnel@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@expo/ws-tunnel/-/ws-tunnel-2.0.0.tgz"
@@ -4038,6 +4046,14 @@ expo-web-browser@~57.0.3:
   resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-57.0.3.tgz#adc332852ef29546de2fa47ba33ce4df9137f98e"
   integrity sha512-+ecvhyS/PdWkpv4ai6FF1Trd6Y/4kn/eQ3O86mie2ecU3w+I8bKZh13kppY/jw1uSL7yikt03L5W/iiHojrFwQ==
 
+expo-widgets@~57.0.19:
+  version "57.0.20"
+  resolved "https://registry.yarnpkg.com/expo-widgets/-/expo-widgets-57.0.20.tgz#6b576d74d45ee10a61f17ae201b57dadae8f285c"
+  integrity sha512-WQ2MiurGA+GZArvmUJ6ZvSUbXAHor3ZOFGjwrR7690Dk60NnWNZ52hyjOAEzpcUdAysLmVkltkdhK6AtEnMjdA==
+  dependencies:
+    "@expo/plist" "^0.8.1"
+    "@expo/ui" "~57.0.19"
+
 expo@^57.0.23:
   version "57.0.23"
   resolved "https://registry.yarnpkg.com/expo/-/expo-57.0.23.tgz#8600f72eee9c3810252b865aaafdeb4cf040f3e0"
@@ -6799,6 +6815,11 @@ react-is@^19.1.0, react-is@^19.2.3:
   version "19.2.8"
   resolved "https://registry.npmjs.org/react-is/-/react-is-19.2.8.tgz"
   integrity sha512-s5un28nYxKJw5gvUHyW5PCC28CvBqLu9r3cWgzHT4Vo/5fqqkFcdRYsGcKf50WMPpjjFZS5d76fn3YCo2njKwQ==
+
+react-native-android-widget@^0.22.1:
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/react-native-android-widget/-/react-native-android-widget-0.22.1.tgz#a2410c3a996c0e722cc31a7065193b782e67c35e"
+  integrity sha512-BBMuqShRrxV23Z09Rn5zNHJaPegCnH3DhhZQgXbhw2GMh45Gez0RbwKTIWHftuW4nLrqWy6esz8XwecUZLiZKA==
 
 react-native-drawer-layout@^4.2.2:
   version "4.2.10"

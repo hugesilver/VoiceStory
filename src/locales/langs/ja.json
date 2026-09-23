@@ -279,5 +279,9 @@
     "feature3": "すべてのデータは端末内に保存",
     "startButton": "はじめる",
     "startHint": "タップして日記の作成を開始します"
+  },
+  "widget": {
+    "title": "音声日記を書く",
+    "openRecording": "録音画面を開く"
   }
 }

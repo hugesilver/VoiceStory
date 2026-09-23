@@ -3,7 +3,7 @@ import { Fonts } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { completeOnboarding } from "@/utils/onboarding";
 import { Ionicons } from "@react-native-vector-icons/ionicons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { type ComponentProps } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -44,10 +44,14 @@ const FeatureBlock = ({ icon, label }: FeatureBlockProps) => {
 export default function OnboardingScreen() {
   const { t } = useTranslation();
   const color = useTheme();
+  const { next } = useLocalSearchParams<{ next?: string }>();
 
   const handleStart = async () => {
     await completeOnboarding();
-    router.replace("/(tabs)/home");
+    // 녹음 바로가기로 진입했다면 온보딩 완료 후 녹음 화면으로, 그 외에는 홈으로 이동
+    router.replace(next === "record" ? "/record" : "/(tabs)/home", {
+      withAnchor: true,
+    });
   };
 
   return (

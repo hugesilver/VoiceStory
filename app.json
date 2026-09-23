@@ -90,7 +90,41 @@
       "expo-localization",
       "expo-sqlite",
       "expo-status-bar",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-widgets",
+        {
+          "widgets": [
+            {
+              "name": "RecordShortcut",
+              "displayName": "VoiceStory",
+              "description": "Open the recording screen to write a voice diary.",
+              "ios": {
+                "supportedFamilies": ["systemSmall", "systemMedium"]
+              }
+            }
+          ]
+        }
+      ],
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "RecordShortcut",
+              "label": "VoiceStory",
+              "description": "Open the recording screen to write a voice diary.",
+              "minWidth": "110dp",
+              "minHeight": "110dp",
+              "targetCellWidth": 2,
+              "targetCellHeight": 2,
+              "resizeMode": "horizontal|vertical",
+              "updatePeriodMillis": 0
+            }
+          ]
+        }
+      ],
+      "./plugins/with-widgets"
     ],
     "locales": {
       "en": "./src/locales/langs/ios/en.json",

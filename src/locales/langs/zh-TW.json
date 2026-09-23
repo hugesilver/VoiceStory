@@ -279,5 +279,9 @@
     "feature3": "所有資料僅保存在裝置中",
     "startButton": "開始使用",
     "startHint": "點擊開始撰寫日記"
+  },
+  "widget": {
+    "title": "寫語音日記",
+    "openRecording": "開啟錄音畫面"
   }
 }

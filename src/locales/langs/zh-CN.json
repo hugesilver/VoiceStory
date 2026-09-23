@@ -279,5 +279,9 @@
     "feature3": "所有数据仅保存在设备中",
     "startButton": "开始使用",
     "startHint": "点击开始撰写日记"
+  },
+  "widget": {
+    "title": "写语音日记",
+    "openRecording": "打开录音页面"
   }
 }

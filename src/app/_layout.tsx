@@ -12,6 +12,9 @@ import { initDatabase } from "@/db/database";
 import { loadHapticSetting } from "@/utils/haptics";
 import * as Notifications from "expo-notifications";
 
+// 위젯이나 딥링크로 진입할 때 대상 화면 아래에 기본 탭 화면 유지하도록
+export const unstable_settings = { anchor: "(tabs)" };
+
 // 앱 켜진 상태에서는 배너로
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -46,6 +49,10 @@ export default function RootLayout() {
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
           <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen
+              name="onboarding"
+              options={{ presentation: "card" }}
+            />
             <Stack.Screen
               name="(modals)"
               options={{
