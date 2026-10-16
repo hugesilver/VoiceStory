@@ -2,7 +2,7 @@
   "expo": {
     "name": "VoiceStory",
     "slug": "VoiceStory",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "voicestory",
@@ -34,7 +34,7 @@
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
       ],
-      "versionCode": 5
+      "versionCode": 6
     },
     "plugins": [
       "expo-router",
@@ -100,10 +100,7 @@
               "displayName": "VoiceStory",
               "description": "Open the recording screen to write a voice diary.",
               "ios": {
-                "supportedFamilies": [
-                  "systemSmall",
-                  "systemMedium"
-                ]
+                "supportedFamilies": ["systemSmall", "systemMedium"]
               }
             }
           ]
