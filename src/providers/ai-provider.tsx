@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Device from "expo-device";
+import { useKeepAwake } from "expo-keep-awake";
 import {
   createContext,
   ReactNode,
@@ -32,6 +33,14 @@ type AIContextValue = LLMType & {
 };
 const AIContext = createContext<AIContextValue | null>(null);
 
+const ModelPreparationKeepAwake = () => {
+  useKeepAwake("voicestory-model-download", {
+    suppressDeactivateWarnings: true,
+  });
+
+  return null;
+};
+
 // AI 관련 값 사용
 export const useAI = () => {
   const value = useContext(AIContext);
@@ -61,6 +70,7 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
     model: AI_MODEL,
     preventLoad: !isAiEnabled,
   });
+  const isPreparingModel = isAiEnabled && !llm.isReady && !llm.error;
 
   useEffect(() => {
     const load = async () => {
@@ -173,6 +183,7 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
         prompt,
       }}
     >
+      {isPreparingModel && <ModelPreparationKeepAwake />}
       {children}
     </AIContext.Provider>
   );
