@@ -13,10 +13,12 @@ interface License {
   copyright: string;
 }
 
-// package.json의 직접 의존성 기준. 각 패키지의 LICENSE 파일에서 뽑았다
+// package.json의 직접 의존성 기준. 설치된 패키지의 LICENSE와 대조했다.
+// LICENSE가 없는 패키지는 공식 저장소의 라이선스를 확인했다.
 const LICENSES: License[] = [
   { name: "@expo/ui", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "@react-native-async-storage/async-storage", license: "MIT", copyright: "Copyright (c) 2015-present, Facebook, Inc." },
+  { name: "@react-native-community/datetimepicker", license: "MIT", copyright: "Copyright (c) 2019 React Native Community" },
   { name: "@react-native-vector-icons/ionicons", license: "MIT", copyright: "Copyright (c) 2015 Joel Arvidsson" },
   { name: "expo", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-asset", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
@@ -24,6 +26,7 @@ const LICENSES: License[] = [
   { name: "expo-build-properties", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-constants", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-device", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
+  { name: "expo-document-picker", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-file-system", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-font", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-glass-effect", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
@@ -32,7 +35,9 @@ const LICENSES: License[] = [
   { name: "expo-keep-awake", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-linking", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-localization", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
+  { name: "expo-notifications", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-router", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
+  { name: "expo-sharing", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-speech-recognition", license: "MIT", copyright: "Copyright (c) 2024 jamsch" },
   { name: "expo-splash-screen", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-sqlite", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
@@ -40,19 +45,22 @@ const LICENSES: License[] = [
   { name: "expo-symbols", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-system-ui", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "expo-web-browser", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
+  { name: "expo-widgets", license: "MIT", copyright: "Copyright (c) 2015-present 650 Industries, Inc. (aka Expo)" },
   { name: "i18next", license: "MIT", copyright: "Copyright (c) 2011-present i18next" },
   { name: "react", license: "MIT", copyright: "Copyright (c) Meta Platforms, Inc. and affiliates." },
   { name: "react-dom", license: "MIT", copyright: "Copyright (c) Meta Platforms, Inc. and affiliates." },
   { name: "react-i18next", license: "MIT", copyright: "Copyright (c) 2015-present i18next" },
   { name: "react-native", license: "MIT", copyright: "Copyright (c) Meta Platforms, Inc. and affiliates." },
-  { name: "react-native-executorch", license: "MIT", copyright: "Copyright (c) Software Mansion" },
-  { name: "react-native-executorch-expo-resource-fetcher", license: "MIT", copyright: "Copyright (c) Software Mansion" },
+  { name: "react-native-android-widget", license: "MIT", copyright: "Copyright (c) 2022 Stefan Aleksovski" },
+  { name: "react-native-executorch", license: "MIT", copyright: "Copyright (c) 2024 Software Mansion" },
+  { name: "react-native-executorch-expo-resource-fetcher", license: "MIT", copyright: "Copyright (c) 2024 Software Mansion" },
   { name: "react-native-gesture-handler", license: "MIT", copyright: "Copyright (c) 2016 Software Mansion <swmansion.com>" },
   { name: "react-native-reanimated", license: "MIT", copyright: "Copyright (c) 2016 Software Mansion <swmansion.com>" },
   { name: "react-native-safe-area-context", license: "MIT", copyright: "Copyright (c) 2019 Th3rd Wave" },
   { name: "react-native-screens", license: "MIT", copyright: "Copyright (c) 2018 Software Mansion <swmansion.com>" },
-  { name: "react-native-web", license: "MIT", copyright: "Copyright (c) Nicolas Gallagher." },
-  { name: "react-native-worklets", license: "MIT", copyright: "Copyright (c) Software Mansion" },
+  { name: "react-native-web", license: "MIT", copyright: "Copyright (c) Nicolas Gallagher.\nCopyright (c) Meta Platforms, Inc. and affiliates." },
+  { name: "react-native-worklets", license: "MIT", copyright: "Copyright (c) 2024 nobody" },
+  { name: "react-native-zip-archive", license: "MIT", copyright: "Copyright (c) 2015 MockingBot" },
 ];
 
 export default function LicensesScreen() {
