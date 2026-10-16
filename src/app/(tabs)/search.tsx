@@ -17,6 +17,7 @@ import {
   Text,
   TextInput,
   View,
+  type TextInputInstance,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -41,7 +42,7 @@ export default function SearchScreen() {
   const { t } = useTranslation();
   const color = useTheme();
 
-  const inputRef = useRef<TextInput>(null);
+  const inputRef = useRef<TextInputInstance>(null);
   const listRef = useRef<FlatList<Diary>>(null);
 
   // 포커스 시 입력칸을 화면 위로 올리기 위한 위치

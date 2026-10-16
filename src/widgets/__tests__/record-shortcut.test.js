@@ -1,9 +1,9 @@
-import { afterEach, beforeEach, expect, it, jest } from "@jest/globals";
+import { beforeEach, expect, it, jest } from "@jest/globals";
 import React from "react";
 import { buildWidgetTree } from "react-native-android-widget/lib/commonjs/api/build-widget-tree";
 import { RecordShortcutWidget, recordWidgetTaskHandler } from "../index.android";
 import i18n from "@/locales/i18n";
-import { act, create } from "react-test-renderer";
+import { fireEvent, render } from "@testing-library/react-native";
 import RecordModal from "../../app/(modals)/record";
 import OnboardingScreen from "../../app/onboarding";
 import { redirectSystemPath } from "../../app/+native-intent";
@@ -44,28 +44,27 @@ beforeEach(async () => {
   mockCanDismiss.mockReturnValue(false);
   root = null;
 });
-afterEach(() => { if (root) act(() => root.unmount()); });
 async function renderScreen(screen) {
-  await act(async () => { root = create(screen); });
+  root = await render(screen);
 }
 function press(label) {
-  act(() => root.root.findAll((node) => node.props.accessibilityLabel === label && typeof node.props.onPress === "function")[0].props.onPress());
+  return fireEvent.press(root.getByLabelText(label));
 }
 it("바로가기로 화면을 열어도 녹음은 시작 버튼을 누를 때만 시작한다", async () => {
   await renderScreen(<RecordModal />);
   expect(mockStart).not.toHaveBeenCalled();
-  press("record.idle.startButton");
+  await press("record.idle.startButton");
   expect(mockStart).toHaveBeenCalledTimes(1);
 });
 it("탐색 이력이 없는 녹음 화면을 닫으면 앱의 시작 화면으로 돌아간다", async () => {
   await renderScreen(<RecordModal />);
-  press("record.close");
+  await press("record.close");
   expect(mockReplace).toHaveBeenCalledWith("/");
 });
 it("기존 앱 화면에서 열었다면 모달을 닫고 기존 화면으로 돌아간다", async () => {
   await renderScreen(<RecordModal />);
   mockCanDismiss.mockReturnValue(true);
-  press("record.close");
+  await press("record.close");
   expect(mockDismissAll).toHaveBeenCalledTimes(1);
   expect(mockReplace).not.toHaveBeenCalled();
 });
@@ -124,9 +123,7 @@ it.each([
 ])("온보딩 완료 후 지정된 목적지로 이동한다: %j", async (params, destination) => {
   mockSearchParams = params;
   await renderScreen(<OnboardingScreen />);
-  const button = root.root.findAll((node) =>
-    node.props.accessibilityLabel === "onboarding.startButton" && typeof node.props.onPress === "function")[0];
-  await act(async () => { await button.props.onPress(); });
+  await press("onboarding.startButton");
   expect(await isOnboardingCompleted()).toBe(true);
   expect(mockReplace).toHaveBeenCalledWith(destination, { withAnchor: true });
   expect(mockStart).not.toHaveBeenCalled();

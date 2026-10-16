@@ -181,7 +181,7 @@ export default function HomeScreen() {
             <Text style={[styles.sectionLabel, { color: color.textSecondary }]}>
               {t("home.recentEntries")}
             </Text>
-          ) : null
+          ) : undefined
         }
         ListEmptyComponent={EmptyView}
         showsVerticalScrollIndicator={false}
