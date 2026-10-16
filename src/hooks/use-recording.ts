@@ -11,7 +11,7 @@ import {
 } from "expo-speech-recognition";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { AccessibilityInfo } from "react-native";
+import { AccessibilityInfo, Platform } from "react-native";
 
 type RecordingState = "idle" | "recording" | "stopping";
 export type RecordResult = {
@@ -57,6 +57,7 @@ export const useRecording = () => {
 
   const hasPermissionRef = useRef<boolean | null>(null);
   const transcriptRef = useRef("");
+  const interimTranscriptRef = useRef("");
   const audioUriRef = useRef<string | null>(null);
   const stopResolveRef = useRef<((result: RecordResult | null) => void) | null>(
     null,
@@ -98,7 +99,8 @@ export const useRecording = () => {
 
   useEffect(() => {
     const requestPermissions = async () => {
-      const result = await ExpoSpeechRecognitionModule.requestPermissionsAsync();
+      const result =
+        await ExpoSpeechRecognitionModule.requestPermissionsAsync();
       hasPermissionRef.current = result.granted;
       setHasPermission(result.granted);
     };
@@ -131,15 +133,21 @@ export const useRecording = () => {
 
     if (pendingError) {
       /*
-      사용자가 종료를 요청 후, 클라이언트 오류에도 확정 텍스트와 파일 URI가
-      모두 전달됐다면 결과를 보존 그 외 오류는 실패로 안내
+      Android의 연속 인식은 종료 시 최종 결과 대신 client 오류를 보낼 수 있음
+      사용자가 종료 후 텍스트와 파일이 있으면 마지막 임시 결과까지 보존
       */
-      const hasCompletedResult =
-        stopResolveRef.current !== null &&
-        pendingError.code === "client" &&
-        transcriptRef.current.trim().length > 0 &&
+      const isClientStop =
+        stopResolveRef.current !== null && pendingError.code === "client";
+      const completedText =
+        transcriptRef.current +
+        (Platform.OS === "android" && isClientStop
+          ? interimTranscriptRef.current
+          : "");
+      const hasUsableResult =
+        isClientStop &&
+        completedText.trim().length > 0 &&
         Boolean(audioUriRef.current);
-      if (!hasCompletedResult) {
+      if (!hasUsableResult) {
         setError(
           t(
             pendingError.code === "not-allowed" ||
@@ -152,6 +160,10 @@ export const useRecording = () => {
         stopResolveRef.current = null;
         return;
       }
+
+      transcriptRef.current = completedText;
+      interimTranscriptRef.current = "";
+      setTranscript(completedText);
     }
 
     if (stopResolveRef.current) {
@@ -170,12 +182,14 @@ export const useRecording = () => {
     // 확정된 문장만
     if (event.isFinal) {
       transcriptRef.current += text;
+      interimTranscriptRef.current = "";
       setTranscript(transcriptRef.current);
 
       return;
     }
 
-    // 미확정 구간은 누적본 뒤에 붙여서 미리보기만
+    // 마지막 임시 구간을 별도로 보관해 최종 결과와 중복해서 더하지 않는다.
+    interimTranscriptRef.current = text;
     setTranscript(transcriptRef.current + text);
   });
 
@@ -199,6 +213,7 @@ export const useRecording = () => {
   const recordStart = async () => {
     // 초기화
     transcriptRef.current = "";
+    interimTranscriptRef.current = "";
     setTranscript("");
     setAudioUri(null);
     audioUriRef.current = null;

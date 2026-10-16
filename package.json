@@ -88,6 +88,10 @@
       "android": {
         "exclude": [
           "expo-widgets"
+        ],
+        "buildFromSource": [
+          "expo-haptics",
+          "expo-application"
         ]
       }
     }
