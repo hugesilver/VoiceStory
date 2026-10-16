@@ -350,7 +350,12 @@ export default function DiaryDetailScreen() {
   );
 
   return (
-    <View style={[styles.root, { backgroundColor: color.surface }]}>
+    <View
+      style={[
+        styles.root,
+        { backgroundColor: color.surface, paddingBottom: insets.bottom },
+      ]}
+    >
       {/* 헤더 */}
       <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <Pressable
