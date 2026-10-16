@@ -14,6 +14,7 @@ jest.mock("expo-localization", () => ({ getLocales: () => [{ languageCode: "ko",
 
 const mockStart = jest.fn();
 const mockReplace = jest.fn();
+const mockDismissTo = jest.fn();
 const mockDismissAll = jest.fn();
 const mockCanDismiss = jest.fn();
 let mockSearchParams = {};
@@ -22,6 +23,7 @@ jest.mock("@react-native-async-storage/async-storage", () =>
 jest.mock("expo-router", () => ({ useLocalSearchParams: () => mockSearchParams, router: {
   canDismiss: () => mockCanDismiss(),
   replace: (...args) => mockReplace(...args),
+  dismissTo: (...args) => mockDismissTo(...args),
   dismissAll: () => mockDismissAll(),
 } }));
 jest.mock("@/hooks/use-recording", () => ({ useRecording: () => ({
@@ -125,6 +127,6 @@ it.each([
   await renderScreen(<OnboardingScreen />);
   await press("onboarding.startButton");
   expect(await isOnboardingCompleted()).toBe(true);
-  expect(mockReplace).toHaveBeenCalledWith(destination, { withAnchor: true });
+  expect(mockDismissTo).toHaveBeenCalledWith(destination, { withAnchor: true });
   expect(mockStart).not.toHaveBeenCalled();
 });

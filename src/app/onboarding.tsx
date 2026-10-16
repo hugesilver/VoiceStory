@@ -48,8 +48,8 @@ export default function OnboardingScreen() {
 
   const handleStart = async () => {
     await completeOnboarding();
-    // 녹음 바로가기로 진입했다면 온보딩 완료 후 녹음 화면으로, 그 외에는 홈으로 이동
-    router.replace(next === "record" ? "/record" : "/(tabs)/home", {
+    // 이미 깔린 홈은 재사용하고, 녹음 바로가기로 진입했다면 녹음 화면으로 이동
+    router.dismissTo(next === "record" ? "/record" : "/(tabs)/home", {
       withAnchor: true,
     });
   };
