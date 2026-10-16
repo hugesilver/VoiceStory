@@ -29,7 +29,7 @@ Notifications.setNotificationHandler({
 initDatabase();
 
 // 햅틱 설정값 로드
-loadHapticSetting();
+void loadHapticSetting();
 
 // Executorch 초기화
 initExecutorch({
@@ -37,7 +37,7 @@ initExecutorch({
 });
 
 // 레거시 AI 모델 정리
-cleanupLegacyModel();
+void cleanupLegacyModel();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

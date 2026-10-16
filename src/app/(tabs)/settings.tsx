@@ -79,7 +79,7 @@ export default function SettingsScreen() {
     `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 
   const handleReminderToggle = async (enabled: boolean) => {
-    hapticLight();
+    void hapticLight();
 
     if (!(await toggleReminder(enabled))) {
       Alert.alert(
@@ -106,16 +106,21 @@ export default function SettingsScreen() {
   };
 
   // 안드로이드는 확인·취소가 네이티브 다이얼로그에 있어 한 콜백으로 온다
-  const handleAndroidTimeChange = (event: DateTimePickerEvent, date?: Date) => {
+  const handleAndroidTimeChange = async (event: DateTimePickerEvent, date?: Date) => {
     setIsAndroidPickerOpen(false);
 
     if (event.type === "set" && date) {
-      updateReminderTime(toTimeString(date));
+      await updateReminderTime(toTimeString(date));
     }
   };
 
   useEffect(() => {
-    loadHapticSetting().then(setIsHapticEnabled);
+    const loadSetting = async () => {
+      const enabled = await loadHapticSetting();
+      setIsHapticEnabled(enabled);
+    };
+
+    void loadSetting();
   }, []);
 
   const handleExport = async () => {
@@ -163,7 +168,7 @@ export default function SettingsScreen() {
                 return;
               }
 
-              hapticSuccess();
+              void hapticSuccess();
 
               const added = t("settings.data.importSuccess", {
                 count: result.imported,
@@ -219,7 +224,7 @@ export default function SettingsScreen() {
           onPress: () => {
             deleteAllDiaries();
             clearAllAudio();
-            hapticWarning();
+            void hapticWarning();
             Alert.alert(t("settings.data.resetSuccess"));
           },
         },
@@ -227,13 +232,15 @@ export default function SettingsScreen() {
     );
   };
 
-  const handleHapticToggle = (enabled: boolean) => {
+  const handleHapticToggle = async (enabled: boolean) => {
     setIsHapticEnabled(enabled);
-    setHapticEnabled(enabled);
+    const settingSaved = setHapticEnabled(enabled);
 
     if (enabled) {
-      hapticLight();
+      void hapticLight();
     }
+
+    await settingSaved;
   };
 
   // RAM 확인
@@ -313,7 +320,9 @@ export default function SettingsScreen() {
         { text: t("home.aiConsent.deny"), style: "cancel" },
         {
           text: t("home.aiConsent.allow"),
-          onPress: () => setAiEnabled(true),
+          onPress: async () => {
+            await setAiEnabled(true);
+          },
         },
       ],
     );
@@ -331,7 +340,7 @@ export default function SettingsScreen() {
           text: t("settings.ai.deleteConfirm"),
           style: "destructive",
           onPress: async () => {
-            hapticWarning();
+            void hapticWarning();
             await setAiEnabled(false);
           },
         },
@@ -339,18 +348,18 @@ export default function SettingsScreen() {
     );
   };
 
-  const handleToggle = (enabled: boolean) => {
-    hapticLight();
+  const handleToggle = async (enabled: boolean) => {
+    void hapticLight();
 
     // 토글 켬
     if (enabled) {
-      confirmDownload();
+      await confirmDownload();
       return;
     }
 
     // 설치 전
     if (!isReady) {
-      setAiEnabled(false);
+      await setAiEnabled(false);
       return;
     }
 
@@ -650,7 +659,9 @@ export default function SettingsScreen() {
           ref={sheetRef}
           cancelLabel={t("common.cancel")}
           confirmLabel={t("settings.reminder.done")}
-          onConfirm={() => updateReminderTime(toTimeString(pickerDate))}
+          onConfirm={async () => {
+            await updateReminderTime(toTimeString(pickerDate));
+          }}
         >
           <View style={styles.timePickerWrapper}>
             <DateTimePicker

@@ -8,7 +8,7 @@ import ko from "./langs/ko.json";
 import zhCN from "./langs/zh-CN.json";
 import zhTW from "./langs/zh-TW.json";
 
-const initI18n = () => {
+const initI18n = async () => {
   const deviceLanguage = getLocales()[0]?.languageCode ?? "en";
   const deviceRegion = getLocales()[0]?.regionCode ?? "";
 
@@ -21,7 +21,7 @@ const initI18n = () => {
         : "zh-CN"
       : deviceLanguage;
 
-  i18next.use(initReactI18next).init({
+  await i18next.use(initReactI18next).init({
     resources: {
       ko: { translation: ko },
       en: { translation: en },
@@ -37,6 +37,6 @@ const initI18n = () => {
   });
 };
 
-initI18n();
+void initI18n();
 
 export default i18next;

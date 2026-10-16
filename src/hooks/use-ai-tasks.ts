@@ -26,8 +26,8 @@ const EMOTION_DETECTION_PROMPT =
 export const useAITasks = () => {
   const { prompt, isAiEnabled, isReady, isGenerating, interrupt } = useAI();
 
-  const correctText = (text: string): Promise<string> =>
-    prompt(TEXT_CORRECTION_PROMPT, text);
+  const correctText = async (text: string): Promise<string> =>
+    await prompt(TEXT_CORRECTION_PROMPT, text);
 
   const detectEmotion = async (text: string): Promise<Emotion | null> =>
     parseEmotion(await prompt(EMOTION_DETECTION_PROMPT, text));

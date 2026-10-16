@@ -84,7 +84,7 @@ export default function CorrectingModal() {
       }
     };
 
-    run();
+    void run();
   }, [isReady, originalText, correctText, detectEmotion, toCorrection]);
 
   // 대기 경과 시간

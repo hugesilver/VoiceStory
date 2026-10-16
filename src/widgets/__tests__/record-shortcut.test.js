@@ -49,8 +49,8 @@ beforeEach(async () => {
 async function renderScreen(screen) {
   root = await render(screen);
 }
-function press(label) {
-  return fireEvent.press(root.getByLabelText(label));
+async function press(label) {
+  await fireEvent.press(root.getByLabelText(label));
 }
 it("바로가기로 화면을 열어도 녹음은 시작 버튼을 누를 때만 시작한다", async () => {
   await renderScreen(<RecordModal />);

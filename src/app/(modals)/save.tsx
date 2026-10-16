@@ -68,7 +68,7 @@ export default function SaveModal() {
       audioPath,
     });
 
-    hapticSuccess();
+    void hapticSuccess();
 
     console.debug("저장 완료:", {
       text,

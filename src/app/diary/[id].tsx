@@ -74,7 +74,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
     });
     setDiary({ ...diary, content: editedContent });
     setIsEditing(false);
-    hapticSuccess();
+    void hapticSuccess();
     AccessibilityInfo.announceForAccessibility(
       t("diaryDetail.announcement.textSaved"),
     );
@@ -83,7 +83,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
   const handleSelectEmotion = (emotion: Emotion) => {
     updateDiary({ id: diary.id, content: diary.content, emotion });
     setDiary({ ...diary, emotion });
-    hapticSuccess();
+    void hapticSuccess();
   };
 
   // 녹음본 삭제
@@ -100,7 +100,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
             clearDiaryAudio(diary.id);
             deleteAudio(diary.audioPath);
             setDiary({ ...diary, audioPath: "" });
-            hapticWarning();
+            void hapticWarning();
             AccessibilityInfo.announceForAccessibility(
               t("diaryDetail.delete.audioAnnouncement"),
             );
@@ -122,7 +122,7 @@ const DiaryBody = ({ diary, setDiary }: BodyProps) => {
           onPress: () => {
             deleteDiary(diary.id);
             deleteAudio(diary.audioPath);
-            hapticWarning();
+            void hapticWarning();
             AccessibilityInfo.announceForAccessibility(
               t("diaryDetail.delete.announcement"),
             );

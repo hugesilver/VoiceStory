@@ -29,12 +29,17 @@ it("종료 중 client 오류가 와도 audioend와 end까지 기다려 확정 �
   let stopped;
   await act(() => { stopped = result.current.recordStop(); });
   let settled = false;
-  stopped.then(() => { settled = true; });
+  const observeStop = async () => {
+    await stopped;
+    settled = true;
+  };
+  const stopObserved = observeStop();
   await act(async () => mockEvents.error({ error: "client", message: "client failure" }));
   expect(settled).toBe(false);
   await act(() => mockEvents.audioend({ uri: "file:///record.wav" }));
   await act(() => mockEvents.end());
   await expect(stopped).resolves.toEqual({ text: "일기", audioUri: "file:///record.wav" });
+  await stopObserved;
   expect(result.current.error).toBeNull();
 });
 

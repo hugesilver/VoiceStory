@@ -102,10 +102,14 @@ const moveDirectories = async (userInput) => {
 
 rl.question(
   "Do you want to move existing files to /example instead of deleting them? (Y/n): ",
-  (answer) => {
+  async (answer) => {
     const userInput = answer.trim().toLowerCase() || "y";
     if (userInput === "y" || userInput === "n") {
-      moveDirectories(userInput).finally(() => rl.close());
+      try {
+        await moveDirectories(userInput);
+      } finally {
+        rl.close();
+      }
     } else {
       console.log("❌ Invalid input. Please enter 'Y' or 'N'.");
       rl.close();

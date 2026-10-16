@@ -76,7 +76,14 @@ export const useRecording = () => {
       return;
     }
 
-    activateKeepAwakeAsync();
+    const activate = async () => {
+      await activateKeepAwakeAsync();
+    };
+    const deactivate = async () => {
+      await deactivateKeepAwake();
+    };
+
+    void activate();
 
     // id로 누수 방지
     const id = setInterval(() => {
@@ -85,15 +92,18 @@ export const useRecording = () => {
 
     return () => {
       clearInterval(id); // 언마운트 시 타이머 종료
-      deactivateKeepAwake();
+      void deactivate();
     };
   }, [recordingState]);
 
   useEffect(() => {
-    ExpoSpeechRecognitionModule.requestPermissionsAsync().then((result) => {
+    const requestPermissions = async () => {
+      const result = await ExpoSpeechRecognitionModule.requestPermissionsAsync();
       hasPermissionRef.current = result.granted;
       setHasPermission(result.granted);
-    });
+    };
+
+    void requestPermissions();
   }, []);
 
   // 녹음 시작 이벤트
@@ -219,7 +229,7 @@ export const useRecording = () => {
     }
 
     // 권한 확인 완료 후 녹음 시작
-    hapticMedium();
+    void hapticMedium();
     ExpoSpeechRecognitionModule.start({
       lang: await getSpeechLocale(),
       interimResults: true,
@@ -241,19 +251,19 @@ export const useRecording = () => {
   };
 
   // 녹음 완료
-  const recordStop = (): Promise<RecordResult | null> => {
-    hapticMedium();
+  const recordStop = async (): Promise<RecordResult | null> => {
+    void hapticMedium();
 
     if (recordingState !== "recording") {
-      return Promise.resolve({
+      return {
         text: transcriptRef.current,
         audioUri: audioUriRef.current ?? "",
-      });
+      };
     }
 
     setRecordingState("stopping");
 
-    return new Promise((resolve) => {
+    return await new Promise<RecordResult | null>((resolve) => {
       stopResolveRef.current = resolve;
       ExpoSpeechRecognitionModule.stop();
     });

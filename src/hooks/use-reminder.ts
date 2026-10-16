@@ -26,7 +26,7 @@ export const useReminder = () => {
       setTime(saved ?? DEFAULT_TIME);
     };
 
-    load();
+    void load();
   }, []);
 
   const cancel = useCallback(async () => {
@@ -107,7 +107,7 @@ export const useReminder = () => {
     lastLanguageRef.current = i18n.language;
 
     if (isEnabled) {
-      schedule(time);
+      void schedule(time);
     }
   }, [i18n.language, isEnabled, time, schedule]);
 

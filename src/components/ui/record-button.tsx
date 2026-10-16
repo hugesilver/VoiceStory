@@ -15,7 +15,7 @@ export const RecordButton = ({ onPress }: Props) => {
 
   // Medium 햅틱 후 onPress 실행
   const handlePress = () => {
-    hapticMedium();
+    void hapticMedium();
     onPress();
   };
 

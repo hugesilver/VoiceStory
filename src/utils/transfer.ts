@@ -39,11 +39,11 @@ const removeIfExists = (target: File | Directory) => {
   }
 };
 
-const writeText = (path: string, content: string) => {
+const writeText = async (path: string, content: string) => {
   const file = new File(path);
 
   file.create({ intermediates: true, overwrite: true });
-  file.write(content);
+  await file.write(content);
 };
 
 // 내보내기
@@ -87,7 +87,7 @@ export const exportDiaries = async () => {
 
       if (source.exists) {
         audioFile = `audio.${extractExtension(row.audioPath)}`;
-        source.copy(new File(`${folderPath}${audioFile}`));
+        await source.copy(new File(`${folderPath}${audioFile}`));
       }
     }
 
@@ -101,7 +101,10 @@ export const exportDiaries = async () => {
       updatedAt: Math.floor(row.updatedAt.getTime() / 1000),
     };
 
-    writeText(`${folderPath}${DIARY_FILENAME}`, JSON.stringify(diary, null, 2));
+    await writeText(
+      `${folderPath}${DIARY_FILENAME}`,
+      JSON.stringify(diary, null, 2),
+    );
   }
 
   const manifest: Manifest = {
@@ -109,7 +112,7 @@ export const exportDiaries = async () => {
     exportedAt: Math.floor(Date.now() / 1000),
   };
 
-  writeText(
+  await writeText(
     `${workDir}${MANIFEST_FILENAME}`,
     JSON.stringify(manifest, null, 2),
   );
@@ -193,7 +196,9 @@ export const importDiaries = async (): Promise<ImportResult | null> => {
       audioDirectory.create({ intermediates: true });
     }
 
-    const restored = entries.map(({ folderName, diary }) => {
+    const restored = [];
+
+    for (const { folderName, diary } of entries) {
       let audioPath = "";
 
       if (diary.audioFile) {
@@ -207,12 +212,12 @@ export const importDiaries = async (): Promise<ImportResult | null> => {
           const target = new File(`${audioDir()}${audioPath}`);
 
           if (!target.exists) {
-            source.copy(target);
+            await source.copy(target);
           }
         }
       }
 
-      return {
+      restored.push({
         text: diary.text,
         content: toContent(diary),
         emotion: diary.emotion as Emotion,
@@ -220,8 +225,8 @@ export const importDiaries = async (): Promise<ImportResult | null> => {
         isFavorite: diary.isFavorite,
         createdAt: diary.createdAt,
         updatedAt: diary.updatedAt,
-      };
-    });
+      });
+    }
 
     const imported = mergeDiaries(restored);
 

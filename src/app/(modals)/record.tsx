@@ -170,7 +170,9 @@ export default function RecordModal() {
               {t("record.permission.deniedMessage")}
             </Text>
             <Pressable
-              onPress={() => Linking.openSettings()}
+              onPress={async () => {
+                await Linking.openSettings();
+              }}
               style={[
                 styles.settingsButton,
                 { backgroundColor: colors.primary },

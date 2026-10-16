@@ -16,7 +16,7 @@ export default function AppTabs() {
   const { t } = useTranslation();
   const color = useTheme();
   const accessibility = (announcement: string) => {
-    hapticLight();
+    void hapticLight();
     AccessibilityInfo.announceForAccessibility(announcement);
   };
 

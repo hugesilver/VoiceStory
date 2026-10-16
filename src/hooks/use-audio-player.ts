@@ -28,14 +28,22 @@ export const useAudioPlayer = (uri: string) => {
 
   // 무음 모드에서도 재생되게
   useEffect(() => {
-    setAudioModeAsync({ playsInSilentMode: true });
+    const configureAudio = async () => {
+      await setAudioModeAsync({ playsInSilentMode: true });
+    };
+
+    void configureAudio();
   }, []);
 
   // 끝까지 재생 시 처음부터 되돌리기
   useEffect(() => {
-    if (status.didJustFinish) {
-      player.seekTo(0);
-    }
+    if (!status.didJustFinish) return;
+
+    const rewind = async () => {
+      await player.seekTo(0);
+    };
+
+    void rewind();
   }, [status.didJustFinish, player]);
 
   const play = useCallback(() => player.play(), [player]);

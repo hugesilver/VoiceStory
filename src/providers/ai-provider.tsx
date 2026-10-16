@@ -69,7 +69,7 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
       setIsSettingLoaded(true);
     };
 
-    load();
+    void load();
   }, []);
 
   // 다운로드는 몇 분이 걸려 화면을 음성으로 알림(진행률 0 제외)
@@ -154,8 +154,8 @@ export const AIProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // AI 모델 용량 조회
-  const getModelSize = () =>
-    ExpoResourceFetcher.getFilesTotalSize(
+  const getModelSize = async () =>
+    await ExpoResourceFetcher.getFilesTotalSize(
       AI_MODEL.modelSource,
       AI_MODEL.tokenizerSource,
       AI_MODEL.tokenizerConfigSource,

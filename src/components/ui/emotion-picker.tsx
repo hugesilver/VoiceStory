@@ -23,7 +23,7 @@ export const EmotionPicker = ({ selected, onSelect }: EmotionProps) => {
   const color = useTheme();
 
   const handlePress = (emotion: Emotion) => {
-    hapticLight();
+    void hapticLight();
     onSelect(emotion);
     AccessibilityInfo.announceForAccessibility(t(`diary.emotion.${emotion}`));
   };

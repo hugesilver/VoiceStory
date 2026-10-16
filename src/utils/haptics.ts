@@ -16,26 +16,26 @@ export const setHapticEnabled = async (enabled: boolean) => {
   await AsyncStorage.setItem(STORAGE_KEY, String(enabled));
 };
 
-export const hapticLight = () => {
+export const hapticLight = async () => {
   if (isEnabled) {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   }
 };
 
-export const hapticMedium = () => {
+export const hapticMedium = async () => {
   if (isEnabled) {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   }
 };
 
-export const hapticSuccess = () => {
+export const hapticSuccess = async () => {
   if (isEnabled) {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
   }
 };
 
-export const hapticWarning = () => {
+export const hapticWarning = async () => {
   if (isEnabled) {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
   }
 };
