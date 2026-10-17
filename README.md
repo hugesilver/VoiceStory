@@ -1,56 +1,84 @@
-# Welcome to your Expo app 👋
+<h1 align="center">
+  VoiceStory
+</h1>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+  <img src="assets/images/icon.png" alt="VoiceStory 앱 아이콘" width="300px" height="auto" />
+  <br />
+  <br />
+  목소리로 남기는 오늘의 이야기
+</p>
 
-## Get started
+<br />
 
-1. Install dependencies
+<p align="center">
+  <a href="https://apps.apple.com/app/id6782395988">
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store에서 다운로드" height="40" align="middle" />
+  </a>
+  &nbsp;
+  <a href="https://play.google.com/store/apps/details?id=dev.hugesilver.voicestory">
+    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Google Play에서 다운로드" height="60" align="middle" />
+  </a>
+</p>
 
-   ```bash
-   npm install
-   ```
+## 소개
 
-2. Start the app
+**VoiceStory**는 시각장애인을 위한 음성 일기 앱입니다.<br />
+오늘 있었던 일을 이야기하면 음성을 글로 바꾸고, 그날의 감정과 함께 저장할 수 있습니다.<br />
+온디바이스 AI가 인식된 글의 오타를 교정하고 감정을 추천하며, 저장한 일기는 글과 목소리로 다시 돌아볼 수 있습니다.
 
-   ```bash
-   npx expo start
-   ```
+<br />
 
-In the output, you'll find options to open the app in a
+## 주요 기능
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **음성 일기**: 말한 내용을 글로 변환하고, 녹음 파일과 함께 저장합니다.
+- **AI 교정과 감정 추천**: 기기에서 실행하는 AI로 오타를 교정하고, 일기에 어울리는 감정을 추천받습니다.
+- **일기 조회와 검색**: 날짜와 내용으로 지난 일기를 찾고, 녹음한 목소리를 다시 들을 수 있습니다.
+- **알림과 위젯**: 원하는 시간에 일기 알림을 받고, 홈 화면 위젯에서 녹음 화면을 열 수 있습니다.
+- **백업과 복원**: 일기와 녹음을 하나의 파일로 내보내고 다시 가져올 수 있습니다.
+- **접근성과 다국어**: VoiceOver·TalkBack, 햅틱 피드백과 한국어·영어·일본어·중국어 간체·번체를 지원합니다.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+<table>
+  <tr>
+    <td align="center"><img src="readme/home.png" alt="최근 일기와 녹음 버튼이 있는 홈 화면" width="250px" /></td>
+    <td align="center"><img src="readme/record.png" alt="녹음 시간과 완료 버튼이 있는 녹음 화면" width="250px" /></td>
+    <td align="center"><img src="readme/search.png" alt="내용과 날짜로 일기를 찾는 검색 화면" width="250px" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>일기 목록</b></td>
+    <td align="center"><b>음성 녹음</b></td>
+    <td align="center"><b>일기 검색</b></td>
+  </tr>
+</table>
 
-## Get a fresh project
+## 기여자
 
-When you're ready, run:
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/hugesilver">
+        <img src="https://avatars.githubusercontent.com/u/44265544?v=4" alt="hugesilver GitHub 프로필" width="150px" height="150px" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/hugesilver">hugesilver</a>
+    </td>
+  </tr>
+</table>
 
-```bash
-npm run reset-project
-```
+## 기술 스택
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+<img src="https://img.shields.io/badge/React_Native-20232A?style=flat&logo=react&logoColor=61DAFB" alt="React Native" /> <img src="https://img.shields.io/badge/Expo-000020?style=flat&logo=expo&logoColor=white" alt="Expo" /> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white" alt="TypeScript" /> <img src="https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white" alt="SQLite" /> <img src="https://img.shields.io/badge/ExecuTorch-EE4C2C?style=flat" alt="ExecuTorch" />
 
-### Other setup steps
+## 라이브러리
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [expo-speech-recognition](https://github.com/jamsch/expo-speech-recognition): 음성을 텍스트로 변환
+- [React Native ExecuTorch](https://github.com/software-mansion/react-native-executorch): Qwen3 1.7B 모델을 이용한 온디바이스 오타 교정·감정 추천
+- [Expo Resource Fetcher](https://github.com/software-mansion/react-native-executorch/tree/main/packages/expo-resource-fetcher): AI 모델 다운로드·관리
+- [expo-sqlite](https://github.com/expo/expo/tree/main/packages/expo-sqlite): 일기 저장·검색
+- [AsyncStorage](https://github.com/react-native-async-storage/async-storage): 앱 설정 저장
+- [react-native-android-widget](https://github.com/sAleksovski/react-native-android-widget): Android 홈 화면 위젯
+- [react-native-zip-archive](https://github.com/mockingbot/react-native-zip-archive): 백업 파일 압축·해제
+- [i18next](https://github.com/i18next/i18next), [react-i18next](https://github.com/i18next/react-i18next): 다국어 지원
