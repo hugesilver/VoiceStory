@@ -34,7 +34,7 @@
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
       ],
-      "versionCode": 6
+      "versionCode": 7
     },
     "plugins": [
       "expo-router",
@@ -55,7 +55,8 @@
             "deploymentTarget": "17.0"
           },
           "android": {
-            "minSdkVersion": 33
+            "minSdkVersion": 33,
+            "extraProguardRules": "# Room creates WorkDatabase_Impl through reflection. Keep its no-argument constructor.\n-keep class androidx.work.impl.WorkDatabase_Impl {\n  public <init>();\n}"
           }
         }
       ],
@@ -100,7 +101,10 @@
               "displayName": "VoiceStory",
               "description": "Open the recording screen to write a voice diary.",
               "ios": {
-                "supportedFamilies": ["systemSmall", "systemMedium"]
+                "supportedFamilies": [
+                  "systemSmall",
+                  "systemMedium"
+                ]
               }
             }
           ]
